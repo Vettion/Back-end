@@ -14,8 +14,19 @@ const ownerExistsByDni = async (dni) => {
     return owner != null;
 }
 
+const addOwner = (async (dni, name, surname, phone, email) => {
+    return await db('owner').insert({
+        dni: dni,
+        name: name,
+        surname: surname,
+        phone: phone,
+        email: email
+    });
+});
+
 module.exports = {
     findAllOwners,
     findOwner,
+    addOwner,
     ownerExistsByDni
 }
