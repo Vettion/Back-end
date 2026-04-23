@@ -1,5 +1,5 @@
 const { response } = require('express');
-const { findAllOwners, findOwner, addOwner, ownerExistsByDni } = require('../service/owner_service');
+const { findAllOwners, findOwner, addOwner, editOwner, removeOwner, ownerExistsByDni } = require('../service/owner_service');
 
 const getOwners = (async (req, res) => {
     const owners = await findAllOwners();
@@ -46,8 +46,45 @@ const postOwner = (async (req, res) => {
     });
 });
 
+const putOwner = (async (req, res) => {
+    const dni = req.params.dni;
+
+    if (!await ownerExistsByDni(dni)){
+        return res.status(404).json({
+            code: 404,
+            title: 'not-found',
+            message: 'The owner has not been found.'
+        });
+    }
+
+    const name= req.body.name;
+    const surname= req.body.surname;
+    const phone= req.body.phone;
+    const email= req.body.email;
+
+    await editOwner(dni, name, surname, phone, email);
+    res.status(204).end();
+});
+
+const deleteOwner=(async (req, res) => {
+    const dni = req.params.dni;
+
+    if(!await ownerExistsByDni(dni)){
+        return res.status(404).json({
+            code: 404,
+            title: 'not-found',
+            message: 'The owner has not been found.'
+        });
+    }
+
+    await removeOwner(dni);
+    res.status(204).end();
+});
+
 module.exports = {
     getOwners,
     getOwner,
-    postOwner
+    postOwner,
+    putOwner,
+    deleteOwner
 }

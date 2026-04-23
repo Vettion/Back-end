@@ -24,9 +24,24 @@ const addOwner = (async (dni, name, surname, phone, email) => {
     });
 });
 
+const editOwner = (async (dni, name, surname, phone, email) => {
+    return await db('owner').where({ dni: dni }).update({
+        name: name,
+        surname: surname,
+        phone: phone,
+        email: email
+    });
+});
+
+const removeOwner = (async (dni) => {
+    return await db('owner').where({ dni: dni }).del();
+});
+
 module.exports = {
     findAllOwners,
     findOwner,
     addOwner,
+    editOwner,
+    removeOwner,
     ownerExistsByDni
 }
