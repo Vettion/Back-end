@@ -1,5 +1,5 @@
 const { response } = require("express");
-const { findAllAppointments, findAppointment, createAppointment, modifyAppointment, appointmentExistsById } = require("../service/appointment_service");
+const { findAllAppointments, findAppointment, createAppointment, modifyAppointment, removeAppointment, appointmentExistsById } = require("../service/appointment_service");
 const { title } = require("node:process");
 
 const getAppointments = async (req, res) => {
@@ -62,9 +62,25 @@ const putAppointment = async (req, res) => {
     res.status(204).end();
 };
 
+const deleteAppointment = async (req, res) => {
+    const id_appointment = req.params.id_appointment;
+
+    if (!(await appointmentExistsById(id_appointment))) {
+        return res.status(404).json({
+            code: 404,
+            title: "not found",
+            message: "The appointment does not exist.",
+        });
+    }
+
+    await removeAppointment(id_appointment);
+    res.status(204).end();
+}
+
 module.exports = {
     getAppointments,
     getAppointment,
     postAppointment,
-    putAppointment
+    putAppointment,
+    deleteAppointment
 };

@@ -33,6 +33,10 @@ const modifyAppointment = (async (id_appointment, appointment_date, start_hour, 
     });
 });
 
+const removeAppointment = (async (id_appointment) => {
+    return await db('appointment').where({ id_appointment: id_appointment }).del();
+});
+
 const appointmentExistsById = async (id_appointment) => {
     const appointment = await db('appointment').where('id_appointment', id_appointment).first();
     return appointment != null;
@@ -43,5 +47,6 @@ module.exports = {
     findAppointment,
     createAppointment,
     modifyAppointment,
+    removeAppointment,
     appointmentExistsById
 }

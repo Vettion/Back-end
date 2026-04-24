@@ -1,0 +1,150 @@
+{
+  "info": {
+    "_postman_id": "b26d70dc-a1c5-4d9e-a65b-b6a9f103d141",
+    "name": "Vettion_appointment",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "49087939",
+    "_collection_link": "https://go.postman.co/collection/49087939-b26d70dc-a1c5-4d9e-a65b-b6a9f103d141?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "/vettion/appointments",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"dni\":\"73134044R\",\r\n    \"name\":\"Laura\",\r\n    \"surname\":\"García\",\r\n    \"phone\":\"678901234\",\r\n    \"email\":\"laura.garcia@example.com\"\r\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8080/vettion/appointments",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "vettion",
+            "appointments"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "/vettion/appointments/:id_appointment",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"dni\":\"73134044R\",\r\n    \"name\":\"Laura\",\r\n    \"surname\":\"García\",\r\n    \"phone\":\"678901234\",\r\n    \"email\":\"laura.garcia@example.com\"\r\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8080/vettion/appointments/1",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "vettion",
+            "appointments",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "/vettion/appointments",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"appointment_date\":\"2026-03-15\",\r\n    \"start_hour\":\"12:00:00\",\r\n    \"duration\":60,\r\n    \"reason\":\"Intoxicación\",\r\n    \"pet_id\":1,\r\n    \"room_id\":1,\r\n    \"veterinarian_dni\":\"10101010V\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/vettion/appointments",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "vettion",
+            "appointments"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "/vettion/appointments/:id_appointment",
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"appointment_date\":\"2026-03-15\",\r\n    \"start_hour\":\"12:00:00\",\r\n    \"duration\":100,\r\n    \"reason\":\"Intoxicación\",\r\n    \"pet_id\":1,\r\n    \"room_id\":1,\r\n    \"veterinarian_dni\":\"10101010V\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/vettion/appointments/7",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "vettion",
+            "appointments",
+            "7"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "/vettion/appointments/:id_appointment",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"dni\":\"73134044R\",\r\n    \"name\":\"Laura\",\r\n    \"surname\":\"García\",\r\n    \"phone\":\"678901234\",\r\n    \"email\":\"laura.garcia@example.com\"\r\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8080/vettion/appointments/7",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "vettion",
+            "appointments",
+            "7"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}
