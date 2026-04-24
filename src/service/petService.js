@@ -52,7 +52,23 @@ const findPetById = async (id) => {
     return pet;
 };
 
+const addPet = async (petData) => {
+    const { name, type, race, weight, sex, age, owner_dni} = petData;
+    const [newId] = await db('pet').insert({
+        name, 
+        type, 
+        race,
+        weight,
+        sex,
+        age,
+        owner_dni
+    });
+
+    return newId;
+}
+
 module.exports = {
     findAllPets,
-    findPetById
+    findPetById,
+    addPet
 }

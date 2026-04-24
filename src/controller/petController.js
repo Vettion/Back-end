@@ -1,6 +1,6 @@
 // Este archivo implementa las operaciones que se han definido en el /router/petsRouter.js
 
-const { findAllPets, findPetById } = require('../service/petService.js');
+const { findAllPets, findPetById, addPet } = require('../service/petService.js');
 
 const getAllPets = async (req, res, next) => {
     try {
@@ -38,7 +38,26 @@ const getPetById = async (req, res, next) => {
     }
 }
 
+const postPet = async (req, res, next) => {
+    try {
+        const newId = await addPet(req.body);
+        const newPet = {
+            id: newId,
+            ...req.body
+        };
+        res.status(201).json({
+            code: 201,
+            title: 'created',
+            message: 'Pet created successfully',
+            data: newPet
+        })
+    } catch (error) {
+        next(error);
+    }
+}
+
 module.exports = {
     getAllPets,
-    getPetById
+    getPetById,
+    postPet
 }
