@@ -21,6 +21,18 @@ const createAppointment = (async (appointment_date, start_hour, duration, reason
     });
 });
 
+const modifyAppointment = (async (id_appointment, appointment_date, start_hour, duration, reason, pet_id, room_id, veterinarian_dni) => {
+    return await db('appointment').where({ id_appointment: id_appointment }).update({
+        appointment_date: appointment_date,
+        start_hour: start_hour,
+        duration: duration,
+        reason: reason,
+        pet_id: pet_id,
+        room_id: room_id,
+        veterinarian_dni: veterinarian_dni
+    });
+});
+
 const appointmentExistsById = async (id_appointment) => {
     const appointment = await db('appointment').where('id_appointment', id_appointment).first();
     return appointment != null;
@@ -30,5 +42,6 @@ module.exports = {
     findAllAppointments,
     findAppointment,
     createAppointment,
+    modifyAppointment,
     appointmentExistsById
 }
