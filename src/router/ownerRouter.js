@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const {getOwners, getOwner, postOwner, putOwner, deleteOwner} = require('../controller/owner_controller.js');
+const {getOwners, getOwner, postOwner, putOwner, deleteOwner} = require('../controller/ownerController.js');
 
 router.get('/vettion/owners', getOwners);
 router.get('/vettion/owners/:dni', getOwner);

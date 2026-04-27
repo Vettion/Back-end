@@ -1,5 +1,5 @@
 const { response } = require('express');
-const { findAllOwners, findOwner, addOwner, editOwner, removeOwner, ownerExistsByDni } = require('../service/owner_service');
+const { findAllOwners, findOwner, addOwner, editOwner, removeOwner, ownerExistsByDni } = require('../service/ownerService');
 
 const getOwners = (async (req, res) => {
     const owners = await findAllOwners();
