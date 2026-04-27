@@ -1,5 +1,5 @@
 const { response } = require("express");
-const { findAllAppointments, findAppointment, createAppointment, modifyAppointment, removeAppointment, appointmentExistsById } = require("../service/appointment_service");
+const { findAllAppointments, findAppointment, createAppointment, modifyAppointment, removeAppointment, appointmentExistsById } = require("../service/appointmentService");
 const { title } = require("node:process");
 
 const getAppointments = async (req, res) => {

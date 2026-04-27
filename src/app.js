@@ -1,6 +1,6 @@
 const express = require('express');
 const cors = require('cors');
-const appointment = require('./router/appointment_router.js');
+const appointment = require('./router/appointmentRouter.js');
 
 const app = express();
 app.use(cors());

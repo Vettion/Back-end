@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const {getAppointments, getAppointment, postAppointment, putAppointment, deleteAppointment} = require('../controller/appointments_controller.js');
+const {getAppointments, getAppointment, postAppointment, putAppointment, deleteAppointment} = require('../controller/appointmentController.js');
 
 router.get('/vettion/appointments', getAppointments);
 router.get('/vettion/appointments/:id_appointment', getAppointment);
