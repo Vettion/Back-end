@@ -67,8 +67,24 @@ const addPet = async (petData) => {
     return newId;
 }
 
+const updatePet = async (id, petData) => {
+    const { name, type, race, weight, sex, age, owner_dni} = petData;
+    await db('pet')
+        .where({ id: id })
+        .update({
+            name,
+            type, 
+            race, 
+            weight,
+            sex,
+            age, 
+            owner_dni
+    });
+};
+
 module.exports = {
     findAllPets,
     findPetById,
-    addPet
+    addPet,
+    updatePet
 }

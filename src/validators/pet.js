@@ -54,7 +54,18 @@ const validateAddPet = [
     validateResult
 ]
 
+const validateUpdatePet = [
+    param('id')
+        .notEmpty().withMessage('id is required')
+        .isInt({ gt: 0 }).withMessage('id must be a positive integer'),
+
+    ...validateAddPet.slice(0, -1),
+
+    validateResult
+]
+
 module.exports = {
     validatePetId,
-    validateAddPet
+    validateAddPet,
+    validateUpdatePet
 }
