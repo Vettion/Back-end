@@ -82,9 +82,14 @@ const updatePet = async (id, petData) => {
     });
 };
 
+const removePet = async (id) => {
+    return await db('pet').where({ id }).del();
+}
+
 module.exports = {
     findAllPets,
     findPetById,
     addPet,
-    updatePet
+    updatePet,
+    removePet
 }

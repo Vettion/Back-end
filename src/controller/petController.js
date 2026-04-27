@@ -1,6 +1,6 @@
 // Este archivo implementa las operaciones que se han definido en el /router/petsRouter.js
 
-const { findAllPets, findPetById, addPet, updatePet } = require('../service/petService.js');
+const { findAllPets, findPetById, addPet, updatePet, removePet } = require('../service/petService.js');
 
 const getAllPets = async (req, res, next) => {
     try {
@@ -84,9 +84,34 @@ const putPet = async (req, res, next) => {
     }
 }
 
+const deletePet = async (req, res, next) => {
+    try {
+        const { id } = req.params;
+
+        const deleteCount = await removePet(id);
+
+        if(deleteCount === 0) {
+            return res.status(404).json({
+                code: 404, 
+                title: 'not found', 
+                message: `Pet with id ${id} not found`
+            });
+        }
+
+        res.status(200).json({
+            code: 200,
+            title: 'success',
+            message: `Pet with id ${id} deleted successfully`
+        });
+    } catch(error) {
+        next(error);
+    }
+}
+
 module.exports = {
     getAllPets,
     getPetById,
     postPet,
-    putPet
+    putPet,
+    deletePet
 }
