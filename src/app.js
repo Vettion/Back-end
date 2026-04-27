@@ -1,6 +1,6 @@
 const express = require('express');
 const cors = require('cors');
-const owner = require('./router/owner_router.js');
+const owner = require('./router/ownerRouter.js');
 
 const app = express();
 app.use(cors());
