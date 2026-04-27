@@ -63,7 +63,7 @@ const findPetById = async (id) => {
 
 /**
  * Añade una nueva mascota a la base de datos, y si se proporcionan alergias, tambien añade las relaciones correspondientes en la tabla intermedia.
- * @param {Object} petData - Objeto que contiene datos de la consola y el array de 'allergies'.
+ * @param {Object} petData - Objeto que contiene datos de la mascota y el array de 'allergies'.
  * @returns {Promise<number>} - Devuelve el Id de la nueva mascota insertada.
  */
 const addPet = async (petData) => {
@@ -78,6 +78,14 @@ const addPet = async (petData) => {
         owner_dni
     });
 
+    if(allergies && allergies.length > 0) {
+        const allergyInserts = allergies.map(allergyId => ({
+            pet_id: newId,
+            allergy_id: allergyId
+        }));
+        await db('have_allergy').insert(allergyInserts);
+    }
+
     return newId;
 }
 
@@ -89,7 +97,7 @@ const addPet = async (petData) => {
  * @returns {Promise<void>} - No devuelve ningun valor. Ejecuta la operacion en la base de datos.
  */
 const updatePet = async (id, petData) => {
-    const { name, type, race, weight, sex, age, owner_dni} = petData;
+    const { name, type, race, weight, sex, age, owner_dni, allergies} = petData;
     await db('pet')
         .where({ id: id })
         .update({
@@ -101,6 +109,18 @@ const updatePet = async (id, petData) => {
             age, 
             owner_dni
     });
+
+    if(allergies) {
+        await db('have_allergy').where('pet_id', id).del();
+
+        if(allergies.length > 0) {
+            const allergyInserts = allergies.map(allergyId => ({
+                pet_id: id,
+                allergy_id: allergyId
+            }));
+            await db('have_allergy').insert(allergyInserts);
+        }
+    }
 };
 
 /**

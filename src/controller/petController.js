@@ -65,16 +65,14 @@ const getPetById = async (req, res, next) => {
 const postPet = async (req, res, next) => {
     try {
         const newId = await addPet(req.body);
-        const newPet = {
-            id: newId,
-            ...req.body
-        };
+        const newPet = await findPetById(newId);
+
         res.status(201).json({
             code: 201,
             title: 'created',
             message: 'Pet created successfully',
             data: newPet
-        })
+        });
     } catch (error) {
         next(error);
     }

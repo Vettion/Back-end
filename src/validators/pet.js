@@ -26,8 +26,8 @@ const validatePetId = [
   * 2. El campo 'type' es obligatorio y debe ser una cadena de texto y tener entre 2 y 100 caracteres.
   * 3. El campo 'race' es obligatorio y debe ser una cadena de texto y tener entre 2 y 100 caracteres.
   * 4. El campo 'weight' es obligatorio y debe ser un numero decimal (float) y ser mayor de 0.1 minimo.
-  * 5. El campo 'sex' es obligatorio y debe ser un numero entero positivo.
-  * 6. El campo 'age' es obligatorio y debe ser una cadena de texto y tener entre 2 y 100 caracteres.
+  * 5. El campo 'sex' es obligatorio y debe ser una cadena de texto y tener entre 2 y 100 caracteres.
+  * 6. El campo 'age' es obligatorio y debe ser un numero entero positivo.
   * 7. El campo 'owner_dni' es obligatorio y debe ser una combinacion valida de DNI español. 
   */
 const validateAddPet = [
@@ -70,6 +70,16 @@ const validateAddPet = [
         .notEmpty().withMessage('owner_dni is required')
         .matches(/^[0-9]{8}[TRWAGMYFPDXBNJZSQVHLCKE]$/i).withMessage('owner_dni format is invalid'),
     
+    body('allergies')
+        .optional()
+        .isArray().withMessage('allergies must be an array')
+        .custom((value) => {
+            if(!value.every(Number.isInteger)) {
+                throw new Error('Allergy IDs must be integers');
+            }
+            return true;
+        }),
+
     validateResult
 ]
 
