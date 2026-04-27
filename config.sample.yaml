@@ -1,0 +1,9 @@
+db:
+  host: <host>
+  port: <port name>
+  user: <user>
+  password: <password>
+  database: <database name>
+
+service:
+  port: <port number>
