@@ -2,6 +2,14 @@
 
 const { findAllPets, findPetById, addPet, updatePet, removePet } = require('../service/petService.js');
 
+/**
+ * Obtiene el listado completo de los animales.
+ * Devuelve un JSON estandarizado con el array de mascotas.
+ * @param {*} req - Objeto de solicitud.
+ * @param {*} res - Objeto de respuesta.
+ * @param {*} next - Funcion para pasar el control al siguiente middleware.
+ * @returns {Promise<void>} - Devuelve una respuesta JSON con codigo 200 y los datos.
+ */
 const getAllPets = async (req, res, next) => {
     try {
         const pets = await findAllPets();
@@ -16,6 +24,14 @@ const getAllPets = async (req, res, next) => {
     }
 }
 
+ /**
+  * Obtiene el detalle del animal especifico por su id.
+  * Valida si la mascota existe antes de devolver la respuesta.
+  * @param {*} req - Objeto de solicitud.
+  * @param {*} res - Objeto de respuesta.
+  * @param {*} next - Funcion middleware para manejo de errores.
+  * @returns {Promise<void>} - Devuelve una respuesta JSON con codigo 200 y los datos de la mascota o 404 si no existe.
+  */
 const getPetById = async (req, res, next) => {
     try {
         const { id } = req.params;
@@ -38,6 +54,14 @@ const getPetById = async (req, res, next) => {
     }
 }
 
+/**
+ * Añade una nueva mascota.
+ * Recibe los datos validados en el cuerpo de la peticion.
+ * @param {*} req - Objeto de peticion.
+ * @param {*} res - Objeto de respuesta.
+ * @param {*} next - Funcion middleware para manejo de errores
+ * @returns {Promise<void>} - Devuelve una respuesta JSON con codigo 201 y los datos de la nueva mascota.
+ */
 const postPet = async (req, res, next) => {
     try {
         const newId = await addPet(req.body);
@@ -56,6 +80,14 @@ const postPet = async (req, res, next) => {
     }
 }
 
+/**
+ * Actualiza los datos de una mascota por su id.
+ * Reemplaza los datos de una mascota con los dados en el cuerpo de la peticion.
+ * @param {*} req - Objeto de peticion.
+ * @param {*} res - Objeto de respuesta.
+ * @param {*} next - Funcion middleware para manejo de errores.
+ * @returns {Promise<void>} - Devuelve una respuesta JSON con codigo 200 y los datos de la mascota actualizada, o en un error 404 si no se encuentra la mascota.
+ */
 const putPet = async (req, res, next) => {
     try {
         const { id } = req.params;
@@ -84,6 +116,13 @@ const putPet = async (req, res, next) => {
     }
 }
 
+/**
+ * Elimina una mascota por su id.
+ * @param {*} req - Objeto de la peticion.
+ * @param {*} res - Objeto de la respuesta.
+ * @param {*} next - Funcion middleware para manejo de errores
+ * @returns {Promise<void>} - Devuelve una respuesta JSON con codigo 200 si la mascota ha sido eliminada, o 404 si no se encuentra la mascota
+ */
 const deletePet = async (req, res, next) => {
     try {
         const { id } = req.params;

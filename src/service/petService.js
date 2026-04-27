@@ -2,6 +2,10 @@
 
 const db = require ('../configuration/database.js').db;
 
+/**
+ * Metodo para obtener todas las mascotas de la base de datos.
+ * @returns {Promise <Array>} - Devuelve una promesa que resulve en un array de objetos (mascotas).
+ */
 const findAllPets = async () => {
     const pets = await db('pet')
         .join('owner', 'pet.owner_dni', 'owner.dni')
@@ -33,6 +37,11 @@ const findAllPets = async () => {
     return petsWithAllergies;
 };
 
+/**
+ * Metodo para obtener una mascota por su id.
+ * @param {number} id 
+ * @returns {Promise<Object|null>} Devuelve una promesa que resuelve en un objeto (mascota) o null si no se encuentra la mascota.
+ */
 const findPetById = async (id) => {
     const pet = await db('pet')
         .where('pet.id', id)
@@ -52,8 +61,13 @@ const findPetById = async (id) => {
     return pet;
 };
 
+/**
+ * Añade una nueva mascota a la base de datos, y si se proporcionan alergias, tambien añade las relaciones correspondientes en la tabla intermedia.
+ * @param {Object} petData - Objeto que contiene datos de la consola y el array de 'allergies'.
+ * @returns {Promise<number>} - Devuelve el Id de la nueva mascota insertada.
+ */
 const addPet = async (petData) => {
-    const { name, type, race, weight, sex, age, owner_dni} = petData;
+    const { name, type, race, weight, sex, age, owner_dni, allergies } = petData;
     const [newId] = await db('pet').insert({
         name, 
         type, 
@@ -67,6 +81,13 @@ const addPet = async (petData) => {
     return newId;
 }
 
+/**
+ * Actualiza la informacion de una consola existente.
+ * Actualiza los datos basicos y si se proporcion una lista de alergias reemplaza las relaciones existentes por las nuevas.
+ * @param {number} id - El id de la consola a actualizar. 
+ * @param {*} petData - Objeto con los datos de la consola a actualizar (puede incluir 'allergies').
+ * @returns {Promise<void>} - No devuelve ningun valor. Ejecuta la operacion en la base de datos.
+ */
 const updatePet = async (id, petData) => {
     const { name, type, race, weight, sex, age, owner_dni} = petData;
     await db('pet')
@@ -82,6 +103,11 @@ const updatePet = async (id, petData) => {
     });
 };
 
+/**
+ * Elimina una mascota por su Id.
+ * @param {number} id - El id de la mascota a eliminar 
+ * @returns {Promise<number>} - Devuelve 1 si se borro el registro, 0 si no existia.
+ */
 const removePet = async (id) => {
     return await db('pet').where({ id }).del();
 }

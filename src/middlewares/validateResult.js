@@ -1,5 +1,6 @@
 // Archivo de middleware para validar los resultados de las validaciones
 
+// Importamos la funcion validationResult de express-validator
 const { validationResult } = require('express-validator');
 
 const validateResult = (req, res, next) => {

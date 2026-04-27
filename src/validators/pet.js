@@ -3,6 +3,13 @@
 const { param, body } = require('express-validator');
 const { validateResult } = require('../middlewares/validateResult.js')
 
+/**
+ * Cadena de validaciones para operaciones que requieren un Id de mascota.
+ * Se aplica a rutas dinamicas como GET /:id.
+ * * Reglas:
+ * 1. El parametro 'id' debe existir en la URL.
+ * 2. El parametro 'id' debe ser un numero entero mayor que 0.
+ */
 const validatePetId = [
     param('id')
         .notEmpty().withMessage('id is required')
@@ -11,6 +18,18 @@ const validatePetId = [
     validateResult
 ];
 
+ /**
+  * Cadena de validaciones para la creacion de una nueva mascota.
+  * Se aplica a la ruta de POST /.
+  * * Reglas: 
+  * 1. El campo 'name' es obligatorio y debe ser una cadena de texto y tener entre 2 y 100 caracteres.
+  * 2. El campo 'type' es obligatorio y debe ser una cadena de texto y tener entre 2 y 100 caracteres.
+  * 3. El campo 'race' es obligatorio y debe ser una cadena de texto y tener entre 2 y 100 caracteres.
+  * 4. El campo 'weight' es obligatorio y debe ser un numero decimal (float) y ser mayor de 0.1 minimo.
+  * 5. El campo 'sex' es obligatorio y debe ser un numero entero positivo.
+  * 6. El campo 'age' es obligatorio y debe ser una cadena de texto y tener entre 2 y 100 caracteres.
+  * 7. El campo 'owner_dni' es obligatorio y debe ser una combinacion valida de DNI español. 
+  */
 const validateAddPet = [
     body('name')
         .trim()
@@ -54,6 +73,13 @@ const validateAddPet = [
     validateResult
 ]
 
+/**
+ * Cadena de validaciones para la actualizacion completa de una consola.
+ * Se aplica a la ruta PUT /:id.
+ * * Reglas:
+ * 1. El parametro 'id' debe existir en la URL y ser un numero entero positivo.
+ * 2. El cuerpo de la peticion debe cumplir las mismas reglas que la creacion (POST)
+ */
 const validateUpdatePet = [
     param('id')
         .notEmpty().withMessage('id is required')
