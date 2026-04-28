@@ -24,10 +24,10 @@ const validatePetId = [
   * * Reglas: 
   * 1. El campo 'name' es obligatorio y debe ser una cadena de texto y tener entre 2 y 100 caracteres.
   * 2. El campo 'type' es obligatorio y debe ser una cadena de texto y tener entre 2 y 100 caracteres.
-  * 3. El campo 'race' es obligatorio y debe ser una cadena de texto y tener entre 2 y 100 caracteres.
+  * 3. El campo 'pet_breed' es obligatorio y debe ser una cadena de texto y tener entre 2 y 100 caracteres.
   * 4. El campo 'weight' es obligatorio y debe ser un numero decimal (float) y ser mayor de 0.1 minimo.
   * 5. El campo 'sex' es obligatorio y debe ser una cadena de texto y tener entre 2 y 100 caracteres.
-  * 6. El campo 'age' es obligatorio y debe ser un numero entero positivo.
+  * 6. El campo 'birth_date' es obligatorio y debe ser una fecha valida.
   * 7. El campo 'owner_dni' es obligatorio y debe ser una combinacion valida de DNI español. 
   */
 const validateAddPet = [
@@ -43,11 +43,11 @@ const validateAddPet = [
         .isString().withMessage('type must be a string')
         .isLength({min: 2, max: 100}).withMessage('type must be between 2 and 100 characters'),
 
-    body('race')
+    body('pet_breed')
         .trim()
-        .notEmpty().withMessage('race is required')
-        .isString().withMessage('race must be a string')
-        .isLength({min: 2, max: 100}).withMessage('race must be between 2 and 100 characters'),
+        .notEmpty().withMessage('pet_breed is required')
+        .isString().withMessage('pet_breed must be a string')
+        .isLength({min: 2, max: 100}).withMessage('pet_breed must be between 2 and 100 characters'),
 
     body('weight')
         .trim()
@@ -60,10 +60,10 @@ const validateAddPet = [
         .isString().withMessage('sex must be a string')
         .isLength({min: 2, max: 100}).withMessage('sex must be between 2 and 100 characters'),
 
-    body('age')
+    body('birth_date')
         .trim()
-        .notEmpty().withMessage('age is required')
-        .isInt({ min: 0}).withMessage('age must be a positive number'),
+        .notEmpty().withMessage('birth_date is required')
+        .isDate().withMessage('birth_date must be a valid date'),
 
     body('owner_dni')
         .trim()
