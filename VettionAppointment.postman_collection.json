@@ -1,7 +1,7 @@
 {
   "info": {
     "_postman_id": "b26d70dc-a1c5-4d9e-a65b-b6a9f103d141",
-    "name": "Vettion_appointment",
+    "name": "VettionAppointment",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
     "_exporter_id": "49087939",
     "_collection_link": "https://go.postman.co/collection/49087939-b26d70dc-a1c5-4d9e-a65b-b6a9f103d141?source=collection_link"
@@ -35,6 +35,33 @@
       "response": []
     },
     {
+      "name": "/vettion/clean_services",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"dni\":\"73134044R\",\r\n    \"name\":\"Laura\",\r\n    \"surname\":\"García\",\r\n    \"phone\":\"678901234\",\r\n    \"email\":\"laura.garcia@example.com\"\r\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8080/vettion/clean_services",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "vettion",
+            "clean_services"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
       "name": "/vettion/appointments/:id_appointment",
       "protocolProfileBehavior": {
         "disableBodyPruning": true
@@ -56,6 +83,34 @@
           "path": [
             "vettion",
             "appointments",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "/vettion/clean_services/:id_clean_service",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"dni\":\"73134044R\",\r\n    \"name\":\"Laura\",\r\n    \"surname\":\"García\",\r\n    \"phone\":\"678901234\",\r\n    \"email\":\"laura.garcia@example.com\"\r\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8080/vettion/clean_services/1",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "vettion",
+            "clean_services",
             "1"
           ]
         }
