@@ -8,24 +8,24 @@ const db = require ('../configuration/database.js').db;
  */
 const findAllPets = async () => {
     const pets = await db('pet')
-        .join('owner', 'pet.owner_dni', 'owner.dni')
+        .join('owner', 'pet.owner_dni', 'owner.dni_owner')
         .select('pet.*', 'owner.name as owner_name', 'owner.surname as owner_surname');
     
     const petsWithAllergies = await Promise.all(
         pets.map(async (pet) =>{
             const allergies = await db('have_allergy')
-                .where('have_allergy.pet_id', pet.id)
-                .join('allergy', 'have_allergy.allergy_id', 'allergy.id')
-                .select('allergy.id', 'allergy.name', 'allergy.description');
+                .where('have_allergy.pet_id', pet.id_pet)
+                .join('allergy', 'have_allergy.allergy_id', 'allergy.id_allergy')
+                .select('allergy.id_allergy', 'allergy.name', 'allergy.description');
             
             return {
-                id: pet.id,
+                id: pet.id_pet,
                 name: pet.name,
                 type: pet.type,
-                race: pet.race,
+                race: pet.pet_breed,
                 weight: pet.weight,
                 sex:pet.sex,
-                age: pet.age,
+                age: pet.birth_date,
                 owner_dni: pet.owner_dni,
                 owner_name: pet.owner_name,
                 owner_surname: pet.owner_surname,
@@ -44,17 +44,17 @@ const findAllPets = async () => {
  */
 const findPetById = async (id) => {
     const pet = await db('pet')
-        .where('pet.id', id)
-        .join('owner', 'pet.owner_dni', 'owner.dni')
+        .where('pet.id_pet', id)
+        .join('owner', 'pet.owner_dni', 'owner.dni_owner')
         .select('pet.*', 'owner.name as owner_name', 'owner.surname as owner_surname')
         .first();
     
     if (!pet) return null;
 
     const allergies = await db('have_allergy')
-        .where('have_allergy.pet_id', id)
-        .join('allergy', 'have_allergy.allergy_id', 'allergy.id')
-        .select('allergy.id', 'allergy.name', 'allergy.description');
+        .where('have_allergy.pet_id', pet.id_pet)
+        .join('allergy', 'have_allergy.allergy_id', 'allergy.id_allergy')
+        .select('allergy.id_allergy', 'allergy.name', 'allergy.description');
     
     pet.allergies = allergies;
 
@@ -67,14 +67,14 @@ const findPetById = async (id) => {
  * @returns {Promise<number>} - Devuelve el Id de la nueva mascota insertada.
  */
 const addPet = async (petData) => {
-    const { name, type, race, weight, sex, age, owner_dni, allergies } = petData;
+    const { name, type, pet_breed, weight, sex, birth_date, owner_dni, allergies } = petData;
     const [newId] = await db('pet').insert({
         name, 
         type, 
-        race,
+        pet_breed,
         weight,
         sex,
-        age,
+        birth_date,
         owner_dni
     });
 
@@ -97,16 +97,16 @@ const addPet = async (petData) => {
  * @returns {Promise<void>} - No devuelve ningun valor. Ejecuta la operacion en la base de datos.
  */
 const updatePet = async (id, petData) => {
-    const { name, type, race, weight, sex, age, owner_dni, allergies} = petData;
+    const { name, type, pet_breed, weight, sex, birth_date, owner_dni, allergies} = petData;
     await db('pet')
-        .where({ id: id })
+        .where({ id_pet: id })
         .update({
             name,
             type, 
-            race, 
+            pet_breed, 
             weight,
             sex,
-            age, 
+            birth_date, 
             owner_dni
     });
 
@@ -129,7 +129,7 @@ const updatePet = async (id, petData) => {
  * @returns {Promise<number>} - Devuelve 1 si se borro el registro, 0 si no existia.
  */
 const removePet = async (id) => {
-    return await db('pet').where({ id }).del();
+    return await db('pet').where({ id_pet: id }).del();
 }
 
 module.exports = {
