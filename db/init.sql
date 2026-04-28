@@ -1,14 +1,6 @@
 create database if not exists vettion;
 use vettion;
 
--- Tabla de servicios
-create table if not exists service (
-    id_service int auto_increment primary key,
-    name_service varchar(100) not null,
-    price decimal(7,2) not null,
-    description text
-);
-
 -- Tabla de dueños.
 create table if not exists owner (
     dni varchar(9) primary key,
@@ -78,15 +70,13 @@ create table if not exists have_allergy (
 );
 
 -- Tabla de salas
-create table if not exists room (
-    id int auto_increment primary key,
+create table if not exists consult (
+    id_consult int auto_increment primary key,
     type varchar(100) not null,
     name varchar(100) not null,
-    disponibility boolean default true,
-
-    service_id int,
-    constraint fk_service_room
-        foreign key (service_id) references service (id_service) on delete cascade
+    duration int,
+    price double(10, 2),
+    description text
 );
 
 -- Tabla de programar servicio de limpieza
