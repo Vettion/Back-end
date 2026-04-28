@@ -55,7 +55,7 @@
         "header": [],
         "body": {
           "mode": "raw",
-          "raw": "{\r\n    \"pet_name\":\"Morgan\",\r\n    \"type\":\"Perro\",\r\n    \"pet_breed\":\"Labrador\",\r\n    \"weight\":\"40.1\",\r\n    \"sex\":\"Hembra\",\r\n    \"birth_date\":\"1999-03-1\",\r\n    \"owner_name\":\"Blanca\",\r\n    \"surname\":\"García\",\r\n    \"allergies\":\"\"\r\n}",
+          "raw": "{\r\n    \"name\":\"Morgan\",\r\n    \"type\":\"Perro\",\r\n    \"pet_breed\":\"Labrador\",\r\n    \"weight\":\"40.1\",\r\n    \"sex\":\"Hembra\",\r\n    \"birth_date\":\"1999-03-01\",\r\n    \"owner_dni\":\"12345678A\"\r\n}",
           "options": {
             "raw": {
               "language": "json"
@@ -84,7 +84,7 @@
         "header": [],
         "body": {
           "mode": "raw",
-          "raw": "{\r\n    \"pet_name\":\"Morgan\",\r\n    \"type\":\"Perro\",\r\n    \"pet_breed\":\"Labrador\",\r\n    \"weight\":\"40.1\",\r\n    \"sex\":\"Hembra\",\r\n    \"birth_date\":\"1999-03-1\",\r\n    \"owner_name\":\"Blanca\",\r\n    \"surname\":\"García\",\r\n    \"allergies\":\"\"\r\n}",
+          "raw": "{\r\n    \"name\":\"Morgan\",\r\n    \"type\":\"Perro\",\r\n    \"pet_breed\":\"Labrador\",\r\n    \"weight\":\"40.1\",\r\n    \"sex\":\"Hembra\",\r\n    \"birth_date\":\"1999-03-01\",\r\n    \"owner_dni\":\"12345678A\"\r\n}",
           "options": {
             "raw": {
               "language": "json"
