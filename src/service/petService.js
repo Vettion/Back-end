@@ -90,10 +90,10 @@ const addPet = async (petData) => {
 }
 
 /**
- * Actualiza la informacion de una consola existente.
+ * Actualiza la informacion de una mascota existente.
  * Actualiza los datos basicos y si se proporcion una lista de alergias reemplaza las relaciones existentes por las nuevas.
- * @param {number} id - El id de la consola a actualizar. 
- * @param {*} petData - Objeto con los datos de la consola a actualizar (puede incluir 'allergies').
+ * @param {number} id - El id de la mascota a actualizar. 
+ * @param {*} petData - Objeto con los datos de la mascota a actualizar (puede incluir 'allergies').
  * @returns {Promise<void>} - No devuelve ningun valor. Ejecuta la operacion en la base de datos.
  */
 const updatePet = async (id, petData) => {
