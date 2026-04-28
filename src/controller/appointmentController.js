@@ -1,5 +1,5 @@
 const { response } = require("express");
-const { findAllAppointments, findAppointment, createAppointment, modifyAppointment, removeAppointment, appointmentExistsById } = require("../service/appointmentService");
+const { findAllAppointments, findAppointment, findAllCleanServices, findCleanService, createAppointment, modifyAppointment, removeAppointment, appointmentExistsById, cleanServiceExistsById } = require("../service/appointmentService");
 const { title } = require("node:process");
 
 /**
@@ -36,6 +36,42 @@ const getAppointment = async (req, res) => {
     const appointment = await findAppointment(id_appointment);
     res.status(200).json(appointment);
 };
+
+/**
+ * Función para obtener una lista de todos los servicios de limpieza.
+ * Se encarga de manejar la solicitud GET /vettion/clean_services.
+ * @param {*} req Objeto de solicitud.
+ * @param {*} res Objeto de respuesta.
+ * @returns Devuelve un JSON estandarizado con el código de estado 200 y un array de todos los servicios de limpieza.
+ */
+const getCleanServices = async (req, res) => {
+    const cleanServices = await findAllCleanServices();
+    return res.status(200).json(cleanServices);
+};
+
+/**
+ * Función para obtener un servicio de limpieza específico por su id.
+ * Se encarga de manejar la solicitud GET /vettion/clean_services/:id_clean_service.
+ * @param {*} req Objeto de solicitud.
+ * @param {*} res Objeto de respuesta.
+ * @returns Devuelve un JSON estandarizado con el código de estado 200 y los datos del servicio de limpieza solicitado
+ * o el código de estado 404 si no se encuentra.
+ */
+const getCleanService = async (req, res) => {
+    const id_clean_service = req.params.id_clean_service;
+
+    if (!(await cleanServiceExistsById(id_clean_service))) {
+        return res.status(404).json({
+            code: 404,
+            title: "not found",
+            message: "The clean service has not been found",
+        });
+    }
+
+    const cleanService = await findCleanService(id_clean_service);
+    res.status(200).json(cleanService);
+};
+
 
 /**
  * Función para crear una nueva cita.
@@ -118,5 +154,7 @@ module.exports = {
     getAppointment,
     postAppointment,
     putAppointment,
-    deleteAppointment
+    deleteAppointment,
+    getCleanServices,
+    getCleanService
 };

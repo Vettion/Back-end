@@ -1,5 +1,7 @@
 const db = require('../configuration/database.js').db;
+const e = require('cors');
 const { homedir, platform } = require('os');
+const { start } = require('repl');
 
 /**
  * Funcion para obtener todas las citas de la base de datos.
@@ -16,6 +18,23 @@ const findAllAppointments = (async () => {
  */
 const findAppointment = (async (id_appointment) => {
     return await db('appointment').select('*').where({ id_appointment: id_appointment }).first();
+});
+
+/**
+ * Funcion para obtener todos los servicios de limpieza de la base de datos.
+ * @returns 
+ */
+const findAllCleanServices = (async () => {
+    return await db('clean_service').select('*');
+});
+
+/**
+ * Funcion para obtener un servicio de limpieza específico por su ID.
+ * @param {*} id_clean_service 
+ * @returns 
+ */
+const findCleanService = (async (id_clean_service) => {
+    return await db('clean_service').select('*').where({ id_clean_service: id_clean_service }).first();
 });
 
 /**
@@ -40,24 +59,45 @@ const createAppointment = (async (appointment_date, start_hour, observations, pe
         throw new Error("Service duration not found for the specified room.");
     }
 
-    //Convertimos a minutos la hora de inicio y sumamos la duración del servicio.
+    //Convertimos a minutos la hora de inicio y sumamos la duración del servicio. 
+    //Añadimos 20 extra para la finalización de la limpieza de la sala.
     const [hours, minutes] = start_hour.split(':').map(Number);
     let totalMinutes = hours * 60 + minutes + serviceDuration.duration_minutes;
+    let totalMinutesWithCleaning = totalMinutes + 20; // Asumimos que el servicio de limpieza dura 20 minutos
 
     //Convertimos el total de minutos de nuevo a formato HH:MM
     const endHours = Math.floor(totalMinutes / 60) % 24;
     const endMinutes = totalMinutes % 60;
-    const end_hour = [endHours, endMinutes, 0].map(unit => String(unit).padStart(2, '0')).join(':');
+    const end_hour_consult = [endHours, endMinutes, 0].map(unit => String(unit).padStart(2, '0')).join(':');
 
-    return await db('appointment').insert({
+    const endHoursWithCleaning = Math.floor(totalMinutesWithCleaning / 60) % 24;
+    const endMinutesWithCleaning = totalMinutesWithCleaning % 60;
+    const end_hour_with_cleaning = [endHoursWithCleaning, endMinutesWithCleaning, 0].map(unit => String(unit).padStart(2, '0')).join(':');
+
+    const [appointmentId] = await db('appointment').insert({
         appointment_date: appointment_date,
         start_hour: start_hour,
-        end_hour: end_hour,
+        end_hour: end_hour_consult,
         observations: observations,
         pet_id: pet_id,
         room_id: room_id,
         veterinarian_dni: veterinarian_dni
     });
+
+    //De momento solo es una prueba para comprobar que funciona la asignación del personal de limpieza a la sala.
+    //Falta implementar que busque el primero que esté libre en la lista de personal.
+    const cleanerDni = await db('cleaner').select('dni_cleaner').first();
+
+    await db('clean_service').insert({
+        clean_date: appointment_date,
+        start_hour: end_hour_consult,
+        end_hour: end_hour_with_cleaning,
+        cleaner_dni: cleanerDni.dni_cleaner,
+        appointment_id: appointmentId,
+        room_id: room_id
+    });
+
+    return {appointmentId, success: true};
 });
 
 /**
@@ -99,13 +139,26 @@ const removeAppointment = (async (id_appointment) => {
 const appointmentExistsById = async (id_appointment) => {
     const appointment = await db('appointment').where('id_appointment', id_appointment).first();
     return appointment != null;
-}
+};
+
+/**
+ * Funcion para verificar si un servicio de limpieza existe por su id.
+ * @param {*} id_clean_service 
+ * @returns 
+ */
+const cleanServiceExistsById = async (id_clean_service) => {
+    const cleanService = await db('clean_service').where('id_clean_service', id_clean_service).first();
+    return cleanService != null;
+};
 
 module.exports = {
     findAllAppointments,
     findAppointment,
+    findAllCleanServices,
+    findCleanService,
     createAppointment,
     modifyAppointment,
     removeAppointment,
-    appointmentExistsById
+    appointmentExistsById,
+    cleanServiceExistsById
 }
