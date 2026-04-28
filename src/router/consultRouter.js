@@ -3,9 +3,10 @@
 const express = require('express');
 const router = express.Router();
 
-const { getAllConsults } = require('../controller/consultController.js');
+const { getAllConsults, getConsultById } = require('../controller/consultController.js');
 
 // Rutas
 router.get('/', getAllConsults);
+router.get('/:id', getConsultById);
 
 module.exports = router; 

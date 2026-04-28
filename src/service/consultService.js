@@ -15,6 +15,13 @@ const findAllConsults = async () => {
     return consults;
 };
 
+const findConsultById = async (id) => {
+    return await db('consult')
+        .where({ id_consult: id})
+        .first();
+}
+
 module.exports = {
-    findAllConsults
+    findAllConsults,
+    findConsultById
 }
