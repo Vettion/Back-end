@@ -1,7 +1,6 @@
 //Archivo de validación para el propietario de la mascota
 const { param, body } = require('express-validator');
 const { validateResult } = require('../middlewares/validateResult.js');
-const { isStringObject } = require('node:util/types');
 
 
 /**
