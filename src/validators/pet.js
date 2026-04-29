@@ -24,11 +24,11 @@ const validatePetId = [
   * * Reglas: 
   * 1. El campo 'name' es obligatorio y debe ser una cadena de texto y tener entre 2 y 100 caracteres.
   * 2. El campo 'type' es obligatorio y debe ser una cadena de texto y tener entre 2 y 100 caracteres.
-  * 3. El campo 'pet_breed' es obligatorio y debe ser una cadena de texto y tener entre 2 y 100 caracteres.
-  * 4. El campo 'weight' es obligatorio y debe ser un numero decimal (float) y ser mayor de 0.1 minimo.
-  * 5. El campo 'sex' es obligatorio y debe ser una cadena de texto y tener entre 2 y 100 caracteres.
-  * 6. El campo 'birth_date' es obligatorio y debe ser una fecha valida.
-  * 7. El campo 'owner_dni' es obligatorio y debe ser una combinacion valida de DNI español. 
+  * 3. El campo 'weight' es obligatorio y debe ser un numero decimal (float) y ser mayor de 0.1 minimo.
+  * 4. El campo 'sex' es obligatorio y debe ser una cadena de texto y tener entre 2 y 100 caracteres.
+  * 5. El campo 'birth_date' es obligatorio y debe ser una fecha valida.
+  * 6. El campo 'owner_dni' es obligatorio y debe ser una combinacion valida de DNI español. 
+  * 7. El campo 'allergies' es opcional y debe ser un array de enteros.
   */
 const validateAddPet = [
     body('name')
@@ -42,12 +42,6 @@ const validateAddPet = [
         .notEmpty().withMessage('type is required')
         .isString().withMessage('type must be a string')
         .isLength({min: 2, max: 100}).withMessage('type must be between 2 and 100 characters'),
-
-    body('pet_breed')
-        .trim()
-        .notEmpty().withMessage('pet_breed is required')
-        .isString().withMessage('pet_breed must be a string')
-        .isLength({min: 2, max: 100}).withMessage('pet_breed must be between 2 and 100 characters'),
 
     body('weight')
         .trim()
