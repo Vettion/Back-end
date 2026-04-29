@@ -1,7 +1,7 @@
 {
   "info": {
     "_postman_id": "13da8989-15d8-4546-b38b-64f36e8acd9c",
-    "name": "Vettion",
+    "name": "Vettion_owner",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
     "_exporter_id": "49087939",
     "_collection_link": "https://go.postman.co/collection/49087939-13da8989-15d8-4546-b38b-64f36e8acd9c?source=collection_link"
@@ -55,7 +55,7 @@
         "header": [],
         "body": {
           "mode": "raw",
-          "raw": "{\r\n    \"dni\":\"73134044R\",\r\n    \"name\":\"Laura\",\r\n    \"surname\":\"García\",\r\n    \"phone\":\"678901234\",\r\n    \"email\":\"laura.garcia@example.com\"\r\n}",
+          "raw": "{\r\n    \"dni_owner\":\"73134044R\",\r\n    \"name\":\"Laura\",\r\n    \"surname\":\"García\",\r\n    \"phone\":\"678901234\",\r\n    \"email\":\"laura.garcia@example.com\"\r\n}",
           "options": {
             "raw": {
               "language": "json"
