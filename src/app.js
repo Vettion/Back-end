@@ -6,11 +6,11 @@ app.use(cors());
 app.use(express.json());
 
 // Rutas.
-const ownerRouter = require('./router/owner_router.js');
+const consultRouter = require('./router/consultRouter.js');
 const petRouter = require('./router/petRouter.js');
 
 // URLs base.
-app.use('/owner', ownerRouter);
+app.use('/consult', consultRouter);
 app.use('/pet', petRouter);
 
 app.listen(8080, () => {
