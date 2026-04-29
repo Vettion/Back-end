@@ -55,18 +55,18 @@ insert into have_allergy (pet_id, allergy_id) values
 insert into veterinarian (dni, name, surname, phone, address, SS_number, num_collegiate, email, speciality) values
 ('10101010V', 'Carlos', 'Ruiz', '666111222', 'Calle Mayor 10, Zaragoza', 'SS-001', 'COL-500', 'carlos.ruiz@vettion.com', 'Cirugia'),
 ('20202020W', 'Elena', 'Sanz','666333444', 'Av. Madrid 5, Zaragoza', 'SS-002', 'COL-501', 'elena.sanz@vettion.com', 'Medicina General'),
-('40404040X', 'Marta', 'Ibáñez', '666555111', 'Calle Coso 50, Zaragoza', 'SS-003', 'COL-502', 'marta.ibañez@vettion.com', 'Dermatologia'),
-('50505050Y', 'Javier', 'Gómez', '666999222', 'Paseo Sagasta 12, Zaragoza', 'SS-004', 'COL-503', 'javier.g@vettion.com', 'Odontología'),
-('60606060Z', 'Fernando', 'Beltran', '666111999', 'Calle Alfonso I 3, Zaragoza', 'SS-005', 'COL-504', 'f.beltran@vettion.com', 'Traumatología');
+('30303030X', 'Marta', 'Ibáñez', '666555111', 'Calle Coso 50, Zaragoza', 'SS-003', 'COL-502', 'marta.ibañez@vettion.com', 'Dermatologia'),
+('40404040Y', 'Javier', 'Gómez', '666999222', 'Paseo Sagasta 12, Zaragoza', 'SS-004', 'COL-503', 'javier.g@vettion.com', 'Odontología'),
+('50505050Z', 'Fernando', 'Beltran', '666111999', 'Calle Alfonso I 3, Zaragoza', 'SS-005', 'COL-504', 'f.beltran@vettion.com', 'Traumatología');
 
 -- Insertar los datos de la tabla de sala
-insert into room (type, name, disponibility, service_id) values 
-('Consulta', 'Box 1 - General', true, 1),
-('Consulta', 'Box 2 - Perros', true, 3),
-('Quirófano', 'Sala de cirugía A', true, 7),
-('Consulta', 'Box 3 - Exóticos', true, 1),
-('Laboratorio', 'Sala de Análisis', true, 9),
-('Radiología', 'Sala de Rayos X', true, 8);
+insert into consult (id_consult, type, name, duration, price, description) values 
+(1, 'Consulta', 'Box 1 - General', 30, 35.00, 'Revisión rutinaria de salud'),
+(2, 'Consulta', 'Box 2 - Perros', 45, 60.00, 'Vacunación anual'),
+(3, 'Quirófano', 'Sala de cirugía A', 120, 150.00, 'Cirugía menor'),
+(4, 'Consulta', 'Box 3 - Exóticos', 30, 35.00, 'Revisión rutinaria de salud'),
+(5, 'Laboratorio', 'Sala de Análisis', 60, 60.00, 'Analítica de sangre'),
+(6, 'Radiología', 'Sala de Rayos X', 20, 45.00, 'Radiografía');
 
 -- Insertar los datos de la tabla de empleados de limpieza
 insert into cleaner (dni, name, surname, phone, address, SS_number, email) values 

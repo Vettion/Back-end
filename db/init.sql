@@ -69,7 +69,7 @@ create table if not exists have_allergy (
         foreign key (pet_id) references pet (id) on delete cascade
 );
 
--- Tabla de salas
+-- Tabla de consultas
 create table if not exists consult (
     id_consult int auto_increment primary key,
     type varchar(100) not null,
@@ -86,11 +86,11 @@ create table if not exists clean_service (
     hour_start time,
 
     cleaner_dni varchar(9),
-    room_id int,
+    consult_id int,
     constraint fk_cleaner_clean_service
         foreign key (cleaner_dni) references cleaner (dni) on delete cascade,
-    constraint fk_room_clean_service
-        foreign key (room_id) references room (id) on delete cascade
+    constraint fk_consult_clean_service
+        foreign key (consult_id) references consult (id_consult) on delete cascade
 );
 
 -- Tabla de programar cita para la mascota
@@ -102,12 +102,12 @@ create table if not exists appointment (
     reason varchar(255),
 
     pet_id int,
-    room_id int,
+    consult_id int,
     veterinarian_dni varchar(9),
     constraint fk_pet_appointment
         foreign key (pet_id) references pet(id) on delete cascade,
-    constraint fk_room_appointment 
-        foreign key (room_id) references room(id) on delete cascade,
+    constraint fk_consult_appointment 
+        foreign key (consult_id) references consult(id_consult) on delete cascade,
     constraint fk_veterinarian_appointment
         foreign key (veterinarian_dni) references veterinarian(dni) on delete cascade
 );
