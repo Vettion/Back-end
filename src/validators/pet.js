@@ -1,4 +1,4 @@
-// Archivo de validaciones
+// Archivo de validaciones para mascotas
 
 const { param, body } = require('express-validator');
 const { validateResult } = require('../middlewares/validateResult.js')
