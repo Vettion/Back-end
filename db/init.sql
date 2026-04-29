@@ -15,7 +15,7 @@ create table if not exists pet (
     id_pet int auto_increment primary key,
     name varchar(100) not null,
     type varchar(100) not null,
-    pet_breed varchar(100) not null,
+    pet_breed varchar(100),
     weight decimal(5,2) not null,
     sex varchar(20) not null,
     birth_date date,
