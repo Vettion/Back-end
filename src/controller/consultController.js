@@ -2,6 +2,14 @@
 
 const { findAllConsults, findConsultById } = require('../service/consultService.js')
 
+/**
+ * Obtiene el listado completo de las consultas.
+ * Devuelve un JSON estandarizado con el array de consultas.
+ * @param {*} req - Objeto de solicitud.
+ * @param {*} res - Objeto de respuesta.
+ * @param {*} next - Funcion middleware para manejo de errores.
+ * @returns {Promise<void>} - Devuelve una respuesta JSON con codigo 200 y los datos.
+ */
 const getAllConsults = async (req, res, next) => {
     try {
         const consults = await findAllConsults();
@@ -17,6 +25,14 @@ const getAllConsults = async (req, res, next) => {
     }
 }
 
+/**
+ * Obtiene el detalle de la consulta especifica por su id.
+ * Valida si la consulta existe antes de devolver la respuesta.
+ * @param {*} req - Objeto de solicitud.
+ * @param {*} res - Objeto de respuesta.
+ * @param {*} next - Funcion middleware para manejo de errores.
+ * @returns {Promise<void>} - Devuelve una respuesta JSON con codigo 200 y los datos de la consulta o 404 si no existe.
+ */
 const getConsultById = async (req, res, next) => {
     try{
         const { id } = req.params;

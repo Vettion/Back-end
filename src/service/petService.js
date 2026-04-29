@@ -39,7 +39,7 @@ const findAllPets = async () => {
 
 /**
  * Metodo para obtener una mascota por su id.
- * @param {number} id 
+ * @param {number} id - El id de la mascota a buscar.
  * @returns {Promise<Object|null>} Devuelve una promesa que resuelve en un objeto (mascota) o null si no se encuentra la mascota.
  */
 const findPetById = async (id) => {
