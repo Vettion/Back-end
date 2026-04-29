@@ -1,5 +1,5 @@
 const { response } = require("express");
-const { findAllAppointments, findAppointment, findAllCleanServices, findCleanService, createAppointment, modifyAppointment, removeAppointment, appointmentExistsById, cleanServiceExistsById } = require("../service/appointmentService");
+const { findAllAppointments, findAppointment, findAllCleanServices, findCleanService, createAppointment, modifyAppointment, removeAppointment, removeCleanService, appointmentExistsById, cleanServiceExistsById } = require("../service/appointmentService");
 const { title } = require("node:process");
 
 /**
@@ -146,6 +146,7 @@ const deleteAppointment = async (req, res) => {
     }
 
     await removeAppointment(id_appointment);
+    await removeCleanService(id_appointment);
     res.status(204).end();
 }
 
