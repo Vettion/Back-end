@@ -5,7 +5,7 @@ const { hideBin } = require('yargs/helpers');
 
 //Lee fichero de configuración
 
-let configFile = 'config.prod.yaml';
+let configFile = 'config.local.yaml';
 const argv = yargs(hideBin(process.argv)).argv;
 if (argv.config != undefined) {
     configFile = argv.config;
