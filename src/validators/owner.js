@@ -7,22 +7,23 @@ const { validateResult } = require('../middlewares/validateResult.js');
  * Cadena de validaciones para operaciones que requieren el dni del dueño.
  * Se aplica a rutas dinamicas como GET /vettion/owners/:dni.
  * * Reglas:
- * 1. El parametro 'id' debe existir en la URL.
- * 2. El parametro 'id' debe ser un numero entero mayor que 0.
+ * 1. El parametro 'dni_owner' debe existir en la URL.
+ * 2. El parametro 'dni_owner' debe ser un string.
  */
 const validateOwnerId = [
     param('dni_owner')
-    .notEmpty().withMessage('dni is required')
-        .isInt().withMessage('dni must be a positive integer'),
+        .trim()
+        .notEmpty().withMessage('dni_owner is required')
+        .matches(/^[0-9]{8}[TRWAGMYFPDXBNJZSQVHLCKE]$/i).withMessage('dni_owner format is invalid'),
 
-        validateResult
+    validateResult
 ];
 
- /**
-  * Cadena de validaciones para el registro de un nuevo dueño.
-  * Se aplica a la ruta de POST /vettion/owners.
-  * * Reglas: 
-  * 1. El campo 'name' es obligatorio y debe ser una cadena de texto y tener entre 2 y 100 caracteres.
+/**
+ * Cadena de validaciones para el registro de un nuevo dueño.
+ * Se aplica a la ruta de POST /vettion/owners.
+ * * Reglas: 
+ * 1. El campo 'name' es obligatorio y debe ser una cadena de texto y tener entre 2 y 100 caracteres.
   * 2. El campo 'surname' es obligatorio y debe ser una cadena de texto y tener entre 2 y 100 caracteres.
   * 3. El campo 'phone' es obligatorio y debe ser una cadena de texto y tener entre 2 y 15 caracteres.
   */
@@ -49,16 +50,17 @@ const validateAddOwner = [
 ];
 
 /**
- * Cadena de validaciones para la actualizacion completa de una consola.
- * Se aplica a la ruta PUT /vettion/pets/:dni.
+ * Cadena de validaciones para la actualizacion completa de un dueño.
+ * Se aplica a la ruta PUT /vettion/owners/:dni_owner.
  * * Reglas:
- * 1. El parametro 'dni_owner' debe existir en la URL y ser un numero entero positivo.
+ * 1. El parametro 'dni_owner' debe existir en la URL y ser un string.
  * 2. El cuerpo de la peticion debe cumplir las mismas reglas que la creacion (POST)
  */
-const validateUpdatePet = [
+const validateUpdateOwner = [
     param('dni_owner')
         .notEmpty().withMessage('dni_owner is required')
-        .isInt({ gt: 0 }).withMessage('dni_owner must be a positive integer'),
+        .isString().withMessage('dni_owner must be a string')
+        .isLength({ min: 9, max: 9 }).withMessage('dni_owner must be 9 characters long'),
 
     ...validateAddOwner.slice(0, -1),
 
@@ -68,6 +70,6 @@ const validateUpdatePet = [
 module.exports = {
     validateOwnerId,
     validateAddOwner,
-    validateUpdatePet
+    validateUpdateOwner
 };
 
