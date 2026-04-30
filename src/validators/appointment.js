@@ -1,7 +1,7 @@
 // Archivo de validaciones
 
 const { param, body } = require('express-validator');
-const { validateResult } = require('../middlewares/validateResult.js')
+const { validateResult } = require('../middlewares/validateResult.js');
 
 /**
  * Cadena de validaciones para operaciones que requieren un Id de cita.
