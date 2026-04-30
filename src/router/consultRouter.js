@@ -7,7 +7,7 @@ const { getAllConsults, getConsultById } = require('../controller/consultControl
 const { validateConsultId } = require('../validators/consult.js'); 
 
 // Rutas
-router.get('/', getAllConsults);
-router.get('/:id', validateConsultId, getConsultById);
+router.get('/vettion/consults', getAllConsults);
+router.get('/vettion/consults/:id_consult', validateConsultId, getConsultById);
 
 module.exports = router; 
