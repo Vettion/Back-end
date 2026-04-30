@@ -11,9 +11,9 @@ const findAllConsults = async () => {
         .select(
             'id_consult',
             'name',
-            'type',
+            'consult_type',
             'duration',
-            'price',
+            'base_price',
             'description'
         );
     return consults;

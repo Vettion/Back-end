@@ -35,14 +35,14 @@ const getAllConsults = async (req, res, next) => {
  */
 const getConsultById = async (req, res, next) => {
     try{
-        const { id } = req.params;
-        const consult = await findConsultById(id);
+        const { id_consult } = req.params;
+        const consult = await findConsultById(id_consult);
 
         if(!consult) {
             return res.status(404).json({
                 code: 404,
                 title: 'not found',
-                message: `Consult with id ${id} not found.`
+                message: `Consult with id ${id_consult} not found.`
             });
         }
 
