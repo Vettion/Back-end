@@ -7,10 +7,10 @@ const { getAllPets, getPetById, postPet, putPet, deletePet } = require('../contr
 const { validatePetId, validateAddPet, validateUpdatePet } = require('../validators/pet.js');
 
 // Rutas
-router.get('/vettion/pets', getAllPets);
-router.get('/vettion/pets/:id', validatePetId, getPetById);
-router.post('/vettion/pets', validateAddPet, postPet);
-router.put('/vettion/pets/:id', validateUpdatePet, putPet);
-router.delete('/vettion/pets/:id', validatePetId, deletePet);
+router.get('/', getAllPets);
+router.get('/:id_pet', validatePetId, getPetById);
+router.post('/', validateAddPet, postPet);
+router.put('/:id_pet', validateUpdatePet, putPet);
+router.delete('/:id_pet', validatePetId, deletePet);
 
 module.exports = router;

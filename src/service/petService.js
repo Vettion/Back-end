@@ -22,10 +22,10 @@ const findAllPets = async () => {
                 id: pet.id_pet,
                 name: pet.name,
                 type: pet.type,
-                race: pet.pet_breed,
+                breed: pet.breed,
                 weight: pet.weight,
                 sex:pet.sex,
-                age: pet.birth_date,
+                birth_date: pet.birth_date,
                 owner_dni: pet.owner_dni,
                 owner_name: pet.owner_name,
                 owner_surname: pet.owner_surname,
@@ -67,11 +67,11 @@ const findPetById = async (id) => {
  * @returns {Promise<number>} - Devuelve el Id de la nueva mascota insertada.
  */
 const addPet = async (petData) => {
-    const { name, type, pet_breed, weight, sex, birth_date, owner_dni, allergies } = petData;
+    const { name, type, breed, weight, sex, birth_date, owner_dni, allergies } = petData;
     const [newId] = await db('pet').insert({
         name, 
         type, 
-        pet_breed,
+        breed,
         weight,
         sex,
         birth_date,
@@ -97,13 +97,13 @@ const addPet = async (petData) => {
  * @returns {Promise<void>} - No devuelve ningun valor. Ejecuta la operacion en la base de datos.
  */
 const updatePet = async (id, petData) => {
-    const { name, type, pet_breed, weight, sex, birth_date, owner_dni, allergies} = petData;
+    const { name, type, breed, weight, sex, birth_date, owner_dni, allergies} = petData;
     await db('pet')
         .where({ id_pet: id })
         .update({
             name,
             type, 
-            pet_breed, 
+            breed, 
             weight,
             sex,
             birth_date, 
