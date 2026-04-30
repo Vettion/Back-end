@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 const {getOwners, getOwner, postOwner, putOwner, deleteOwner} = require('../controller/ownerController.js');
-const {validateOwnerId, validateAddOwner, validateUpdateOwner} = require('../validators/ownerValidator.js');
+const {validateOwnerId, validateAddOwner, validateUpdateOwner} = require('../validators/owner.js');
 
 // Rutas para la gestion de dueños
 router.get('/', getOwners);
