@@ -124,7 +124,7 @@
         "header": [],
         "body": {
           "mode": "raw",
-          "raw": "{\r\n    \"appointment_date\":\"2026-03-15\",\r\n    \"start_hour\":\"12:00:00\",\r\n    \"duration\":60,\r\n    \"reason\":\"Intoxicación\",\r\n    \"pet_id\":1,\r\n    \"room_id\":1,\r\n    \"veterinarian_dni\":\"10101010V\"\r\n}",
+          "raw": "{\r\n    \"appointment_date\":\"2026-03-15\",\r\n    \"start_hour\":\"12:00:00\",\r\n    \"observations\":\"Intoxicación\",\r\n    \"pet_id\":1,\r\n    \"room_id\":1,\r\n    \"veterinarian_dni\":\"10101010V\"\r\n}",
           "options": {
             "raw": {
               "language": "json"
@@ -153,7 +153,7 @@
         "header": [],
         "body": {
           "mode": "raw",
-          "raw": "{\r\n    \"appointment_date\":\"2026-03-15\",\r\n    \"start_hour\":\"12:00:00\",\r\n    \"duration\":100,\r\n    \"reason\":\"Intoxicación\",\r\n    \"pet_id\":1,\r\n    \"room_id\":1,\r\n    \"veterinarian_dni\":\"10101010V\"\r\n}",
+          "raw": "{\r\n    \"appointment_date\":\"2026-03-15\",\r\n    \"start_hour\":\"12:40:00\",\r\n    \"observations\":\"Intoxicación\",\r\n    \"pet_id\":1,\r\n    \"room_id\":1,\r\n    \"veterinarian_dni\":\"10101010V\"\r\n}",
           "options": {
             "raw": {
               "language": "json"
@@ -161,7 +161,7 @@
           }
         },
         "url": {
-          "raw": "http://localhost:8080/vettion/appointments/7",
+          "raw": "http://localhost:8080/vettion/appointments/1",
           "protocol": "http",
           "host": [
             "localhost"
@@ -170,7 +170,7 @@
           "path": [
             "vettion",
             "appointments",
-            "7"
+            "1"
           ]
         }
       },
@@ -186,7 +186,7 @@
           "raw": "{\r\n    \"dni\":\"73134044R\",\r\n    \"name\":\"Laura\",\r\n    \"surname\":\"García\",\r\n    \"phone\":\"678901234\",\r\n    \"email\":\"laura.garcia@example.com\"\r\n}"
         },
         "url": {
-          "raw": "http://localhost:8080/vettion/appointments/7",
+          "raw": "http://localhost:8080/vettion/appointments/5",
           "protocol": "http",
           "host": [
             "localhost"
@@ -195,7 +195,7 @@
           "path": [
             "vettion",
             "appointments",
-            "7"
+            "5"
           ]
         }
       },
