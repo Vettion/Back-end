@@ -229,6 +229,12 @@ const modifyAppointment = async (
   return { id_appointment: id_appointment, success: true };
 };
 
+const modifyCleanService = async (id_clean_service, observations) => {
+  return await db("clean_service")
+    .where({ id_clean_service: id_clean_service })
+    .update({ observations: observations });
+};
+
 /**
  * Funcion para eliminar una cita existente.
  * @param {*} id_appointment
@@ -277,6 +283,7 @@ module.exports = {
   findCleanService,
   createAppointment,
   modifyAppointment,
+  modifyCleanService,
   removeAppointment,
   removeCleanService,
   appointmentExistsById,

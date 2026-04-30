@@ -1,5 +1,5 @@
 const { response } = require("express");
-const { findAllAppointments, findAppointment, findAllCleanServices, findCleanService, createAppointment, modifyAppointment, removeAppointment, removeCleanService, appointmentExistsById, cleanServiceExistsById } = require("../service/appointmentService");
+const { findAllAppointments, findAppointment, findAllCleanServices, findCleanService, createAppointment, modifyAppointment, modifyCleanService, removeAppointment, removeCleanService, appointmentExistsById, cleanServiceExistsById } = require("../service/appointmentService");
 const { title } = require("node:process");
 
 /**
@@ -72,7 +72,6 @@ const getCleanService = async (req, res) => {
     res.status(200).json(cleanService);
 };
 
-
 /**
  * Función para crear una nueva cita.
  * Se encarga de manejar la solicitud POST /vettion/appointments.
@@ -126,6 +125,20 @@ const putAppointment = async (req, res) => {
     res.status(204).end();
 };
 
+const putCleanService = async (req, res) => {
+    const id_clean_service = req.params.id_clean_service;
+    if (!(await cleanServiceExistsById(id_clean_service))) {
+        return res.status(404).json({
+            code: 404,
+            title: "not found",
+            message: "The clean service does not exist.",
+        });
+    }
+    const observations = req.body.observations;
+    await modifyCleanService(id_clean_service, observations);
+    res.status(204).end();
+};
+
 /**
  * Función para eliminar una cita existente.
  * Se encarga de manejar la solicitud DELETE /vettion/appointments/:id_appointment.
@@ -153,9 +166,10 @@ const deleteAppointment = async (req, res) => {
 module.exports = {
     getAppointments,
     getAppointment,
+    getCleanServices,
+    getCleanService,
     postAppointment,
     putAppointment,
-    deleteAppointment,
-    getCleanServices,
-    getCleanService
+    putCleanService,
+    deleteAppointment
 };
