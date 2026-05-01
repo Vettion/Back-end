@@ -29,20 +29,29 @@ const getAllOwners = (async (req, res, next) => {
  * @param {*} res Objeto de respuesta.
  * @returns Devuelve un JSON con código 200 y los datos del dueño de ese dni.
  */
-const getOwner = (async (req, res) => {
-    const dni_owner = req.params.dni_owner;
+const getOwnerByDni = async (req, res, next) => {
+    try {
+        const { dni_owner } = req.params;
+        const owner = await findOwnerByDni(dni_owner);
 
-    if (! await ownerExistsByDni(dni_owner)) {
-        return res.status(404).json({
-            code: 404,
-            title: 'not found',
-            message: 'The owner has not been found'
+        if(!owner) {
+            return res.status(404).json({
+                code: 404,
+                title: 'not found',
+                message: `Owner with DNI ${dni_owner} not found`
+            });
+        }
+
+        res.status(200).json({
+            code: 200,
+            title: 'success',
+            message: `Owner with DNI ${dni_owner} retrieved successfully`,
+            data: owner
         });
+    } catch(error) {
+        next(error);
     }
-
-    const owner = await findOwner(dni_owner);
-    res.status(200).json(owner);
-});
+};
 
 /**
  * Función para añadir un nuevo dueño.
@@ -126,8 +135,8 @@ const deleteOwner=(async (req, res) => {
 });
 
 module.exports = {
-    getOwners,
-    getOwner,
+    getAllOwners,
+    getOwnerByDni,
     postOwner,
     putOwner,
     deleteOwner

@@ -23,19 +23,11 @@ const findAllOwners = async () => {
  * @param {*} dni_owner 
  * @returns 
  */
-const findOwner = (async (dni_owner) => {
-    return await db('owner').select('*').where({ dni_owner: dni_owner }).first();
-});
-
-/**
- * Función para comprobar si un dueño existe por su dni.
- * @param {*} dni_owner 
- * @returns 
- */
-const ownerExistsByDni = async (dni_owner) => {
-    const owner = await db('owner').where('dni_owner', dni_owner).first();
-    return owner != null;
-}
+const findOwnerByDni = async (dni_owner) => {
+    return await db('owner')
+        .where({ dni_owner: dni_owner })
+        .first();
+};
 
 /**
  * Función para añadir un nuevo dueño a la base de datos.
@@ -85,9 +77,8 @@ const removeOwner = (async (dni_owner) => {
 
 module.exports = {
     findAllOwners,
-    findOwner,
+    findOwnerByDni,
     addOwner,
     editOwner,
-    removeOwner,
-    ownerExistsByDni
+    removeOwner
 }
