@@ -1,5 +1,6 @@
-const { response } = require('express');
-const { findAllOwners, findOwner, addOwner, editOwner, removeOwner, ownerExistsByDni } = require('../service/ownerService');
+// Este archivo implementa las operaciones que se han definido en el /router/ownerRouter.js
+
+const { findAllOwners, findOwnerByDni, addOwner, updateOwner, removeOwner } = require('../service/ownerService');
 
 /**
  * Función para obtener el listado de todos los dueños.
@@ -8,9 +9,18 @@ const { findAllOwners, findOwner, addOwner, editOwner, removeOwner, ownerExistsB
  * @param {*} res Objeto de respuesta.
  * @returns Devuelve un JSON con código 200 y un array de dueños.
  */
-const getOwners = (async (req, res) => {
-    const owners = await findAllOwners();
-    return res.status(200).json(owners);
+const getAllOwners = (async (req, res, next) => {
+    try {
+        const owners = await findAllOwners();
+        res.status(200).json({
+            code: 200, 
+            title: 'success',
+            message: 'Owners retrieved successfully',
+            data: owners
+        });
+    } catch (error) {
+        next(error);
+    }
 });
 
 /**

@@ -5,9 +5,18 @@ const { homedir, platform } = require('os');
  * Función para obtener todos los dueños de la base de datos.
  * @returns 
  */
-const findAllOwners = (async () => {
-    return await db('owner').select('*');
-});
+const findAllOwners = async () => {
+    const owners = await db('owner')
+        .select(
+            'dni_owner',
+            'name',
+            'surname',
+            'phone',
+            'email'
+    );
+
+    return owners;
+};
 
 /**
  * Función para obtener un dueño por su dni.
