@@ -80,14 +80,16 @@ const getCleanService = async (req, res) => {
  * @returns Devuelve un JSON estandarizado con el código de estado 201 y un mensaje de confirmación.
  */
 const postAppointment = async (req, res) => {
-    const appointment_date = req.body.appointment_date;
-    const start_hour = req.body.start_hour;
+    const date_appointment = req.body.date_appointment;
+    const start_time = req.body.start_time;
+    const consult_room = req.body.consult_room;
     const observations = req.body.observations;
     const pet_id = req.body.pet_id;
-    const room_id = req.body.room_id;
+    const consult_id = req.body.consult_id;
     const veterinarian_dni = req.body.veterinarian_dni;
+    const cleaner_dni = req.body.cleaner_dni;
 
-    await createAppointment(appointment_date, start_hour, observations, pet_id, room_id, veterinarian_dni);
+    await createAppointment(date_appointment, start_time, consult_room, observations, pet_id, consult_id, veterinarian_dni, cleaner_dni);
     res.status(201).json({
         code: 201,
         title: "created",
@@ -114,17 +116,26 @@ const putAppointment = async (req, res) => {
         });
     }
 
-    const appointment_date = req.body.appointment_date;
-    const start_hour = req.body.start_hour;
+    const date_appointment = req.body.date_appointment;
+    const start_time = req.body.start_time;
+    const consult_room = req.body.consult_room;
     const observations = req.body.observations;
     const pet_id = req.body.pet_id;
-    const room_id = req.body.room_id;
+    const consult_id = req.body.consult_id;
     const veterinarian_dni = req.body.veterinarian_dni;
 
-    await modifyAppointment(id_appointment, appointment_date, start_hour, observations, pet_id, room_id, veterinarian_dni);
+    await modifyAppointment(id_appointment, date_appointment, start_time, consult_room, observations, pet_id, consult_id, veterinarian_dni);
     res.status(204).end();
 };
 
+/**
+ * Función para modificar el atributo observations de un servicio de limpieza existente.
+ * Se encarga de manejar la solicitud PUT /vettion/clean_services/:id_clean_service.
+ * @param {*} req Objeto de solicitud.
+ * @param {*} res Objeto de respuesta.
+ * @returns Devuelve un JSON estandarizado con el código de estado 204 y un mensaje de confirmación
+ * o el código de estado 404 si no se encuentra.
+ */
 const putCleanService = async (req, res) => {
     const id_clean_service = req.params.id_clean_service;
     if (!(await cleanServiceExistsById(id_clean_service))) {
@@ -134,8 +145,9 @@ const putCleanService = async (req, res) => {
             message: "The clean service does not exist.",
         });
     }
+    const cleaner_dni = req.body.cleaner_dni;
     const observations = req.body.observations;
-    await modifyCleanService(id_clean_service, observations);
+    await modifyCleanService(id_clean_service, cleaner_dni, observations);
     res.status(204).end();
 };
 

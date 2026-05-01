@@ -29,32 +29,37 @@ const validateAppointmentId = [
   * 5. El campo 'veterinarian_dni' es obligatorio y debe ser una cadena de texto y tener 9 caracteres.
   */
 const validateAddAppointment = [
-    body('appointment_date')
+    body('date_appointment')
         .trim()
-        .notEmpty().withMessage('appointment_date is required')
-        .isDate().withMessage('appointment_date must be a date'),
+        .notEmpty().withMessage('date_appointment is required')
+        .isDate().withMessage('date_appointment must be a date'),
     
-    body('start_hour')
+    body('start_time')
         .trim()
-        .notEmpty().withMessage('start_hour is required')
-        .isTime().withMessage('start_hour must be a time'),
+        .notEmpty().withMessage('start_time is required')
+        .isTime().withMessage('start_time must be a time'),
+
+    body('consult_room')
+        .trim()
+        .notEmpty().withMessage('consult_room is required')
+        .isInt({ gt: 0 }).withMessage('consult_room must be a positive integer'),
 
     body('pet_id')
         .trim()
         .notEmpty().withMessage('pet_id is required')
         .isInt({ gt: 0 }).withMessage('pet_id must be a positive integer'),
 
-    body('room_id')
+    body('consult_id')
         .trim()
-        .notEmpty().withMessage('room_id is required')
-        .isInt({ gt: 0 }).withMessage('room_id must be a positive integer'),
+        .notEmpty().withMessage('consult_id is required')
+        .isInt({ gt: 0 }).withMessage('consult_id must be a positive integer'),
 
     body('veterinarian_dni')
         .trim()
         .notEmpty().withMessage('veterinarian_dni is required')
         .isString().withMessage('veterinarian_dni must be a string')
         .isLength({min: 9, max: 9}).withMessage('veterinarian_dni must be exactly 9 characters'),
-
+    
     validateResult
 ];
 

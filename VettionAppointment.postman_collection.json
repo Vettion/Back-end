@@ -124,7 +124,7 @@
         "header": [],
         "body": {
           "mode": "raw",
-          "raw": "{\r\n    \"appointment_date\":\"2026-03-15\",\r\n    \"start_hour\":\"12:00:00\",\r\n    \"observations\":\"Intoxicación\",\r\n    \"pet_id\":1,\r\n    \"room_id\":1,\r\n    \"veterinarian_dni\":\"10101010V\"\r\n}",
+          "raw": "{\r\n    \"date_appointment\":\"2026-03-15\",\r\n    \"start_time\":\"12:00\",\r\n    \"consult_room\":1,\r\n    \"observations\": \"Es urgente\",\r\n    \"pet_id\":1,\r\n    \"consult_id\":1,\r\n    \"veterinarian_dni\":\"10101010V\",\r\n    \"cleaner_dni\": \"33445566L\"\r\n}",
           "options": {
             "raw": {
               "language": "json"
@@ -153,7 +153,7 @@
         "header": [],
         "body": {
           "mode": "raw",
-          "raw": "{\r\n    \"appointment_date\":\"2026-03-15\",\r\n    \"start_hour\":\"12:40:00\",\r\n    \"observations\":\"Intoxicación\",\r\n    \"pet_id\":1,\r\n    \"room_id\":1,\r\n    \"veterinarian_dni\":\"10101010V\"\r\n}",
+          "raw": "{\r\n    \"date_appointment\":\"2026-03-15\",\r\n    \"start_time\":\"12:00\",\r\n    \"consult_room\":1,\r\n    \"observations\": \"SOS\",\r\n    \"pet_id\":1,\r\n    \"consult_id\":2,\r\n    \"veterinarian_dni\":\"10101010V\"\r\n}",
           "options": {
             "raw": {
               "language": "json"
@@ -161,7 +161,7 @@
           }
         },
         "url": {
-          "raw": "http://localhost:8080/vettion/appointments/1",
+          "raw": "http://localhost:8080/vettion/appointments/4",
           "protocol": "http",
           "host": [
             "localhost"
@@ -170,7 +170,37 @@
           "path": [
             "vettion",
             "appointments",
-            "1"
+            "4"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "/vettion/clean_services/:id_clean_service",
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"cleaner_dni\":\"33445566L\",\r\n    \"observations\":\"Se debe actualizar el stock de bisturies.\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/vettion/clean_services/2",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "vettion",
+            "clean_services",
+            "2"
           ]
         }
       },
