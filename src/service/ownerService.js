@@ -38,15 +38,15 @@ const findOwnerByDni = async (dni_owner) => {
  * @param {*} email 
  * @returns 
  */
-const addOwner = (async (dni_owner, name, surname, phone, email) => {
+const addOwner = async (dni_owner, name, surname, phone, email) => {
     return await db('owner').insert({
-        dni_owner: dni_owner,
-        name: name,
-        surname: surname,
-        phone: phone,
-        email: email
+        dni_owner,
+        name,
+        surname,
+        phone,
+        email
     });
-});
+};
 
 /**
  * Función para editar un dueño existente en la base de datos.

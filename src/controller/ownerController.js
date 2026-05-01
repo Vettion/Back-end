@@ -60,30 +60,32 @@ const getOwnerByDni = async (req, res, next) => {
  * @returns Devuelve un JSON con código 201 y un mensaje de éxito o 
  * un JSON con código 409 y un mensaje de conflicto.
  */
-const postOwner = (async (req, res) => {
-    const dni_owner = req.body.dni_owner;
+const postOwner = async (req, res, next) => {
+    try {
+        const { dni_owner, name, surname, phone, email } = req.body;
+        const existingOwner = await findOwnerByDni(dni_owner);
 
-    if (await ownerExistsByDni(dni_owner)) {
-        return res.status(409).json({
-            code: 409,
-            title: 'conflict',
-            message: 'The owner is already on the database.'
+        if(existingOwner) {
+            return res.status(409).json({
+                code: 409,
+                title: 'conflict',
+                message: `Owner with DNI ${dni_owner} already exists`
+            });
+        }
+
+        await addOwner(dni_owner, name, surname, phone, email);
+        const newOwner = await findOwnerByDni(dni_owner);
+
+        res.status(201).json({
+            code: 201,
+            title: 'created',
+            message: `Owner with dni ${dni_owner} created successfully`,
+            data: newOwner
         });
+    } catch(error) {
+        next(error);
     }
-
-    const name = req.body.name;
-    const surname = req.body.surname;
-    const phone = req.body.phone;
-    const email = req.body.email;
-
-    await addOwner(dni_owner, name, surname, phone, email);
-
-    res.status(201).json({
-        code: 201,
-        title: 'added',
-        message: 'The owner has been added correctly.'
-    });
-});
+};
 
 /**
  * Función para editar un dueño existente.
