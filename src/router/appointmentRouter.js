@@ -3,10 +3,11 @@ const router = express.Router();
 
 const {getAllAppointments, getAppointmentById, postAppointment, putAppointment, putCleanService, deleteAppointment} = require('../controller/appointmentController.js');
 const { validateAppointmentId, validateAddAppointment, validateUpdateAppointment } = require('../validators/appointment.js');
+const { validateAddCleanService } = require('../validators/cleanService.js');
 
 router.get('/', getAllAppointments);
 router.get('/:id_appointment', validateAppointmentId, getAppointmentById);
-router.post('/', validateAddAppointment, postAppointment);
+router.post('/', validateAddAppointment, validateAddCleanService, postAppointment);
 router.put('/:id_appointment', validateUpdateAppointment, putAppointment);
 router.delete('/:id_appointment', validateAppointmentId, deleteAppointment);
 
