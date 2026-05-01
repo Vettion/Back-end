@@ -22,10 +22,10 @@ const findAllPets = async () => {
                 id: pet.id_pet,
                 name: pet.name,
                 type: pet.type,
-                race: pet.pet_breed,
+                breed: pet.breed,
                 weight: pet.weight,
                 sex:pet.sex,
-                age: pet.birth_date,
+                birth_date: pet.birth_date,
                 owner_dni: pet.owner_dni,
                 owner_name: pet.owner_name,
                 owner_surname: pet.owner_surname,
@@ -39,7 +39,7 @@ const findAllPets = async () => {
 
 /**
  * Metodo para obtener una mascota por su id.
- * @param {number} id 
+ * @param {number} id - El id de la mascota a buscar.
  * @returns {Promise<Object|null>} Devuelve una promesa que resuelve en un objeto (mascota) o null si no se encuentra la mascota.
  */
 const findPetById = async (id) => {
@@ -67,11 +67,11 @@ const findPetById = async (id) => {
  * @returns {Promise<number>} - Devuelve el Id de la nueva mascota insertada.
  */
 const addPet = async (petData) => {
-    const { name, type, pet_breed, weight, sex, birth_date, owner_dni, allergies } = petData;
+    const { name, type, breed, weight, sex, birth_date, owner_dni, allergies } = petData;
     const [newId] = await db('pet').insert({
         name, 
         type, 
-        pet_breed,
+        breed,
         weight,
         sex,
         birth_date,
@@ -90,20 +90,20 @@ const addPet = async (petData) => {
 }
 
 /**
- * Actualiza la informacion de una consola existente.
+ * Actualiza la informacion de una mascota existente.
  * Actualiza los datos basicos y si se proporcion una lista de alergias reemplaza las relaciones existentes por las nuevas.
- * @param {number} id - El id de la consola a actualizar. 
- * @param {*} petData - Objeto con los datos de la consola a actualizar (puede incluir 'allergies').
+ * @param {number} id - El id de la mascota a actualizar. 
+ * @param {*} petData - Objeto con los datos de la mascota a actualizar (puede incluir 'allergies').
  * @returns {Promise<void>} - No devuelve ningun valor. Ejecuta la operacion en la base de datos.
  */
 const updatePet = async (id, petData) => {
-    const { name, type, pet_breed, weight, sex, birth_date, owner_dni, allergies} = petData;
+    const { name, type, breed, weight, sex, birth_date, owner_dni, allergies} = petData;
     await db('pet')
         .where({ id_pet: id })
         .update({
             name,
             type, 
-            pet_breed, 
+            breed, 
             weight,
             sex,
             birth_date, 

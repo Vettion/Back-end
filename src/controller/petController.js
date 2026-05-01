@@ -34,13 +34,13 @@ const getAllPets = async (req, res, next) => {
   */
 const getPetById = async (req, res, next) => {
     try {
-        const { id } = req.params;
-        const pet = await findPetById(id);
+        const { id_pet } = req.params;
+        const pet = await findPetById(id_pet);
         if (!pet) {
             return res.status(404).json({
                 code: 404,
                 title: 'not found',
-                message: `Pet with id ${id} not found`
+                message: `Pet with id ${id_pet} not found`
             })
         }
         res.status(200).json({
@@ -88,18 +88,18 @@ const postPet = async (req, res, next) => {
  */
 const putPet = async (req, res, next) => {
     try {
-        const { id } = req.params;
+        const { id_pet } = req.params;
         const petData = req.body;
 
-        await updatePet(id, petData);
+        await updatePet(id_pet, petData);
 
-        const updatedPet = await findPetById(id);
+        const updatedPet = await findPetById(id_pet);
 
         if(!updatedPet) {
             return res.status(404).json({
                 code: 404,
                 title: 'not found',
-                message: `Pet with id ${id} not found after update`
+                message: `Pet with id ${id_pet} not found after update`
             });
         }
 
@@ -123,22 +123,22 @@ const putPet = async (req, res, next) => {
  */
 const deletePet = async (req, res, next) => {
     try {
-        const { id } = req.params;
+        const { id_pet } = req.params;
 
-        const deleteCount = await removePet(id);
+        const deleteCount = await removePet(id_pet);
 
         if(deleteCount === 0) {
             return res.status(404).json({
                 code: 404, 
                 title: 'not found', 
-                message: `Pet with id ${id} not found`
+                message: `Pet with id ${id_pet} not found`
             });
         }
 
         res.status(200).json({
             code: 200,
             title: 'success',
-            message: `Pet with id ${id} deleted successfully`
+            message: `Pet with id ${id_pet} deleted successfully`
         });
     } catch(error) {
         next(error);

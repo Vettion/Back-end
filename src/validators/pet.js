@@ -1,4 +1,4 @@
-// Archivo de validaciones
+// Archivo de validaciones para mascotas
 
 const { param, body } = require('express-validator');
 const { validateResult } = require('../middlewares/validateResult.js')
@@ -11,9 +11,9 @@ const { validateResult } = require('../middlewares/validateResult.js')
  * 2. El parametro 'id' debe ser un numero entero mayor que 0.
  */
 const validatePetId = [
-    param('id')
-        .notEmpty().withMessage('id is required')
-        .isInt({ gt: 0 }).withMessage('id must be a positive integer'),
+    param('id_pet')
+        .notEmpty().withMessage('id_pet is required')
+        .isInt({ gt: 0 }).withMessage('id_pet must be a positive integer'),
     
     validateResult
 ];
@@ -42,6 +42,11 @@ const validateAddPet = [
         .notEmpty().withMessage('type is required')
         .isString().withMessage('type must be a string')
         .isLength({min: 2, max: 100}).withMessage('type must be between 2 and 100 characters'),
+
+    body('breed')
+        .trim()
+        .isString().withMessage('breed must be a string')
+        .isLength({min: 2, max: 100}).withMessage('breed must be between 2 and 100 characters'),
 
     body('weight')
         .trim()
@@ -78,16 +83,16 @@ const validateAddPet = [
 ]
 
 /**
- * Cadena de validaciones para la actualizacion completa de una consola.
+ * Cadena de validaciones para la actualizacion completa de una mascota.
  * Se aplica a la ruta PUT /:id.
  * * Reglas:
  * 1. El parametro 'id' debe existir en la URL y ser un numero entero positivo.
  * 2. El cuerpo de la peticion debe cumplir las mismas reglas que la creacion (POST)
  */
 const validateUpdatePet = [
-    param('id')
-        .notEmpty().withMessage('id is required')
-        .isInt({ gt: 0 }).withMessage('id must be a positive integer'),
+    param('id_pet')
+        .notEmpty().withMessage('id_pet is required')
+        .isInt({ gt: 0 }).withMessage('id_pet must be a positive integer'),
 
     ...validateAddPet.slice(0, -1),
 
