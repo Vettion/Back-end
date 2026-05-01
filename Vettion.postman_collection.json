@@ -1,284 +1,282 @@
 {
   "info": {
-    "_postman_id": "af8d6a4f-c6d2-4f52-8601-482030ba6b1c",
+    "_postman_id": "607b2a49-7a10-479d-a2f1-771c9ee7538b",
     "name": "Vettion",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "_exporter_id": "49087920",
-    "_collection_link": "https://go.postman.co/collection/49087920-af8d6a4f-c6d2-4f52-8601-482030ba6b1c?source=collection_link"
+    "_exporter_id": "49087939",
+    "_collection_link": "https://go.postman.co/collection/49087939-607b2a49-7a10-479d-a2f1-771c9ee7538b?source=collection_link"
   },
   "item": [
     {
-      "name": "pet",
-      "item": [
-        {
-          "name": "pets/",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "http://localhost:8080/pets/",
-              "protocol": "http",
-              "host": [
-                "localhost"
-              ],
-              "port": "8080",
-              "path": [
-                "pets",
-                ""
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "pets/:id_pet",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "http://localhost:8080/pets/1",
-              "protocol": "http",
-              "host": [
-                "localhost"
-              ],
-              "port": "8080",
-              "path": [
-                "pets",
-                "1"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "pets/",
-          "request": {
-            "method": "POST",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "{\r\n    \"name\": \"Rex\",\r\n    \"type\": \"Perro\",\r\n    \"breed\": \"Pastor Alemán\",\r\n    \"weight\": 25.5,\r\n    \"sex\": \"Macho\",\r\n    \"birth_date\": \"2022-05-15\",\r\n    \"owner_dni\": \"12345678A\",\r\n    \"allergies\": [1, 3] \r\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "http://localhost:8080/pets/",
-              "protocol": "http",
-              "host": [
-                "localhost"
-              ],
-              "port": "8080",
-              "path": [
-                "pets",
-                ""
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "pets/:id_pet",
-          "request": {
-            "method": "PUT",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "{\r\n    \"name\": \"Rex\",\r\n    \"type\": \"Perro\",\r\n    \"breed\": \"Pastor Alemán\",\r\n    \"weight\": 25.5,\r\n    \"sex\": \"Macho\",\r\n    \"birth_date\": \"2022-05-15\",\r\n    \"owner_dni\": \"12345678A\",\r\n    \"allergies\": [1, 2, 3, 4] \r\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "http://localhost:8080/pets/6",
-              "protocol": "http",
-              "host": [
-                "localhost"
-              ],
-              "port": "8080",
-              "path": [
-                "pets",
-                "6"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "pets/:id_pet",
-          "request": {
-            "method": "DELETE",
-            "header": [],
-            "url": {
-              "raw": "http://localhost:8080/pets/7",
-              "protocol": "http",
-              "host": [
-                "localhost"
-              ],
-              "port": "8080",
-              "path": [
-                "pets",
-                "7"
-              ]
-            }
-          },
-          "response": []
+      "name": "/vettion/owners",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/owners",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "owners"
+          ]
         }
-      ]
+      },
+      "response": []
     },
     {
-      "name": "owner",
-      "item": [
-        {
-          "name": "owners/",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "http://localhost:8080/owners/",
-              "protocol": "http",
-              "host": [
-                "localhost"
-              ],
-              "port": "8080",
-              "path": [
-                "owners",
-                ""
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "owners/:dni_owner",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "http://localhost:8080/owners/12345678A",
-              "protocol": "http",
-              "host": [
-                "localhost"
-              ],
-              "port": "8080",
-              "path": [
-                "owners",
-                "12345678A"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "owners/",
-          "request": {
-            "method": "POST",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "{\r\n    \"dni_owner\": \"12345678Z\",\r\n    \"name\": \"Adrián\",\r\n    \"surname\": \"García\",\r\n    \"phone\": \"34600000000\",\r\n    \"email\": \"adrian@example.com\"\r\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "http://localhost:8080/owners/",
-              "protocol": "http",
-              "host": [
-                "localhost"
-              ],
-              "port": "8080",
-              "path": [
-                "owners",
-                ""
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "owners/:dni_owner",
-          "request": {
-            "method": "PUT",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "{\r\n    \"dni_owner\": \"12345678Z\",\r\n    \"name\": \"Adrián\",\r\n    \"surname\": \"Lorente\",\r\n    \"phone\": \"34600000000\",\r\n    \"email\": \"adrian@example.com\"\r\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "http://localhost:8080/owners/12345678Z",
-              "protocol": "http",
-              "host": [
-                "localhost"
-              ],
-              "port": "8080",
-              "path": [
-                "owners",
-                "12345678Z"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "owners/:dni_owner",
-          "request": {
-            "method": "DELETE",
-            "header": [],
-            "url": {
-              "raw": "http://localhost:8080/owners/12345678Z",
-              "protocol": "http",
-              "host": [
-                "localhost"
-              ],
-              "port": "8080",
-              "path": [
-                "owners",
-                "12345678Z"
-              ]
-            }
-          },
-          "response": []
+      "name": "/vettion/owners/:dni",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/owners/12345678A",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "owners",
+            "12345678A"
+          ]
         }
-      ]
+      },
+      "response": []
     },
     {
-      "name": "consult",
-      "item": [
-        {
-          "name": "consults",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": ""
+      "name": "/vettion/owners",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"dni_owner\":\"73134044R\",\r\n    \"name\":\"Laura\",\r\n    \"surname\":\"García\",\r\n    \"phone\":\"678901234\",\r\n    \"email\":\"laura.garcia@example.com\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
             }
-          },
-          "response": []
+          }
         },
-        {
-          "name": "consult/:id_consult",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": ""
-            }
-          },
-          "response": []
+        "url": {
+          "raw": "http://localhost:8080/owners",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "owners"
+          ]
         }
-      ]
+      },
+      "response": []
+    },
+    {
+      "name": "/vettion/owners/:dni",
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"name\":\"María\",\r\n    \"surname\":\"García\",\r\n    \"phone\":\"678901234\",\r\n    \"email\":\"laura.garcia@example.com\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/owners/73134044R",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "owners",
+            "73134044R"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "/vettion/owners/:dni",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/owners/73134044R",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "owners",
+            "73134044R"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "/vettion/consults",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/consults",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "consults"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "/vettion/consults/:id_consult",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/consults/1",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "consults",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "/vettion/pets",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/pets",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "pets"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "/vettion/pets/:id",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/pets/1",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "pets",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "/vettion/pets/:id",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"name\":\"Morgan\",\r\n    \"type\":\"Perro\",\r\n    \"breed\":\"Labrador\",\r\n    \"weight\":\"40.1\",\r\n    \"sex\":\"Hembra\",\r\n    \"birth_date\":\"1999-03-01\",\r\n    \"owner_dni\":\"12345678A\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/pets",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "pets"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "/vettion/pets/:id",
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"name\":\"Morgan\",\r\n    \"type\":\"Perro\",\r\n    \"breed\":\"Labrador\",\r\n    \"weight\":\"40.1\",\r\n    \"sex\":\"Hembra\",\r\n    \"birth_date\":\"1999-03-01\",\r\n    \"owner_dni\":\"12345678A\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/pets/1",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "pets",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "/vettion/pets/:id",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/pets/1",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "pets",
+            "1"
+          ]
+        }
+      },
+      "response": []
     }
   ]
 }

@@ -44,7 +44,7 @@ const validateAddOwner = [
         .trim()
         .notEmpty().withMessage('Phone is required')
         .isString().withMessage('Phone must be a string')
-        .isLength({ min: 10, max: 15 }).withMessage('Phone must be between 10 and 15 characters'),
+        .isLength({ min: 9, max: 15 }).withMessage('Phone must be between 9 and 15 characters'),
 
     validateResult
 ];
@@ -72,4 +72,3 @@ module.exports = {
     validateAddOwner,
     validateUpdateOwner
 };
-
