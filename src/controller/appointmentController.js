@@ -1,5 +1,6 @@
 const { response } = require("express");
-const { findAllAppointments, findAppointment, findAllCleanServices, findCleanService, createAppointment, modifyAppointment, modifyCleanService, removeAppointment, removeCleanService, appointmentExistsById, cleanServiceExistsById } = require("../service/appointmentService");
+const { findAllAppointments, findAppointmentById, findAllCleanServices, findCleanServiceById, createAppointment, modifyAppointment,
+    modifyCleanService, removeAppointment, removeCleanService } = require("../service/appointmentService");
 const { title } = require("node:process");
 
 /**
@@ -7,34 +8,21 @@ const { title } = require("node:process");
  * Se encarga de manejar la solicitud GET /vettion/appointments.
  * @param {*} req Objeto de solicitud.
  * @param {*} res Objeto de respuesta.
+ * @param {*} next Función middleware para manejar errores.
  * @returns Devuelve un JSON estandarizado con el código de estado 200 y un array de todas las citas.
  */
-const getAppointments = async (req, res) => {
-    const appointments = await findAllAppointments();
-    return res.status(200).json(appointments);
-};
-
-/**
- * Función para obtener una cita específica por su id.
- * Se encarga de manejar la solicitud GET /vettion/appointments/:id_appointment.
- * @param {*} req Objeto de solicitud.
- * @param {*} res Objeto de respuesta.
- * @returns Devuelve un JSON estandarizado con el código de estado 200 y los datos de la cita solicitada
- * o el código de estado 404 si no se encuentra.
- */
-const getAppointment = async (req, res) => {
-    const id_appointment = req.params.id_appointment;
-
-    if (!(await appointmentExistsById(id_appointment))) {
-        return res.status(404).json({
-            code: 404,
-            title: "not found",
-            message: "The appointment has not been found",
+const getAllAppointments = async (req, res, next) => {
+    try {
+        const appointments = await findAllAppointments();
+        return res.status(200).json({
+            code: 200,
+            title: "success",
+            message: "Appointments retrieved successfully.",
+            data: appointments
         });
+    } catch (error) {
+        next(error);
     }
-
-    const appointment = await findAppointment(id_appointment);
-    res.status(200).json(appointment);
 };
 
 /**
@@ -42,11 +30,48 @@ const getAppointment = async (req, res) => {
  * Se encarga de manejar la solicitud GET /vettion/clean_services.
  * @param {*} req Objeto de solicitud.
  * @param {*} res Objeto de respuesta.
+ * @param {*} next Función middleware para manejar errores.
  * @returns Devuelve un JSON estandarizado con el código de estado 200 y un array de todos los servicios de limpieza.
  */
-const getCleanServices = async (req, res) => {
-    const cleanServices = await findAllCleanServices();
-    return res.status(200).json(cleanServices);
+const getAllCleanServices = async (req, res, next) => {
+    try {
+        const cleanServices = await findAllCleanServices();
+        return res.status(200).json(cleanServices);
+    } catch (error) {
+        next(error);
+    }
+};
+
+/**
+ * Función para obtener una cita específica por su id.
+ * Se encarga de manejar la solicitud GET /vettion/appointments/:id_appointment.
+ * @param {*} req Objeto de solicitud.
+ * @param {*} res Objeto de respuesta.
+ * @param {*} next Función middleware para manejar errores.
+ * @returns Devuelve un JSON estandarizado con el código de estado 200 y los datos de la cita solicitada
+ * o el código de estado 404 si no se encuentra.
+ */
+const getAppointmentById = async (req, res, next) => {
+    try {
+        const { id_appointment } = req.params;
+        const appointment = await findAppointmentById(id_appointment);
+
+        if (!appointment) {
+            return res.status(404).json({
+                code: 404,
+                title: "not found",
+                message: `Appointment with id ${id_appointment} not found`,
+            });
+        }
+        return res.status(200).json({
+            code: 200,
+            title: "success",
+            message: "Appointment retrieved successfully.",
+            data: appointment
+        });
+    } catch (error) {
+        next(error);
+    }
 };
 
 /**
@@ -54,22 +79,32 @@ const getCleanServices = async (req, res) => {
  * Se encarga de manejar la solicitud GET /vettion/clean_services/:id_clean_service.
  * @param {*} req Objeto de solicitud.
  * @param {*} res Objeto de respuesta.
+ * @param {*} next Función middleware para manejar errores.
  * @returns Devuelve un JSON estandarizado con el código de estado 200 y los datos del servicio de limpieza solicitado
  * o el código de estado 404 si no se encuentra.
  */
-const getCleanService = async (req, res) => {
-    const id_clean_service = req.params.id_clean_service;
+const getCleanServiceById = async (req, res, next) => {
+    try {
+        const { id_clean_service } = req.params;
+        const cleanService = await findCleanServiceById(id_clean_service);
 
-    if (!(await cleanServiceExistsById(id_clean_service))) {
-        return res.status(404).json({
-            code: 404,
-            title: "not found",
-            message: "The clean service has not been found",
+        if (!cleanService) {
+            return res.status(404).json({
+                code: 404,
+                title: "not found",
+                message: `Clean service with id ${id_clean_service} not found`,
+            });
+        }
+
+        res.status(200).json({
+            code: 200,
+            title: "success",
+            message: "Clean service retrieved successfully.",
+            data: cleanService
         });
+    } catch (error) {
+        next(error);
     }
-
-    const cleanService = await findCleanService(id_clean_service);
-    res.status(200).json(cleanService);
 };
 
 /**
@@ -77,24 +112,23 @@ const getCleanService = async (req, res) => {
  * Se encarga de manejar la solicitud POST /vettion/appointments.
  * @param {*} req Objeto de solicitud.
  * @param {*} res Objeto de respuesta.
+ * @param {*} next Función middleware para manejar errores.
  * @returns Devuelve un JSON estandarizado con el código de estado 201 y un mensaje de confirmación.
  */
-const postAppointment = async (req, res) => {
-    const date_appointment = req.body.date_appointment;
-    const start_time = req.body.start_time;
-    const consult_room = req.body.consult_room;
-    const observations = req.body.observations;
-    const pet_id = req.body.pet_id;
-    const consult_id = req.body.consult_id;
-    const veterinarian_dni = req.body.veterinarian_dni;
-    const cleaner_dni = req.body.cleaner_dni;
+const postAppointment = async (req, res, next) => {
+    try {
+        const id_appointment = await createAppointment(req.body);
+        const newAppointment = await findAppointmentById(id_appointment);
 
-    await createAppointment(date_appointment, start_time, consult_room, observations, pet_id, consult_id, veterinarian_dni, cleaner_dni);
-    res.status(201).json({
-        code: 201,
-        title: "created",
-        message: "The appointment has been created.",
-    });
+        res.status(201).json({
+            code: 201,
+            title: "created",
+            message: "Appointment created successfully.",
+            data: newAppointment
+        });
+    } catch (error) {
+        next(error);
+    }
 };
 
 /**
@@ -102,30 +136,36 @@ const postAppointment = async (req, res) => {
  * Se encarga de manejar la solicitud PUT /vettion/appointments/:id_appointment.
  * @param {*} req Objeto de solicitud.
  * @param {*} res Objeto de respuesta.
+ * @param {*} next Función middleware para manejar errores.
  * @returns Devuelve un JSON estandarizado con el código de estado 204 y un mensaje de confirmación
  * o el código de estado 404 si no se encuentra.
  */
-const putAppointment = async (req, res) => {
-    const id_appointment = req.params.id_appointment;
+const putAppointment = async (req, res, next) => {
+    try {
+        const { id_appointment } = req.params;
+        const appointmentData = req.body;
 
-    if (!(await appointmentExistsById(id_appointment))) {
-        return res.status(404).json({
-            code: 404,
-            title: "not found",
-            message: "The appointment does not exist.",
+        await modifyAppointment(id_appointment, appointmentData);
+
+        const updatedAppointment = await findAppointmentById(id_appointment);
+
+        if (!updatedAppointment) {
+            return res.status(404).json({
+                code: 404,
+                title: "not found",
+                message: `Appointment with id ${id_appointment} not found aftrer update.`,
+            });
+        }
+        res.status(200).json({
+            code: 200,
+            title: "success",
+            message: "Appointment updated successfully.",
+            data: updatedAppointment
         });
+
+    } catch (error) {
+        next(error);
     }
-
-    const date_appointment = req.body.date_appointment;
-    const start_time = req.body.start_time;
-    const consult_room = req.body.consult_room;
-    const observations = req.body.observations;
-    const pet_id = req.body.pet_id;
-    const consult_id = req.body.consult_id;
-    const veterinarian_dni = req.body.veterinarian_dni;
-
-    await modifyAppointment(id_appointment, date_appointment, start_time, consult_room, observations, pet_id, consult_id, veterinarian_dni);
-    res.status(204).end();
 };
 
 /**
@@ -133,22 +173,36 @@ const putAppointment = async (req, res) => {
  * Se encarga de manejar la solicitud PUT /vettion/clean_services/:id_clean_service.
  * @param {*} req Objeto de solicitud.
  * @param {*} res Objeto de respuesta.
+ * @param {*} next Función middleware para manejar errores.
  * @returns Devuelve un JSON estandarizado con el código de estado 204 y un mensaje de confirmación
  * o el código de estado 404 si no se encuentra.
  */
-const putCleanService = async (req, res) => {
-    const id_clean_service = req.params.id_clean_service;
-    if (!(await cleanServiceExistsById(id_clean_service))) {
-        return res.status(404).json({
-            code: 404,
-            title: "not found",
-            message: "The clean service does not exist.",
+const putCleanService = async (req, res, next) => {
+    try {
+        const { id_clean_service } = req.params;
+        const cleanServiceData = req.body;
+
+        await modifyCleanService(id_clean_service, cleanServiceData);
+
+        const updatedCleanService = await findCleanServiceById(id_clean_service);
+
+        if (!updatedCleanService) {
+            return res.status(404).json({
+                code: 404,
+                title: "not found",
+                message: `Clean service with id ${id_clean_service} not found after update.`,
+            });
+        }
+        res.status(200).json({
+            code: 200,
+            title: "success",
+            message: "Clean service updated successfully.",
+            data: updatedCleanService
         });
+
+    } catch (error) {
+        next(error);
     }
-    const cleaner_dni = req.body.cleaner_dni;
-    const observations = req.body.observations;
-    await modifyCleanService(id_clean_service, cleaner_dni, observations);
-    res.status(204).end();
 };
 
 /**
@@ -156,32 +210,50 @@ const putCleanService = async (req, res) => {
  * Se encarga de manejar la solicitud DELETE /vettion/appointments/:id_appointment.
  * @param {*} req Objeto de solicitud.
  * @param {*} res Objeto de respuesta.
+ * @param {*} next Función middleware para manejar errores.
  * @returns Devuelve un JSON estandarizado con el código de estado 204 y un mensaje de confirmación
  * o el código de estado 404 si no se encuentra.
  */
-const deleteAppointment = async (req, res) => {
-    const id_appointment = req.params.id_appointment;
+const deleteAppointment = async (req, res, next) => {
+    try {
+        const { id_appointment } = req.params;
 
-    if (!(await appointmentExistsById(id_appointment))) {
-        return res.status(404).json({
-            code: 404,
-            title: "not found",
-            message: "The appointment does not exist.",
+        const deleteCountCleanService = await removeCleanService(id_appointment);
+        
+        if (deleteCountCleanService === 0) {
+            return res.status(404).json({
+                code: 404,
+                title: "not found",
+                message: `Clean service with appointment id ${id_appointment} not found.`,
+            });
+        }
+        const deleteCountAppointment = await removeAppointment(id_appointment);
+
+        if (deleteCountAppointment === 0) {
+            return res.status(404).json({
+                code: 404,
+                title: "not found",
+                message: `Appointment with id ${id_appointment} not found.`,
+            });
+        }
+
+        res.status(200).json({
+            code: 200,
+            title: "success",
+            message: `Appointment with id ${id_appointment} and its associated clean service deleted successfully.`,
         });
+    } catch (error) {
+        next(error);
     }
-
-    await removeAppointment(id_appointment);
-    await removeCleanService(id_appointment);
-    res.status(204).end();
-}
+};
 
 module.exports = {
-    getAppointments,
-    getAppointment,
-    getCleanServices,
-    getCleanService,
+    getAllAppointments,
+    getAllCleanServices,
+    getAppointmentById,
+    getCleanServiceById,
     postAppointment,
     putAppointment,
     putCleanService,
-    deleteAppointment
+    deleteAppointment,
 };

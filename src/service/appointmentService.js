@@ -16,7 +16,7 @@ const findAllAppointments = async () => {
  * @param {*} id_appointment
  * @returns
  */
-const findAppointment = async (id_appointment) => {
+const findAppointmentById = async (id_appointment) => {
   return await db("appointment")
     .select("*")
     .where({ id_appointment: id_appointment })
@@ -36,7 +36,7 @@ const findAllCleanServices = async () => {
  * @param {*} id_clean_service
  * @returns
  */
-const findCleanService = async (id_clean_service) => {
+const findCleanServiceById = async (id_clean_service) => {
   return await db("clean_service")
     .select("*")
     .where({ id_clean_service: id_clean_service })
@@ -53,20 +53,14 @@ const findCleanService = async (id_clean_service) => {
  * @param {*} veterinarian_dni
  * @returns
  */
-const createAppointment = async (
-  date_appointment,
-  start_time,
-  consult_room,
-  observations,
-  pet_id,
-  consult_id,
-  veterinarian_dni,
-  cleaner_dni,
-) => {
+const createAppointment = async (appointmentData) => {
+
+  const { date_appointment, start_time, consult_room, observations, pet_id, consult_id, veterinarian_dni, cleaner_dni } = appointmentData;
+
   // Obtener la duración de la consulta.
   const consultDuration = await db("consult")
     .select("duration")
-    .where("id_consult", consult_id)
+    .where({ id_consult: consult_id })
     .first();
 
   console.log("Resultado de la consulta:", consultDuration);
@@ -94,14 +88,14 @@ const createAppointment = async (
     .join(":");
 
   const [appointmentId] = await db("appointment").insert({
-    date_appointment: date_appointment,
-    start_time: start_time,
+    date_appointment,
+    start_time,
     end_time: end_hour_consult,
-    consult_room: consult_room,
-    observations: observations,
-    pet_id: pet_id,
-    consult_id: consult_id,
-    veterinarian_dni: veterinarian_dni,
+    consult_room,
+    observations,
+    pet_id,
+    consult_id,
+    veterinarian_dni,
   });
 
   //Asignación del personal de limpieza a la sala después de cada cita.
@@ -109,14 +103,11 @@ const createAppointment = async (
     date_service: date_appointment,
     start_time: end_hour_consult,
     end_time: end_hour_with_cleaning,
-    cleaner_dni: cleaner_dni,
+    cleaner_dni,
     appointment_id: appointmentId,
   });
 
-  //De momento solo es una prueba para comprobar que funciona la asignación del personal de limpieza a la sala.
-  //TODO Falta implementar que busque el primero que esté libre en la lista de personal. Añadir ademas que no haya hecho 8 horas diarias??
-
-  return { appointmentId, success: true };
+  return appointmentId;
 };
 
 /**
@@ -131,16 +122,9 @@ const createAppointment = async (
  * @param {*} veterinarian_dni
  * @returns
  */
-const modifyAppointment = async (
-  id_appointment,
-  date_appointment,
-  start_time,
-  consult_room,
-  observations,
-  pet_id,
-  consult_id,
-  veterinarian_dni,
-) => {
+const modifyAppointment = async (id_appointment, appointmentData) => {
+
+  const { date_appointment, start_time, consult_room, observations, pet_id, consult_id, veterinarian_dni } = appointmentData;
   //Comprobamos que lo que si se ha cambiado es la hora de inicio entonces repetimos el mismo proceso que en la creación de la
   //cita para actualizar también la hora de fin de la cita y del servicio de limpieza.
   const previousStartHour = await db("appointment")
@@ -158,7 +142,7 @@ const modifyAppointment = async (
     // Obtener la duración del servicio asociado a la sala para calcular la hora de fin de la cita
     const consultDuration = await db("consult")
       .select("duration")
-      .where("id_consult", consult_id)
+      .where({ id_consult: consult_id })
       .first();
 
     console.log("Resultado de la consulta:", consultDuration);
@@ -189,14 +173,14 @@ const modifyAppointment = async (
       .join(":");
 
     await db("appointment").where({ id_appointment: id_appointment }).update({
-      date_appointment: date_appointment,
-      start_time: start_time,
+      date_appointment,
+      start_time,
       end_time: end_hour_consult,
-      consult_room: consult_room,
-      observations: observations,
-      pet_id: pet_id,
-      consult_id: consult_id,
-      veterinarian_dni: veterinarian_dni,
+      consult_room,
+      observations,
+      pet_id,
+      consult_id,
+      veterinarian_dni,
     });
 
     await db("clean_service").update({
@@ -205,17 +189,17 @@ const modifyAppointment = async (
     });
   } else {
     await db("appointment").where({ id_appointment: id_appointment }).update({
-      date_appointment: date_appointment,
-      start_time: start_time,
-      consult_room: consult_room,
-      observations: observations,
-      pet_id: pet_id,
-      consult_id: consult_id,
-      veterinarian_dni: veterinarian_dni,
+      date_appointment,
+      start_time,
+      consult_room,
+      observations,
+      pet_id,
+      consult_id,
+      veterinarian_dni,
     });
   }
 
-  return { id_appointment: id_appointment, success: true };
+  return id_appointment;
 };
 
 /**
@@ -225,14 +209,11 @@ const modifyAppointment = async (
  * @param {*} observations 
  * @returns 
  */
-const modifyCleanService = async (
-  id_clean_service,
-  cleaner_dni,
-  observations,
-) => {
+const modifyCleanService = async (id_clean_service, cleanServiceData) => {
+  const { cleaner_dni, observations } = cleanServiceData;
   return await db("clean_service")
     .where({ id_clean_service: id_clean_service })
-    .update({ cleaner_dni: cleaner_dni, observations: observations });
+    .update({ cleaner_dni, observations });
 };
 
 /**
@@ -248,44 +229,18 @@ const removeAppointment = async (id_appointment) => {
 
 const removeCleanService = async (id_appointment) => {
   return await db("clean_service")
-    .where("appointment_id", id_appointment)
+    .where({ appointment_id: id_appointment })
     .del();
-};
-
-/**
- * Funcion para verificar si una cita existe por su id.
- * @param {*} id_appointment
- * @returns
- */
-const appointmentExistsById = async (id_appointment) => {
-  const appointment = await db("appointment")
-    .where("id_appointment", id_appointment)
-    .first();
-  return appointment != null;
-};
-
-/**
- * Funcion para verificar si un servicio de limpieza existe por su id.
- * @param {*} id_clean_service
- * @returns
- */
-const cleanServiceExistsById = async (id_clean_service) => {
-  const cleanService = await db("clean_service")
-    .where("id_clean_service", id_clean_service)
-    .first();
-  return cleanService != null;
 };
 
 module.exports = {
   findAllAppointments,
-  findAppointment,
+  findAppointmentById,
   findAllCleanServices,
-  findCleanService,
+  findCleanServiceById,
   createAppointment,
   modifyAppointment,
   modifyCleanService,
   removeAppointment,
-  removeCleanService,
-  appointmentExistsById,
-  cleanServiceExistsById,
+  removeCleanService
 };

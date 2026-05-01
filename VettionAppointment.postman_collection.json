@@ -20,14 +20,13 @@
           "raw": "{\r\n    \"dni\":\"73134044R\",\r\n    \"name\":\"Laura\",\r\n    \"surname\":\"García\",\r\n    \"phone\":\"678901234\",\r\n    \"email\":\"laura.garcia@example.com\"\r\n}"
         },
         "url": {
-          "raw": "http://localhost:8080/vettion/appointments",
+          "raw": "http://localhost:8080/appointments",
           "protocol": "http",
           "host": [
             "localhost"
           ],
           "port": "8080",
           "path": [
-            "vettion",
             "appointments"
           ]
         }
@@ -47,14 +46,13 @@
           "raw": "{\r\n    \"dni\":\"73134044R\",\r\n    \"name\":\"Laura\",\r\n    \"surname\":\"García\",\r\n    \"phone\":\"678901234\",\r\n    \"email\":\"laura.garcia@example.com\"\r\n}"
         },
         "url": {
-          "raw": "http://localhost:8080/vettion/clean_services",
+          "raw": "http://localhost:8080/clean_services",
           "protocol": "http",
           "host": [
             "localhost"
           ],
           "port": "8080",
           "path": [
-            "vettion",
             "clean_services"
           ]
         }
@@ -74,14 +72,13 @@
           "raw": "{\r\n    \"dni\":\"73134044R\",\r\n    \"name\":\"Laura\",\r\n    \"surname\":\"García\",\r\n    \"phone\":\"678901234\",\r\n    \"email\":\"laura.garcia@example.com\"\r\n}"
         },
         "url": {
-          "raw": "http://localhost:8080/vettion/appointments/1",
+          "raw": "http://localhost:8080/appointments/1",
           "protocol": "http",
           "host": [
             "localhost"
           ],
           "port": "8080",
           "path": [
-            "vettion",
             "appointments",
             "1"
           ]
@@ -102,14 +99,13 @@
           "raw": "{\r\n    \"dni\":\"73134044R\",\r\n    \"name\":\"Laura\",\r\n    \"surname\":\"García\",\r\n    \"phone\":\"678901234\",\r\n    \"email\":\"laura.garcia@example.com\"\r\n}"
         },
         "url": {
-          "raw": "http://localhost:8080/vettion/clean_services/1",
+          "raw": "http://localhost:8080/clean_services/1",
           "protocol": "http",
           "host": [
             "localhost"
           ],
           "port": "8080",
           "path": [
-            "vettion",
             "clean_services",
             "1"
           ]
@@ -132,14 +128,13 @@
           }
         },
         "url": {
-          "raw": "http://localhost:8080/vettion/appointments",
+          "raw": "http://localhost:8080/appointments",
           "protocol": "http",
           "host": [
             "localhost"
           ],
           "port": "8080",
           "path": [
-            "vettion",
             "appointments"
           ]
         }
@@ -153,7 +148,7 @@
         "header": [],
         "body": {
           "mode": "raw",
-          "raw": "{\r\n    \"date_appointment\":\"2026-03-15\",\r\n    \"start_time\":\"12:00\",\r\n    \"consult_room\":1,\r\n    \"observations\": \"SOS\",\r\n    \"pet_id\":1,\r\n    \"consult_id\":2,\r\n    \"veterinarian_dni\":\"10101010V\"\r\n}",
+          "raw": "{\r\n    \"date_appointment\":\"2026-03-15\",\r\n    \"start_time\":\"12:30\",\r\n    \"consult_room\":1,\r\n    \"observations\": \"SOS\",\r\n    \"pet_id\":1,\r\n    \"consult_id\":2,\r\n    \"veterinarian_dni\":\"10101010V\"\r\n}",
           "options": {
             "raw": {
               "language": "json"
@@ -161,16 +156,15 @@
           }
         },
         "url": {
-          "raw": "http://localhost:8080/vettion/appointments/4",
+          "raw": "http://localhost:8080/appointments/2",
           "protocol": "http",
           "host": [
             "localhost"
           ],
           "port": "8080",
           "path": [
-            "vettion",
             "appointments",
-            "4"
+            "2"
           ]
         }
       },
@@ -183,7 +177,7 @@
         "header": [],
         "body": {
           "mode": "raw",
-          "raw": "{\r\n    \"cleaner_dni\":\"33445566L\",\r\n    \"observations\":\"Se debe actualizar el stock de bisturies.\"\r\n}",
+          "raw": "{\r\n    \"cleaner_dni\":\"33445566L\",\r\n    \"observations\":\"Actualizar el inventario.\"\r\n}",
           "options": {
             "raw": {
               "language": "json"
@@ -191,14 +185,13 @@
           }
         },
         "url": {
-          "raw": "http://localhost:8080/vettion/clean_services/2",
+          "raw": "http://localhost:8080/clean_services/2",
           "protocol": "http",
           "host": [
             "localhost"
           ],
           "port": "8080",
           "path": [
-            "vettion",
             "clean_services",
             "2"
           ]
@@ -216,14 +209,13 @@
           "raw": "{\r\n    \"dni\":\"73134044R\",\r\n    \"name\":\"Laura\",\r\n    \"surname\":\"García\",\r\n    \"phone\":\"678901234\",\r\n    \"email\":\"laura.garcia@example.com\"\r\n}"
         },
         "url": {
-          "raw": "http://localhost:8080/vettion/appointments/5",
+          "raw": "http://localhost:8080/appointments/5",
           "protocol": "http",
           "host": [
             "localhost"
           ],
           "port": "8080",
           "path": [
-            "vettion",
             "appointments",
             "5"
           ]
