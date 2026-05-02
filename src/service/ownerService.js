@@ -57,7 +57,7 @@ const addOwner = async (dni_owner, name, surname, phone, email) => {
  * @returns 
  */
 const updateOwner = async (dni_owner, name, surname, phone, email) => {
-    return await db('owner').where({ dni_owner }).update({
+    return await db('owner').where({ dni_owner: dni_owner }).update({
         name,
         surname,
         phone,

@@ -7,6 +7,7 @@ const { findAllOwners, findOwnerByDni, addOwner, updateOwner, removeOwner } = re
  * Devuelve un Json estandarizado con el array de dueños.
  * @param {*} req Objeto de solicitud.
  * @param {*} res Objeto de respuesta.
+ * @param {*} next Función para pasar el control al siguiente middleware en caso de error.
  * @returns Devuelve un JSON con código 200 y un array de dueños.
  */
 const getAllOwners = (async (req, res, next) => {
@@ -27,7 +28,9 @@ const getAllOwners = (async (req, res, next) => {
  * Función para obtener un dueño por su dni.
  * @param {*} req Objeto de solicitud.
  * @param {*} res Objeto de respuesta.
- * @returns Devuelve un JSON con código 200 y los datos del dueño de ese dni.
+ * @param {*} next Función para pasar el control al siguiente middleware en caso de error.
+ * @returns Devuelve un JSON con código 200 y los datos del dueño de ese dni o 
+ * un JSON con código 404 y un mensaje de no encontrado.
  */
 const getOwnerByDni = async (req, res, next) => {
     try {
@@ -57,6 +60,7 @@ const getOwnerByDni = async (req, res, next) => {
  * Función para añadir un nuevo dueño.
  * @param {*} req Objeto de solicitud.
  * @param {*} res Objeto de respuesta.
+ * @param {*} next Función para pasar el control al siguiente middleware en caso de error.
  * @returns Devuelve un JSON con código 201 y un mensaje de éxito o 
  * un JSON con código 409 y un mensaje de conflicto.
  */
@@ -91,6 +95,7 @@ const postOwner = async (req, res, next) => {
  * Función para editar un dueño existente.
  * @param {*} req Objeto de solicitud.
  * @param {*} res Objeto de respuesta.
+ * @param {*} next Función para pasar el control al siguiente middleware en caso de error.
  * @returns Devuelve un JSON con código 204 y un mensaje de éxito o 
  * un JSON con código 404 y un mensaje de no encontrado.
  */
@@ -126,6 +131,7 @@ const putOwner = async (req, res, next) => {
  * Función para eliminar un dueño.
  * @param {*} req Objeto de solicitud.
  * @param {*} res Objeto de respuesta.
+ * @param {*} next Función para pasar el control al siguiente middleware en caso de error.
  * @returns Devuelve un JSON con código 204 o 
  * un JSON con código 404 y un mensaje de no encontrado.
  */
