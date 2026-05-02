@@ -71,9 +71,9 @@ const updateOwner = async (dni_owner, name, surname, phone, email) => {
  * @param {*} dni_owner 
  * @returns 
  */
-const removeOwner = (async (dni_owner) => {
+const removeOwner = async (dni_owner) => {
     return await db('owner').where({ dni_owner: dni_owner }).del();
-});
+};
 
 module.exports = {
     findAllOwners,

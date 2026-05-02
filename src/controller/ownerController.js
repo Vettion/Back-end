@@ -129,20 +129,29 @@ const putOwner = async (req, res, next) => {
  * @returns Devuelve un JSON con código 204 o 
  * un JSON con código 404 y un mensaje de no encontrado.
  */
-const deleteOwner=(async (req, res) => {
-    const dni_owner = req.params.dni_owner;
+const deleteOwner = async (req, res, next) => {
+    try {
+        const { dni_owner } = req.params;
+        const owner = await findOwnerByDni(dni_owner);
 
-    if(!await ownerExistsByDni(dni_owner)){
-        return res.status(404).json({
-            code: 404,
-            title: 'not-found',
-            message: 'The owner has not been found.'
+        if(!owner) {
+            return res.status(404).json({
+                code: 404,
+                title: 'not found',
+                message: `Owner with DNI ${dni_owner} not found`
+            });
+        }
+
+        await removeOwner(dni_owner);
+        res.status(200).json({
+            code: 200,
+            title: 'success',
+            message: `Owner with DNI ${dni_owner} deleted successfully`
         });
+    } catch(error) {
+        next(error);
     }
-
-    await removeOwner(dni_owner);
-    res.status(204).end();
-});
+};
 
 module.exports = {
     getAllOwners,
