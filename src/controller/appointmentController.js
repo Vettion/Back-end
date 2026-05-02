@@ -1,7 +1,6 @@
-const { response } = require("express");
 const { findAllAppointments, findAppointmentById, findAllCleanServices, findCleanServiceById, createAppointment, modifyAppointment,
     modifyCleanService, removeAppointment, removeCleanService } = require("../service/appointmentService");
-const { title } = require("node:process");
+
 
 /**
  * Función para obtener una lista de todas las citas.
@@ -36,7 +35,12 @@ const getAllAppointments = async (req, res, next) => {
 const getAllCleanServices = async (req, res, next) => {
     try {
         const cleanServices = await findAllCleanServices();
-        return res.status(200).json(cleanServices);
+        return res.status(200).json({
+            code: 200,
+            title: "success",
+            message: "Clean services retrieved successfully.",
+            data: cleanServices
+        });
     } catch (error) {
         next(error);
     }
@@ -218,22 +222,25 @@ const deleteAppointment = async (req, res, next) => {
     try {
         const { id_appointment } = req.params;
 
-        const deleteCountCleanService = await removeCleanService(id_appointment);
-        
-        if (deleteCountCleanService === 0) {
+        const appointment = await findAppointmentById(id_appointment);
+
+        if (!appointment) {
             return res.status(404).json({
                 code: 404,
                 title: "not found",
-                message: `Clean service with appointment id ${id_appointment} not found.`,
+                message: `Appointment with id ${id_appointment} not found.`,
             });
         }
+
+        await removeCleanService(id_appointment);
+
         const deleteCountAppointment = await removeAppointment(id_appointment);
 
         if (deleteCountAppointment === 0) {
             return res.status(404).json({
                 code: 404,
                 title: "not found",
-                message: `Appointment with id ${id_appointment} not found.`,
+                message: `Appointment with id ${id_appointment} could not be deleted.`,
             });
         }
 
