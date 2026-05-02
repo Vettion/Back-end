@@ -1,7 +1,4 @@
 const db = require("../configuration/database.js").db;
-const e = require("cors");
-const { homedir, platform } = require("os");
-const { start } = require("repl");
 
 /**
  * Funcion para obtener todas las citas de la base de datos.
@@ -183,10 +180,12 @@ const modifyAppointment = async (id_appointment, appointmentData) => {
       veterinarian_dni,
     });
 
-    await db("clean_service").update({
-      start_time: end_hour_consult,
-      end_time: end_hour_with_cleaning,
-    });
+    await db("clean_service")
+      .where({ appointment_id: id_appointment })
+      .update({
+        start_time: end_hour_consult,
+        end_time: end_hour_with_cleaning,
+      });
   } else {
     await db("appointment").where({ id_appointment: id_appointment }).update({
       date_appointment,
