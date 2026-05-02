@@ -42,12 +42,7 @@ const findCleanServiceById = async (id_clean_service) => {
 
 /**
  * Funcion para crear una nueva cita.
- * @param {*} appointment_date
- * @param {*} start_hour
- * @param {*} observations
- * @param {*} pet_id
- * @param {*} room_id
- * @param {*} veterinarian_dni
+ * @param {*} appointmentData
  * @returns
  */
 const createAppointment = async (appointmentData) => {
@@ -110,13 +105,7 @@ const createAppointment = async (appointmentData) => {
 /**
  * Funcion para modificar una cita existente.
  * @param {*} id_appointment
- * @param {*} date_appointment
- * @param {*} start_time
- * @param {*} consult_room
- * @param {*} observations
- * @param {*} pet_id
- * @param {*} consult_id
- * @param {*} veterinarian_dni
+ * @param {*} appointmentData
  * @returns
  */
 const modifyAppointment = async (id_appointment, appointmentData) => {
@@ -127,11 +116,6 @@ const modifyAppointment = async (id_appointment, appointmentData) => {
   const previousStartHour = await db("appointment")
     .select("start_time")
     .where({ id_appointment: id_appointment })
-    .first();
-
-  const previousCleanerDni = await db("clean_service")
-    .select("cleaner_dni")
-    .where({ appointment_id: id_appointment })
     .first();
 
   //Si se ha modificado al atributo start_hour
@@ -203,9 +187,8 @@ const modifyAppointment = async (id_appointment, appointmentData) => {
 
 /**
  * Función para modificar los atributos cleaner_dni y observations de un servicio de limpieza existente.
- * @param {*} id_clean_service 
- * @param {*} cleaner_dni 
- * @param {*} observations 
+ * @param {*} id_clean_service
+ * @param {*} cleanServiceData
  * @returns 
  */
 const modifyCleanService = async (id_clean_service, cleanServiceData) => {
@@ -226,6 +209,11 @@ const removeAppointment = async (id_appointment) => {
     .del();
 };
 
+/**
+ * Función para eliminar un servicio de limpieza asociado a una cita existente.
+ * @param {} id_appointment 
+ * @returns 
+ */
 const removeCleanService = async (id_appointment) => {
   return await db("clean_service")
     .where({ appointment_id: id_appointment })
