@@ -94,25 +94,33 @@ const postOwner = async (req, res, next) => {
  * @returns Devuelve un JSON con código 204 y un mensaje de éxito o 
  * un JSON con código 404 y un mensaje de no encontrado.
  */
-const putOwner = (async (req, res) => {
-    const dni_owner = req.params.dni_owner;
+const putOwner = async (req, res, next) => {
+    try {
+        const { dni_owner } = req.params;
+        const { name, surname, phone, email } = req.body;
 
-    if (!await ownerExistsByDni(dni_owner)){
-        return res.status(404).json({
-            code: 404,
-            title: 'not-found',
-            message: 'The owner has not been found.'
+        const owner = await findOwnerByDni(dni_owner);
+        if (!owner) {
+            return res.status(404).json({
+                code: 404,
+                title: 'not found',
+                message: `Owner with DNI ${dni_owner} not found`
+            });
+        }
+
+        await updateOwner(dni_owner, name, surname, phone, email);
+        const updatedOwner = await findOwnerByDni(dni_owner);
+
+        res.status(200).json({
+            code: 200,
+            title: 'success',
+            message: `Owner with DNI ${dni_owner} updated successfully`,
+            data: updatedOwner
         });
+    } catch (error) {
+        next(error);
     }
-
-    const name= req.body.name;
-    const surname= req.body.surname;
-    const phone= req.body.phone;
-    const email= req.body.email;
-
-    await editOwner(dni_owner, name, surname, phone, email);
-    res.status(204).end();
-});
+};
 
 /**
  * Función para eliminar un dueño.

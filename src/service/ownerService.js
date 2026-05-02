@@ -57,14 +57,14 @@ const addOwner = async (dni_owner, name, surname, phone, email) => {
  * @param {*} email 
  * @returns 
  */
-const editOwner = (async (dni_owner, name, surname, phone, email) => {
-    return await db('owner').where({ dni_owner: dni_owner }).update({
-        name: name,
-        surname: surname,
-        phone: phone,
-        email: email
+const updateOwner = async (dni_owner, name, surname, phone, email) => {
+    return await db('owner').where({ dni_owner }).update({
+        name,
+        surname,
+        phone,
+        email
     });
-});
+};
 
 /**
  * Función para eliminar un dueño de la base de datos.
@@ -79,6 +79,6 @@ module.exports = {
     findAllOwners,
     findOwnerByDni,
     addOwner,
-    editOwner,
+    updateOwner,
     removeOwner
 }
