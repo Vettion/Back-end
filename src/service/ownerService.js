@@ -1,5 +1,4 @@
 const db = require('../configuration/database.js').db;
-const { homedir, platform } = require('os');
 
 /**
  * Función para obtener todos los dueños de la base de datos.
