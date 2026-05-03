@@ -1,3 +1,4 @@
+const { isWeekend } = require('../utils/isWeekend.js')
 const db = require("../configuration/database.js").db;
 
 /**
@@ -48,6 +49,10 @@ const findCleanServiceById = async (id_clean_service) => {
 const createAppointment = async (appointmentData) => {
 
   const { date_appointment, start_time, consult_room, observations, pet_id, consult_id, veterinarian_dni, cleaner_dni } = appointmentData;
+
+  if (isWeekend(date_appointment)) {
+    throw new Error('La clínica está cerrada los fines de semana, por favor elija otra fecha.')
+  }
 
   // Obtener la duración de la consulta.
   const consultDuration = await db("consult")
