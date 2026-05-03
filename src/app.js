@@ -19,6 +19,19 @@ app.use('/pets', petRouter);
 app.use('/appointments', appointmentRouter);
 app.use('/clean_services', cleanServiceRouter);
 
+app.use((err, req, res, next) => {
+    console.error(err.stack);
+
+    const message = err.message || "Internal Server Error";
+    const status = err.status || 500;
+
+    res.status(status).json({
+        code: status,
+        title: "Error",
+        message: message
+    });
+});
+
 app.listen(8080, () => {
     console.log("Iniciando el backend en el puerto 8080");
 });
