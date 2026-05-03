@@ -50,6 +50,7 @@ const createAppointment = async (appointmentData) => {
 
   const { date_appointment, start_time, consult_room, observations, pet_id, consult_id, veterinarian_dni, cleaner_dni } = appointmentData;
 
+  // Añadimos la funcion creada en (../utils/isWeekend.js) para evitar que se pueda generar una cita en fin de semana.
   if (isWeekend(date_appointment)) {
     throw new Error('La clínica está cerrada los fines de semana, por favor elija otra fecha.')
   }
