@@ -114,7 +114,6 @@ const putOwner = async (req, res, next) => {
         }
 
         await updateOwner(dni_owner, name, surname, phone, email);
-        const updatedOwner = await findOwnerByDni(dni_owner);
 
         res.status(200).json({
             code: 200,

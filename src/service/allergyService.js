@@ -36,8 +36,19 @@ const addAllergy = (async (allergyData) => {
     return newId;
 });
 
+const updateAllergy = (async (id_allergy, allergyData) => {
+    const { name, description } = allergyData;
+    await db('allergy')
+        .where({ id_allergy: id_allergy })
+        .update({
+            name,
+            description
+        });
+});
+
 module.exports = {
     findAllAllergies,
     findAllergyById,
-    addAllergy
-}
+    addAllergy,
+    updateAllergy
+};
