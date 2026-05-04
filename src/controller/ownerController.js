@@ -1,4 +1,4 @@
-// Este archivo implementa las operaciones que se han definido en el /router/ownerRouter.js
+// Este archivo implementa las operaciones que se han definido en el /service/ownerService.js
 
 const { findAllOwners, findOwnerByDni, addOwner, updateOwner, removeOwner } = require('../service/ownerService');
 
@@ -114,7 +114,6 @@ const putOwner = async (req, res, next) => {
         }
 
         await updateOwner(dni_owner, name, surname, phone, email);
-        const updatedOwner = await findOwnerByDni(dni_owner);
 
         res.status(200).json({
             code: 200,
