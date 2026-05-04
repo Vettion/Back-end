@@ -22,11 +22,12 @@ const validateAppointmentId = [
   * Cadena de validaciones para la creacion de una nueva cita.
   * Se aplica a la ruta de POST /vettion/appointment/:id_appointment.
   * * Reglas: 
-  * 1. El campo 'appointment_date' es obligatorio y debe ser una fecha valida.
-  * 2. El campo 'start_hour' es obligatorio y debe ser una hora valida.
+  * 1. El campo 'date_appointment' es obligatorio y debe ser una fecha valida.
+  * 2. El campo 'start_time' es obligatorio y debe ser una hora valida.
   * 3. El campo 'pet_id' es obligatorio y debe ser un numero entero positivo y que exista en la tabla de mascotas.
-  * 4. El campo 'room_id' es obligatorio y debe ser un numero entero positivo y que exista en la tabla de salas.
+  * 4. El campo 'consult_room' es obligatorio y debe ser un numero entero positivo y que exista en la tabla de salas.
   * 5. El campo 'veterinarian_dni' es obligatorio y debe ser una cadena de texto y tener 9 caracteres.
+  * 6. El campo 'cleaner_dni' es obligatorio y debe ser una cadena de texto y tener 9 caracteres.
   */
 const validateAddAppointment = [
     body('date_appointment')

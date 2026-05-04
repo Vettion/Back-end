@@ -1,3 +1,6 @@
+const { isWeekend } = require("../utils/isWeekend.js");
+const { endHourAppointment } = require("../utils/endHourAppointment.js");
+const { start } = require("node:repl");
 const db = require("../configuration/database.js").db;
 
 /**
@@ -46,8 +49,23 @@ const findCleanServiceById = async (id_clean_service) => {
  * @returns
  */
 const createAppointment = async (appointmentData) => {
+  const {
+    date_appointment,
+    start_time,
+    consult_room,
+    observations,
+    pet_id,
+    consult_id,
+    veterinarian_dni,
+    cleaner_dni,
+  } = appointmentData;
 
-  const { date_appointment, start_time, consult_room, observations, pet_id, consult_id, veterinarian_dni, cleaner_dni } = appointmentData;
+  // Añadimos la funcion creada en (../utils/isWeekend.js) para evitar que se pueda generar una cita en fin de semana.
+  if (isWeekend(date_appointment)) {
+    throw new Error(
+      "La clínica está cerrada los fines de semana, por favor elija otra fecha.",
+    );
+  }
 
   // Obtener la duración de la consulta.
   const consultDuration = await db("consult")
@@ -55,51 +73,39 @@ const createAppointment = async (appointmentData) => {
     .where({ id_consult: consult_id })
     .first();
 
-  console.log("Resultado de la consulta:", consultDuration);
   if (!consultDuration) {
     throw new Error("Consult duration not found for the specified consult.");
+  } else {
+    //Llamamos a la función creada en (../utils/endHourAppointment.js) para calcular cuando finaliza la cita y cuando
+    //inicia y termina el servicio de limpieza de la sala.
+    const end_hour_appointment = endHourAppointment(
+      start_time,
+      consultDuration.duration,
+    );
+
+    const [appointmentId] = await db("appointment").insert({
+      date_appointment,
+      start_time,
+      end_time: end_hour_appointment,
+      consult_room,
+      observations,
+      pet_id,
+      consult_id,
+      veterinarian_dni,
+    });
+
+    const end_hour_clean_service = endHourAppointment(end_hour_appointment, 20);
+
+    await db("clean_service").insert({
+      date_service: date_appointment,
+      start_time: end_hour_appointment,
+      end_time: end_hour_clean_service,
+      cleaner_dni,
+      appointment_id: appointmentId,
+    });
+
+    return appointmentId;
   }
-
-  //Convertimos a minutos la hora de inicio y sumamos la duración de la consulta.
-  //Añadimos 20 extra para la finalización de la limpieza de la sala.
-  const [hours, minutes] = start_time.split(":").map(Number);
-  let totalMinutes = hours * 60 + minutes + consultDuration.duration;
-  let totalMinutesWithCleaning = totalMinutes + 20; // Asumimos que el servicio de limpieza dura 20 minutos
-
-  //Convertimos el total de minutos de nuevo a formato HH:MM
-  const endHours = Math.floor(totalMinutes / 60) % 24;
-  const endMinutes = totalMinutes % 60;
-  const end_hour_consult = [endHours, endMinutes]
-    .map((unit) => String(unit).padStart(2, "0"))
-    .join(":");
-
-  const endHoursWithCleaning = Math.floor(totalMinutesWithCleaning / 60) % 24;
-  const endMinutesWithCleaning = totalMinutesWithCleaning % 60;
-  const end_hour_with_cleaning = [endHoursWithCleaning, endMinutesWithCleaning]
-    .map((unit) => String(unit).padStart(2, "0"))
-    .join(":");
-
-  const [appointmentId] = await db("appointment").insert({
-    date_appointment,
-    start_time,
-    end_time: end_hour_consult,
-    consult_room,
-    observations,
-    pet_id,
-    consult_id,
-    veterinarian_dni,
-  });
-
-  //Asignación del personal de limpieza a la sala después de cada cita.
-  await db("clean_service").insert({
-    date_service: date_appointment,
-    start_time: end_hour_consult,
-    end_time: end_hour_with_cleaning,
-    cleaner_dni,
-    appointment_id: appointmentId,
-  });
-
-  return appointmentId;
 };
 
 /**
@@ -109,10 +115,24 @@ const createAppointment = async (appointmentData) => {
  * @returns
  */
 const modifyAppointment = async (id_appointment, appointmentData) => {
+  const {
+    date_appointment,
+    start_time,
+    consult_room,
+    observations,
+    pet_id,
+    consult_id,
+    veterinarian_dni,
+  } = appointmentData;
 
-  const { date_appointment, start_time, consult_room, observations, pet_id, consult_id, veterinarian_dni } = appointmentData;
-  //Comprobamos que lo que si se ha cambiado es la hora de inicio entonces repetimos el mismo proceso que en la creación de la
-  //cita para actualizar también la hora de fin de la cita y del servicio de limpieza.
+  // Añadimos la funcion creada en (../utils/isWeekend.js) para evitar que se pueda modificar una cita en fin de semana.
+  if (isWeekend(date_appointment)) {
+    throw new Error(
+      "La clínica está cerrada los fines de semana, por favor elija otra fecha.",
+    );
+  }
+
+  //Comprobamos que lo que si se ha cambiado es la hora de inicio entonces llamamos a la función endHourAppointment
   const previousStartHour = await db("appointment")
     .select("start_time")
     .where({ id_appointment: id_appointment })
@@ -126,37 +146,17 @@ const modifyAppointment = async (id_appointment, appointmentData) => {
       .where({ id_consult: consult_id })
       .first();
 
-    console.log("Resultado de la consulta:", consultDuration);
     if (!consultDuration) {
       throw new Error("Consult duration not found for the specified room.");
     }
+    else{
+      const end_hour_appointment = endHourAppointment(start_time, consultDuration.duration);
+      const end_hour_with_cleaning = endHourAppointment(end_hour_appointment, 20);
 
-    //Convertimos a minutos la hora de inicio y sumamos la duración del servicio.
-    //Añadimos 20 extra para la finalización de la limpieza de la sala.
-    const [hours, minutes] = start_time.split(":").map(Number);
-    let totalMinutes = hours * 60 + minutes + consultDuration.duration;
-    let totalMinutesWithCleaning = totalMinutes + 20; // Asumimos que el servicio de limpieza dura 20 minutos
-
-    //Convertimos el total de minutos de nuevo a formato HH:MM
-    const endHours = Math.floor(totalMinutes / 60) % 24;
-    const endMinutes = totalMinutes % 60;
-    const end_hour_consult = [endHours, endMinutes]
-      .map((unit) => String(unit).padStart(2, "0"))
-      .join(":");
-
-    const endHoursWithCleaning = Math.floor(totalMinutesWithCleaning / 60) % 24;
-    const endMinutesWithCleaning = totalMinutesWithCleaning % 60;
-    const end_hour_with_cleaning = [
-      endHoursWithCleaning,
-      endMinutesWithCleaning,
-    ]
-      .map((unit) => String(unit).padStart(2, "0"))
-      .join(":");
-
-    await db("appointment").where({ id_appointment: id_appointment }).update({
+      await db("appointment").where({ id_appointment: id_appointment }).update({
       date_appointment,
       start_time,
-      end_time: end_hour_consult,
+      end_time: end_hour_appointment,
       consult_room,
       observations,
       pet_id,
@@ -164,12 +164,12 @@ const modifyAppointment = async (id_appointment, appointmentData) => {
       veterinarian_dni,
     });
 
-    await db("clean_service")
-      .where({ appointment_id: id_appointment })
-      .update({
-        start_time: end_hour_consult,
-        end_time: end_hour_with_cleaning,
-      });
+    await db("clean_service").where({ appointment_id: id_appointment }).update({
+      start_time: end_hour_appointment,
+      end_time: end_hour_with_cleaning,
+    });
+
+    }
   } else {
     await db("appointment").where({ id_appointment: id_appointment }).update({
       date_appointment,
@@ -181,7 +181,7 @@ const modifyAppointment = async (id_appointment, appointmentData) => {
       veterinarian_dni,
     });
   }
-
+  
   return id_appointment;
 };
 
@@ -189,7 +189,7 @@ const modifyAppointment = async (id_appointment, appointmentData) => {
  * Función para modificar los atributos cleaner_dni y observations de un servicio de limpieza existente.
  * @param {*} id_clean_service
  * @param {*} cleanServiceData
- * @returns 
+ * @returns
  */
 const modifyCleanService = async (id_clean_service, cleanServiceData) => {
   const { cleaner_dni, observations } = cleanServiceData;
@@ -211,8 +211,8 @@ const removeAppointment = async (id_appointment) => {
 
 /**
  * Función para eliminar un servicio de limpieza asociado a una cita existente.
- * @param {} id_appointment 
- * @returns 
+ * @param {} id_appointment
+ * @returns
  */
 const removeCleanService = async (id_appointment) => {
   return await db("clean_service")
@@ -229,5 +229,5 @@ module.exports = {
   modifyAppointment,
   modifyCleanService,
   removeAppointment,
-  removeCleanService
+  removeCleanService,
 };
