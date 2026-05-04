@@ -1,6 +1,6 @@
 // Archivo en el que accedemos a la base de datos a por la información requerida y realizamos las operaciones de logica necesarias
 
-const db = require ('../configuration/database.js').db;
+const db = require('../configuration/database.js').db;
 
 /**
  * Metodo para obtener todas las mascotas de la base de datos.
@@ -10,21 +10,21 @@ const findAllPets = async () => {
     const pets = await db('pet')
         .join('owner', 'pet.owner_dni', 'owner.dni_owner')
         .select('pet.*', 'owner.name as owner_name', 'owner.surname as owner_surname');
-    
+
     const petsWithAllergies = await Promise.all(
-        pets.map(async (pet) =>{
+        pets.map(async (pet) => {
             const allergies = await db('have_allergy')
                 .where('have_allergy.pet_id', pet.id_pet)
                 .join('allergy', 'have_allergy.allergy_id', 'allergy.id_allergy')
                 .select('allergy.id_allergy', 'allergy.name', 'allergy.description');
-            
+
             return {
                 id: pet.id_pet,
                 name: pet.name,
                 type: pet.type,
                 breed: pet.breed,
                 weight: pet.weight,
-                sex:pet.sex,
+                sex: pet.sex,
                 birth_date: pet.birth_date,
                 owner_dni: pet.owner_dni,
                 owner_name: pet.owner_name,
@@ -48,14 +48,14 @@ const findPetById = async (id) => {
         .join('owner', 'pet.owner_dni', 'owner.dni_owner')
         .select('pet.*', 'owner.name as owner_name', 'owner.surname as owner_surname')
         .first();
-    
+
     if (!pet) return null;
 
     const allergies = await db('have_allergy')
         .where('have_allergy.pet_id', pet.id_pet)
         .join('allergy', 'have_allergy.allergy_id', 'allergy.id_allergy')
         .select('allergy.id_allergy', 'allergy.name', 'allergy.description');
-    
+
     pet.allergies = allergies;
 
     return pet;
@@ -68,9 +68,15 @@ const findPetById = async (id) => {
  */
 const addPet = async (petData) => {
     const { name, type, breed, weight, sex, birth_date, owner_dni, allergies } = petData;
+
+    const existingPet = await db('pet').where({ name: name, type: type, breed: breed, birth_date: birth_date, owner_dni: owner_dni }).first();
+
+    if (existingPet) {
+        throw new Error(`Pet with name ${name}, type ${type}, breed ${breed}, birth date ${birth_date}, and owner DNI ${owner_dni} already registered.`);
+    }
     const [newId] = await db('pet').insert({
-        name, 
-        type, 
+        name,
+        type,
         breed,
         weight,
         sex,
@@ -78,12 +84,13 @@ const addPet = async (petData) => {
         owner_dni
     });
 
-    if(allergies && allergies.length > 0) {
+    if (allergies && allergies.length > 0) {
         const allergyInserts = allergies.map(allergyId => ({
             pet_id: newId,
             allergy_id: allergyId
         }));
         await db('have_allergy').insert(allergyInserts);
+
     }
 
     return newId;
@@ -97,23 +104,23 @@ const addPet = async (petData) => {
  * @returns {Promise<void>} - No devuelve ningun valor. Ejecuta la operacion en la base de datos.
  */
 const updatePet = async (id, petData) => {
-    const { name, type, breed, weight, sex, birth_date, owner_dni, allergies} = petData;
+    const { name, type, breed, weight, sex, birth_date, owner_dni, allergies } = petData;
     await db('pet')
         .where({ id_pet: id })
         .update({
             name,
-            type, 
-            breed, 
+            type,
+            breed,
             weight,
             sex,
-            birth_date, 
+            birth_date,
             owner_dni
-    });
+        });
 
-    if(allergies) {
+    if (allergies) {
         await db('have_allergy').where('pet_id', id).del();
 
-        if(allergies.length > 0) {
+        if (allergies.length > 0) {
             const allergyInserts = allergies.map(allergyId => ({
                 pet_id: id,
                 allergy_id: allergyId
