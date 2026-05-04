@@ -1,4 +1,4 @@
-// Este archivo implementa las operaciones que se han definido en el /router/ownerRouter.js
+// Este archivo implementa las operaciones que se han definido en el /service/ownerService.js
 
 const { findAllOwners, findOwnerByDni, addOwner, updateOwner, removeOwner } = require('../service/ownerService');
 
