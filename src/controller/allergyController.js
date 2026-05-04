@@ -1,6 +1,6 @@
 // Este archivo implementa las operaciones que se han definido en el /service/allergyService.js
 const { put } = require('../router/appointmentRouter.js');
-const { findAllAllergies, findAllergyById, addAllergy, updateAllergy } = require('../service/allergyService.js');
+const { findAllAllergies, findAllergyById, addAllergy, updateAllergy, removeAllergy } = require('../service/allergyService.js');
 
 /**
  * Función para obtener el listado de todas las alergias.
@@ -111,9 +111,41 @@ const putAllergy = (async (req, res, next) => {
     }
 });
 
+/**
+ * Función para eliminar una alergia.
+ * @param {*} req Objeto de solicitud.
+ * @param {*} res Objeto de respuesta.
+ * @param {*} next Función para pasar el control al siguiente middleware en caso de error.
+ * @returns Devuelve un JSON con código 200 y un mensaje de éxito o un error 404 si no se encuentra.
+ */
+const deleteAllergy = (async (req, res, next) => {
+    try {
+        const { id_allergy } = req.params;
+        const allergy = await findAllergyById(id_allergy);
+
+        if (!allergy) {
+            return res.status(404).json({
+                code: 404,
+                title: 'not found',
+                message: `Allergy with id ${id_allergy} not found.`
+            });
+        }
+
+        await removeAllergy(id_allergy);
+        res.status(200).json({
+            code: 200,
+            title: 'success',
+            message: `Allergy with id ${id_allergy} deleted successfully.`
+        });
+    } catch (error) {
+        next(error);
+    }
+});
+
 module.exports = {
     getAllAllergies,
     getAllergyById,
     postAllergy,
-    putAllergy
+    putAllergy,
+    deleteAllergy
 };

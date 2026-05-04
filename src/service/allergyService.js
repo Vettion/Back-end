@@ -36,6 +36,12 @@ const addAllergy = (async (allergyData) => {
     return newId;
 });
 
+/**
+ * Función para actualizar una alergia existente.
+ * @param {number} id_allergy - El id de la alergia a actualizar.
+ * @param {Object} allergyData - Los datos de la alergia a actualizar.
+ * @returns {Promise<void>} Devuelve una promesa que se resuelve cuando la alergia es actualizada.
+ */
 const updateAllergy = (async (id_allergy, allergyData) => {
     const { name, description } = allergyData;
     await db('allergy')
@@ -46,9 +52,21 @@ const updateAllergy = (async (id_allergy, allergyData) => {
         });
 });
 
+/**
+ * Función para eliminar una alergia.
+ * @param {number} id_allergy - El id de la alergia a eliminar.
+ * @returns {Promise<void>} Devuelve una promesa que se resuelve cuando la alergia es eliminada.
+ */
+const removeAllergy = (async (id_allergy) => {
+    return await db('allergy')
+        .where({ id_allergy: id_allergy })
+        .del();
+});
+
 module.exports = {
     findAllAllergies,
     findAllergyById,
     addAllergy,
-    updateAllergy
+    updateAllergy,
+    removeAllergy
 };
