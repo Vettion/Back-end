@@ -21,7 +21,23 @@ const findAllergyById = async (id_allergy) => {
         .first();
 };
 
+/**
+ * Funcion para agregar una nueva alergia.
+ * @param {string} name - El nombre de la alergia.
+ * @param {string} description - La descripcion de la alergia.
+ * @returns {Promise<number>} Devuelve una promesa que resuelve en el id de la alergia agregada.
+ */
+const addAllergy = (async (allergyData) => {
+    const { name, description } = allergyData;
+    const [newId] = await db('allergy').insert({
+        name,
+        description
+    });
+    return newId;
+});
+
 module.exports = {
     findAllAllergies,
-    findAllergyById
+    findAllergyById,
+    addAllergy
 }
