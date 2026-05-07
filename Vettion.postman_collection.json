@@ -8,275 +8,641 @@
   },
   "item": [
     {
-      "name": "/vettion/owners",
-      "request": {
-        "method": "GET",
-        "header": [],
-        "url": {
-          "raw": "http://localhost:8080/owners",
-          "protocol": "http",
-          "host": [
-            "localhost"
-          ],
-          "port": "8080",
-          "path": [
-            "owners"
-          ]
-        }
-      },
-      "response": []
-    },
-    {
-      "name": "/vettion/owners/:dni",
-      "request": {
-        "method": "GET",
-        "header": [],
-        "url": {
-          "raw": "http://localhost:8080/owners/12345678A",
-          "protocol": "http",
-          "host": [
-            "localhost"
-          ],
-          "port": "8080",
-          "path": [
-            "owners",
-            "12345678A"
-          ]
-        }
-      },
-      "response": []
-    },
-    {
-      "name": "/vettion/owners",
-      "request": {
-        "method": "POST",
-        "header": [],
-        "body": {
-          "mode": "raw",
-          "raw": "{\r\n    \"dni_owner\":\"73134044R\",\r\n    \"name\":\"Laura\",\r\n    \"surname\":\"García\",\r\n    \"phone\":\"678901234\",\r\n    \"email\":\"laura.garcia@example.com\"\r\n}",
-          "options": {
-            "raw": {
-              "language": "json"
+      "name": "owners",
+      "item": [
+        {
+          "name": "/vettion/owners",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/owners",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "owners"
+              ]
             }
-          }
+          },
+          "response": []
         },
-        "url": {
-          "raw": "http://localhost:8080/owners",
-          "protocol": "http",
-          "host": [
-            "localhost"
-          ],
-          "port": "8080",
-          "path": [
-            "owners"
-          ]
-        }
-      },
-      "response": []
-    },
-    {
-      "name": "/vettion/owners/:dni",
-      "request": {
-        "method": "PUT",
-        "header": [],
-        "body": {
-          "mode": "raw",
-          "raw": "{\r\n    \"name\":\"María\",\r\n    \"surname\":\"García\",\r\n    \"phone\":\"678901234\",\r\n    \"email\":\"laura.garcia@example.com\"\r\n}",
-          "options": {
-            "raw": {
-              "language": "json"
+        {
+          "name": "/vettion/owners/:dni",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/owners/12345678A",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "owners",
+                "12345678A"
+              ]
             }
-          }
+          },
+          "response": []
         },
-        "url": {
-          "raw": "http://localhost:8080/owners/73134044R",
-          "protocol": "http",
-          "host": [
-            "localhost"
-          ],
-          "port": "8080",
-          "path": [
-            "owners",
-            "73134044R"
-          ]
-        }
-      },
-      "response": []
-    },
-    {
-      "name": "/vettion/owners/:dni",
-      "request": {
-        "method": "DELETE",
-        "header": [],
-        "url": {
-          "raw": "http://localhost:8080/owners/73134044R",
-          "protocol": "http",
-          "host": [
-            "localhost"
-          ],
-          "port": "8080",
-          "path": [
-            "owners",
-            "73134044R"
-          ]
-        }
-      },
-      "response": []
-    },
-    {
-      "name": "/vettion/consults",
-      "request": {
-        "method": "GET",
-        "header": [],
-        "url": {
-          "raw": "http://localhost:8080/consults",
-          "protocol": "http",
-          "host": [
-            "localhost"
-          ],
-          "port": "8080",
-          "path": [
-            "consults"
-          ]
-        }
-      },
-      "response": []
-    },
-    {
-      "name": "/vettion/consults/:id_consult",
-      "request": {
-        "method": "GET",
-        "header": [],
-        "url": {
-          "raw": "http://localhost:8080/consults/1",
-          "protocol": "http",
-          "host": [
-            "localhost"
-          ],
-          "port": "8080",
-          "path": [
-            "consults",
-            "1"
-          ]
-        }
-      },
-      "response": []
-    },
-    {
-      "name": "/vettion/pets",
-      "request": {
-        "method": "GET",
-        "header": [],
-        "url": {
-          "raw": "http://localhost:8080/pets",
-          "protocol": "http",
-          "host": [
-            "localhost"
-          ],
-          "port": "8080",
-          "path": [
-            "pets"
-          ]
-        }
-      },
-      "response": []
-    },
-    {
-      "name": "/vettion/pets/:id",
-      "request": {
-        "method": "GET",
-        "header": [],
-        "url": {
-          "raw": "http://localhost:8080/pets/1",
-          "protocol": "http",
-          "host": [
-            "localhost"
-          ],
-          "port": "8080",
-          "path": [
-            "pets",
-            "1"
-          ]
-        }
-      },
-      "response": []
-    },
-    {
-      "name": "/vettion/pets/:id",
-      "request": {
-        "method": "POST",
-        "header": [],
-        "body": {
-          "mode": "raw",
-          "raw": "{\r\n    \"name\":\"Morgan\",\r\n    \"type\":\"Perro\",\r\n    \"breed\":\"Labrador\",\r\n    \"weight\":\"40.1\",\r\n    \"sex\":\"Hembra\",\r\n    \"birth_date\":\"1999-03-01\",\r\n    \"owner_dni\":\"12345678A\"\r\n}",
-          "options": {
-            "raw": {
-              "language": "json"
+        {
+          "name": "/vettion/owners",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"dni_owner\":\"73134044R\",\r\n    \"name\":\"Laura\",\r\n    \"surname\":\"García\",\r\n    \"phone\":\"678901234\",\r\n    \"email\":\"laura.garcia@example.com\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/owners",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "owners"
+              ]
             }
-          }
+          },
+          "response": []
         },
-        "url": {
-          "raw": "http://localhost:8080/pets",
-          "protocol": "http",
-          "host": [
-            "localhost"
-          ],
-          "port": "8080",
-          "path": [
-            "pets"
-          ]
-        }
-      },
-      "response": []
-    },
-    {
-      "name": "/vettion/pets/:id",
-      "request": {
-        "method": "PUT",
-        "header": [],
-        "body": {
-          "mode": "raw",
-          "raw": "{\r\n    \"name\":\"Morgan\",\r\n    \"type\":\"Perro\",\r\n    \"breed\":\"Labrador\",\r\n    \"weight\":\"40.1\",\r\n    \"sex\":\"Hembra\",\r\n    \"birth_date\":\"1999-03-01\",\r\n    \"owner_dni\":\"12345678A\"\r\n}",
-          "options": {
-            "raw": {
-              "language": "json"
+        {
+          "name": "/vettion/owners/:dni",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\":\"María\",\r\n    \"surname\":\"García\",\r\n    \"phone\":\"678901234\",\r\n    \"email\":\"laura.garcia@example.com\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/owners/73134044R",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "owners",
+                "73134044R"
+              ]
             }
-          }
+          },
+          "response": []
         },
-        "url": {
-          "raw": "http://localhost:8080/pets/1",
-          "protocol": "http",
-          "host": [
-            "localhost"
-          ],
-          "port": "8080",
-          "path": [
-            "pets",
-            "1"
-          ]
+        {
+          "name": "/vettion/owners/:dni",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/owners/73134044R",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "owners",
+                "73134044R"
+              ]
+            }
+          },
+          "response": []
         }
-      },
-      "response": []
+      ]
     },
     {
-      "name": "/vettion/pets/:id",
-      "request": {
-        "method": "DELETE",
-        "header": [],
-        "url": {
-          "raw": "http://localhost:8080/pets/1",
-          "protocol": "http",
-          "host": [
-            "localhost"
-          ],
-          "port": "8080",
-          "path": [
-            "pets",
-            "1"
-          ]
+      "name": "pets",
+      "item": [
+        {
+          "name": "/vettion/pets",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/pets",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "pets"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "/vettion/pets/:id",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/pets/1",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "pets",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "/vettion/pets",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\":\"Max\",\r\n    \"type\":\"Perro\",\r\n    \"breed\":\"Labrador\",\r\n    \"weight\":\"40.1\",\r\n    \"sex\":\"Hembra\",\r\n    \"birth_date\":\"1999-03-01\",\r\n    \"owner_dni\":\"12345678A\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/pets",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "pets"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "/vettion/pets/:id",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\":\"Morgan\",\r\n    \"type\":\"Perro\",\r\n    \"breed\":\"Labrador\",\r\n    \"weight\":\"40.1\",\r\n    \"sex\":\"Hembra\",\r\n    \"birth_date\":\"1999-03-01\",\r\n    \"owner_dni\":\"12345678A\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/pets/1",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "pets",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "/vettion/pets/:id",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/pets/1",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "pets",
+                "1"
+              ]
+            }
+          },
+          "response": []
         }
-      },
-      "response": []
+      ]
+    },
+    {
+      "name": "consults",
+      "item": [
+        {
+          "name": "/vettion/consults",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/consults",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "consults"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "/vettion/consults/:id_consult",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/consults/1",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "consults",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "allergies",
+      "item": [
+        {
+          "name": "./vettion/allergies",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/allergies",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "allergies"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "./vettion/allergies/:id_allergy",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/allergies/8",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "allergies",
+                "8"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "./vettion/allergies",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"allergen\": \"Picadura de pulga\",\r\n    \"diagnostic_method\": \"Analisis de sangre\",\r\n    \"symptoms\": \"Ronchas, estornudos\",\r\n    \"severity_level\": \"Grave/Crítica\",\r\n    \"emergency_treatment\": \"Medicamento por via intravenosa\",\r\n    \"detection_date\": \"2026-04-10\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/allergies",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "allergies"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "./vettion/allergies/:id_allergy",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"allergen\": \"Picadura de pulga\",\r\n    \"diagnostic_method\": \"Analisis de sangre\",\r\n    \"symptoms\": \"Ronchas, estornudos\",\r\n    \"severity_level\": \"Grave/Crítica\",\r\n    \"emergency_treatment\": \"Medicamento por via intravenosa\",\r\n    \"detection_date\": \"2026-04-10\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/allergies/7",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "allergies",
+                "7"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "./vettion/allergies/:id_allergy",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/allergies/4",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "allergies",
+                "4"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "appointments",
+      "item": [
+        {
+          "name": "/vettion/appointments",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"dni\":\"73134044R\",\r\n    \"name\":\"Laura\",\r\n    \"surname\":\"García\",\r\n    \"phone\":\"678901234\",\r\n    \"email\":\"laura.garcia@example.com\"\r\n}"
+            },
+            "url": {
+              "raw": "http://localhost:8080/appointments",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "appointments"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "/vettion/clean_services",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"dni\":\"73134044R\",\r\n    \"name\":\"Laura\",\r\n    \"surname\":\"García\",\r\n    \"phone\":\"678901234\",\r\n    \"email\":\"laura.garcia@example.com\"\r\n}"
+            },
+            "url": {
+              "raw": "http://localhost:8080/clean_services",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "clean_services"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "/vettion/appointments/:id_appointment",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"dni\":\"73134044R\",\r\n    \"name\":\"Laura\",\r\n    \"surname\":\"García\",\r\n    \"phone\":\"678901234\",\r\n    \"email\":\"laura.garcia@example.com\"\r\n}"
+            },
+            "url": {
+              "raw": "http://localhost:8080/appointments/1",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "appointments",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "/vettion/clean_services/:id_clean_service",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"dni\":\"73134044R\",\r\n    \"name\":\"Laura\",\r\n    \"surname\":\"García\",\r\n    \"phone\":\"678901234\",\r\n    \"email\":\"laura.garcia@example.com\"\r\n}"
+            },
+            "url": {
+              "raw": "http://localhost:8080/clean_services/1",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "clean_services",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "/vettion/appointments",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"date_appointment\":\"2026-05-08\",\r\n    \"start_time\":\"12:00\",\r\n    \"consult_room\":1,\r\n    \"observations\": \"Es urgente\",\r\n    \"pet_id\":1,\r\n    \"consult_id\":1,\r\n    \"veterinarian_dni\":\"10101010V\",\r\n    \"cleaner_dni\": \"33445566L\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/appointments",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "appointments"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "/vettion/appointments/:id_appointment",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"date_appointment\":\"2026-05-08\",\r\n    \"start_time\":\"12:40\",\r\n    \"consult_room\":1,\r\n    \"observations\": \"SOS\",\r\n    \"pet_id\":1,\r\n    \"consult_id\":2,\r\n    \"veterinarian_dni\":\"10101010V\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/appointments/4",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "appointments",
+                "4"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "/vettion/clean_services/:id_clean_service",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"cleaner_dni\":\"33445566L\",\r\n    \"observations\":\"Actualizar el inventario.\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/clean_services/2",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "clean_services",
+                "2"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "/vettion/appointments/:id_appointment",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"dni\":\"73134044R\",\r\n    \"name\":\"Laura\",\r\n    \"surname\":\"García\",\r\n    \"phone\":\"678901234\",\r\n    \"email\":\"laura.garcia@example.com\"\r\n}"
+            },
+            "url": {
+              "raw": "http://localhost:8080/appointments/6",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "appointments",
+                "6"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
     }
   ]
 }
