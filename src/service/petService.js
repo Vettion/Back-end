@@ -9,18 +9,18 @@ const db = require('../configuration/database.js').db;
 const findAllPets = async () => {
     const pets = await db('pet')
         .join('owner', 'pet.owner_dni', 'owner.dni_owner')
-        .select('pet.*', 'owner.name as owner_name', 'owner.surname as owner_surname');
+        .select('pet.*', 'owner.name_owner as owner_name', 'owner.surname as owner_surname');
 
     const petsWithAllergies = await Promise.all(
         pets.map(async (pet) => {
             const allergies = await db('have_allergy')
                 .where('have_allergy.pet_id', pet.id_pet)
                 .join('allergy', 'have_allergy.allergy_id', 'allergy.id_allergy')
-                .select('allergy.id_allergy', 'allergy.name', 'allergy.description');
+                .select('allergy.id_allergy', 'allergy.allergen', 'allergy.diagnostic_method', 'allergy.symptoms', 'allergy.severity_level', 'allergy.emergency_treatment', 'allergy.detection_date');
 
             return {
                 id: pet.id_pet,
-                name: pet.name,
+                name_pet: pet.name_pet,
                 type: pet.type,
                 breed: pet.breed,
                 weight: pet.weight,
@@ -46,7 +46,7 @@ const findPetById = async (id) => {
     const pet = await db('pet')
         .where('pet.id_pet', id)
         .join('owner', 'pet.owner_dni', 'owner.dni_owner')
-        .select('pet.*', 'owner.name as owner_name', 'owner.surname as owner_surname')
+        .select('pet.*', 'owner.name_owner as owner_name', 'owner.surname as owner_surname')
         .first();
 
     if (!pet) return null;
@@ -54,7 +54,7 @@ const findPetById = async (id) => {
     const allergies = await db('have_allergy')
         .where('have_allergy.pet_id', pet.id_pet)
         .join('allergy', 'have_allergy.allergy_id', 'allergy.id_allergy')
-        .select('allergy.id_allergy', 'allergy.name', 'allergy.description');
+        .select('allergy.id_allergy', 'allergy.allergen', 'allergy.diagnostic_method', 'allergy.symptoms', 'allergy.severity_level', 'allergy.emergency_treatment', 'allergy.detection_date');
 
     pet.allergies = allergies;
 
@@ -67,15 +67,15 @@ const findPetById = async (id) => {
  * @returns {Promise<number>} - Devuelve el Id de la nueva mascota insertada.
  */
 const addPet = async (petData) => {
-    const { name, type, breed, weight, sex, birth_date, owner_dni, allergies } = petData;
+    const { name_pet, type, breed, weight, sex, birth_date, owner_dni, allergies } = petData;
 
-    const existingPet = await db('pet').where({ name: name, type: type, breed: breed, birth_date: birth_date, owner_dni: owner_dni }).first();
+    const existingPet = await db('pet').where({ name_pet: name_pet, type: type, breed: breed, birth_date: birth_date, owner_dni: owner_dni }).first();
 
     if (existingPet) {
-        throw new Error(`Pet with name ${name}, type ${type}, breed ${breed}, birth date ${birth_date}, and owner DNI ${owner_dni} already registered.`);
+        throw new Error(`Pet with name ${name_pet}, type ${type}, breed ${breed}, birth date ${birth_date}, and owner DNI ${owner_dni} already registered.`);
     }
     const [newId] = await db('pet').insert({
-        name,
+        name_pet,
         type,
         breed,
         weight,
@@ -104,11 +104,11 @@ const addPet = async (petData) => {
  * @returns {Promise<void>} - No devuelve ningun valor. Ejecuta la operacion en la base de datos.
  */
 const updatePet = async (id, petData) => {
-    const { name, type, breed, weight, sex, birth_date, owner_dni, allergies } = petData;
+    const { name_pet, type, breed, weight, sex, birth_date, owner_dni, allergies } = petData;
     await db('pet')
         .where({ id_pet: id })
         .update({
-            name,
+            name_pet,
             type,
             breed,
             weight,

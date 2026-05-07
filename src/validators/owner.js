@@ -24,7 +24,7 @@ const validateOwnerId = [
  * Se aplica a la ruta de POST /vettion/owners.
  * * Reglas: 
  * 1. El campo 'dni_owner' es obligatorio y debe ser un string.
- * 2. El campo 'name' es obligatorio y debe ser una cadena de texto y tener entre 2 y 100 caracteres.
+ * 2. El campo 'name_owner' es obligatorio y debe ser una cadena de texto y tener entre 2 y 100 caracteres.
  * 3. El campo 'surname' es obligatorio y debe ser una cadena de texto y tener entre 2 y 100 caracteres.
  * 4. El campo 'phone' es obligatorio y debe ser una cadena de texto y tener entre 2 y 15 caracteres.
  * 5. El campo 'email' es obligatorio y debe ser una cadena de texto.
@@ -36,7 +36,7 @@ const validateAddOwner = [
         .notEmpty().withMessage('DNI is required')
         .matches(/^[0-9]{8}[TRWAGMYFPDXBNJZSQVHLCKE]$/i).withMessage('DNI format is invalid'),
         
-    body('name')
+    body('name_owner')
         .trim()
         .notEmpty().withMessage('Name is required')
         .isString().withMessage('Name must be a string')
@@ -75,7 +75,7 @@ const validateUpdateOwner = [
         .notEmpty().withMessage('DNI is required')
         .matches(/^[0-9]{8}[TRWAGMYFPDXBNJZSQVHLCKE]$/i).withMessage('DNI format is invalid'),
 
-    body('name')
+    body('name_owner')
         .trim()
         .notEmpty().withMessage('Name is required')
         .isString().withMessage('Name must be a string')

@@ -28,10 +28,14 @@ const findAllergyById = async (id_allergy) => {
  * @returns {Promise<number>} Devuelve una promesa que resuelve en el id de la alergia agregada.
  */
 const addAllergy = (async (allergyData) => {
-    const { name, description } = allergyData;
+    const { allergen, diagnostic_method, symptoms, severity_level, emergency_treatment, detection_date } = allergyData;
     const [newId] = await db('allergy').insert({
-        name,
-        description
+        allergen,
+        diagnostic_method,
+        symptoms,
+        severity_level,
+        emergency_treatment,
+        detection_date
     });
     return newId;
 });
@@ -43,12 +47,16 @@ const addAllergy = (async (allergyData) => {
  * @returns {Promise<void>} Devuelve una promesa que se resuelve cuando la alergia es actualizada.
  */
 const updateAllergy = (async (id_allergy, allergyData) => {
-    const { name, description } = allergyData;
+    const { allergen, diagnostic_method, symptoms, severity_level, emergency_treatment, detection_date } = allergyData;
     await db('allergy')
         .where({ id_allergy: id_allergy })
         .update({
-            name,
-            description
+            allergen, 
+            diagnostic_method,
+            symptoms, 
+            severity_level,
+            emergency_treatment,
+            detection_date
         });
 });
 
