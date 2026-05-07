@@ -1,13 +1,13 @@
 use vettion;
 
 -- Insertar datos de los dueños
-insert into owner (dni_owner, name, surname, phone, email) values 
+insert into owner (dni_owner, name_owner, surname, phone, email) values 
 ('12345678A', 'Juan', 'Pérez García', '600111222', 'juan.perez@email.com'),
 ('87654321B', 'María', 'García López', '600333444', 'maria.garcia@email.com'),
 ('11223344C', 'Andrés', 'López Ruiz', '611555666', 'andres.lopez@email.com');
 
 -- Insertar datos de las mascotas
-insert into pet (name, type, breed, weight, sex, birth_date, owner_dni) values
+insert into pet (name_pet, type, breed, weight, sex, birth_date, owner_dni) values
 ('Rex', 'Perro', 'Pastor Alemán', 32.5, 'Macho', '2021-01-15', '12345678A'),
 ('Luna', 'Gato', 'Siamés', 4.2, 'Hembra', '2023-03-10', '87654321B'),
 ('Toby', 'Perro', 'Beagle', 12.0, 'Macho', '2022-04-01', '12345678A');
