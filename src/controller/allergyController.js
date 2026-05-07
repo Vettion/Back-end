@@ -87,7 +87,7 @@ const postAllergy = (async (req, res, next) => {
 const putAllergy = (async (req, res, next) => {
     try{
         const { id_allergy } = req.params;
-        const { name, description } = req.body;
+        const { allergen, diagnostic_method, symptoms, severity_level, emergency_treatment, detection_date } = req.body;
 
         const allergy = await findAllergyById(id_allergy);
 
@@ -99,7 +99,7 @@ const putAllergy = (async (req, res, next) => {
             });
         }
 
-        await updateAllergy(id_allergy, { name, description });
+        await updateAllergy(id_allergy, { allergen, diagnostic_method, symptoms, severity_level, emergency_treatment, detection_date });
         res.status(200).json({
             code: 200,
             title: 'success',

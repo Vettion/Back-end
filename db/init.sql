@@ -29,8 +29,12 @@ create table if not exists pet (
 -- Tabla de alergias
 create table if not exists allergy (
     id_allergy int auto_increment primary key,
-    name varchar(100) not null,
-    description text not null
+    allergen varchar(100) not null,
+    diagnostic_method varchar(100) not null,
+    symptoms text,
+    severity_level varchar(20) not null,
+    emergency_treatment varchar(225) not null,
+    detection_date date not null
 );
 
 -- Tabla intermedia de alergias de las mascotas

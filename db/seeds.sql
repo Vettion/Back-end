@@ -13,11 +13,12 @@ insert into pet (name, type, breed, weight, sex, birth_date, owner_dni) values
 ('Toby', 'Perro', 'Beagle', 12.0, 'Macho', '2022-04-01', '12345678A');
 
 -- Insertar datos de las alergias
-insert into allergy (name, description) values 
-('Polen', 'Reacción estacional primaveral'),
-('Penicilina', 'Alergia a antibióticos'),
-('Ácaros', 'Alergia al polvo'),
-('Lácteos', 'Intolerancia alimentaria');
+insert into allergy (allergen, diagnostic_method, symptoms, severity_level, emergency_treatment, detection_date) values 
+('Polen', 'Prueba cutánea (Skin prick test)', 'Estornudos, ojos rojos, secreción nasal', 'Leve', 'Antihistamínicos según peso', '2025-03-15'),
+('Penicilina', 'Reacción clínica previa', 'Ronchas, hinchazón facial, dificultad respiratoria', 'Grave/Crítica', 'Adrenalina y traslado urgente a clínica', '2024-11-10'),
+('Ácaros del polvo', 'Analítica de sangre (IgE)', 'Erupciones cutáneas, rascado persistente', 'Moderada', 'Baños con champú medicado y limpieza ambiental', '2026-01-20'),
+('Lácteos', 'Dieta de eliminación', 'Diarrea, dolor abdominal, vómitos', 'Moderada', 'Dieta de exclusión y probióticos', '2025-06-05');
+
 
 -- Insertar datos de las alergias de las mascotas
 insert into have_allergy (allergy_id, pet_id) values 

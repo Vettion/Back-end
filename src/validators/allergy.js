@@ -26,17 +26,34 @@ const validateAllergyId = [
  * 2. El campo 'description' es obligatorio y debe ser una cadena de texto y tener al menos 2 caracteres.
  */
 const validateAddAllergy = [
-    body('name')
+    body('allergen')
         .trim()
-        .notEmpty().withMessage('name is required')
-        .isString().withMessage('name must be a string')
-        .isLength({ min: 2, max: 100 }).withMessage('name must be between 2 and 100 characters'),
+        .notEmpty().withMessage('allergen is required')
+        .isString().withMessage('allergen must be a string')
+        .isLength({ min: 2, max: 100 }).withMessage('allergen must be between 2 and 100 characters'),
 
-    body('description')
+    body('diagnostic_method')
         .trim()
-        .notEmpty().withMessage('description is required')
-        .isString().withMessage('description must be a string')
-        .isLength({ min: 2 }).withMessage('description must be at least 2 characters long'),
+        .notEmpty().withMessage('diagnostic_method is required')
+        .isString().withMessage('diagnostic_method must be a string')
+        .isLength({ min: 2, max: 100 }).withMessage('diagnostic_method must be between 2 and 100 characters'),
+
+    body('severity_level')
+        .trim()
+        .notEmpty().withMessage('severity_level is required')
+        .isString().withMessage('severity_level must be a string')
+        .isLength({ min: 2, max: 20 }).withMessage('severity_level must be between 2 and 100 characters'),
+
+    body('emergency_treatment')
+        .trim()
+        .notEmpty().withMessage('emergency_treatment is required')
+        .isString().withMessage('emergency_treatment must be a string')
+        .isLength({ min: 2, max: 255 }).withMessage('emergency_treatment must be between 2 and 255 characters'),
+
+    body('detection_date')
+        .trim()
+        .notEmpty().withMessage('detection_date is required')
+        .isDate().withMessage('detection_date must be a date'),
 
     validateResult
 ];
