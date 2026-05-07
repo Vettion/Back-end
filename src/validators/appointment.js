@@ -1,4 +1,4 @@
-// Archivo de validaciones
+// Archivo de validaciones para citas
 
 const { param, body } = require('express-validator');
 const { validateResult } = require('../middlewares/validateResult.js');
@@ -7,7 +7,7 @@ const { validateResult } = require('../middlewares/validateResult.js');
  * Cadena de validaciones para operaciones que requieren un Id de cita.
  * Se aplica a rutas dinamicas como GET /vettion/appointment/:id_appointment.
  * * Reglas:
- * 1. El parametro 'id_appointment' debe existir en la URL.
+ * 1. El parametro 'id_appointment' debe exis   tir en la URL.
  * 2. El parametro 'id_appointment' debe ser un numero entero mayor que 0.
  */
 const validateAppointmentId = [

@@ -22,7 +22,7 @@ const validatePetId = [
   * Cadena de validaciones para la creacion de una nueva mascota.
   * Se aplica a la ruta de POST /.
   * * Reglas: 
-  * 1. El campo 'name' es obligatorio y debe ser una cadena de texto y tener entre 2 y 100 caracteres.
+  * 1. El campo 'name_pet' es obligatorio y debe ser una cadena de texto y tener entre 2 y 100 caracteres.
   * 2. El campo 'type' es obligatorio y debe ser una cadena de texto y tener entre 2 y 100 caracteres.
   * 3. El campo 'breed' es obligatorio y debe ser una cadena de texto y tener entre 2 y 100 caracteres.
   * 4. El campo 'weight' es obligatorio y debe ser un numero decimal (float) y ser mayor de 0.1 minimo.
@@ -32,7 +32,7 @@ const validatePetId = [
   * 8. El campo 'allergies' es opcional y debe ser un array de enteros.
   */
 const validateAddPet = [
-    body('name')
+    body('name_pet')
         .trim()
         .notEmpty().withMessage('name is required')
         .isString().withMessage('name must be a string')

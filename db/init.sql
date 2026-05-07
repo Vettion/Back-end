@@ -5,7 +5,7 @@ use vettion;
 -- Tabla de dueños.
 create table if not exists owner (
     dni_owner varchar(9) primary key,
-    name varchar(100) not null,
+    name_owner varchar(100) not null,
     surname varchar(100) not null,
     phone varchar(15) not null,
     email varchar(100)
@@ -14,7 +14,7 @@ create table if not exists owner (
 -- Tabla de mascotas.
 create table if not exists pet (
     id_pet int auto_increment primary key,
-    name varchar(100) not null,
+    name_pet varchar(100) not null,
     type varchar(100) not null,
     breed varchar(100),
     weight decimal(5,2) not null,

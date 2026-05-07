@@ -104,11 +104,11 @@ const addPet = async (petData) => {
  * @returns {Promise<void>} - No devuelve ningun valor. Ejecuta la operacion en la base de datos.
  */
 const updatePet = async (id, petData) => {
-    const { name, type, breed, weight, sex, birth_date, owner_dni, allergies } = petData;
+    const { name_pet, type, breed, weight, sex, birth_date, owner_dni, allergies } = petData;
     await db('pet')
         .where({ id_pet: id })
         .update({
-            name,
+            name_pet,
             type,
             breed,
             weight,

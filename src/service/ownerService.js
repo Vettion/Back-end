@@ -8,7 +8,7 @@ const findAllOwners = async () => {
     const owners = await db('owner')
         .select(
             'dni_owner',
-            'name',
+            'name_owner',
             'surname',
             'phone',
             'email'
@@ -31,16 +31,16 @@ const findOwnerByDni = async (dni_owner) => {
 /**
  * Función para añadir un nuevo dueño a la base de datos.
  * @param {*} dni_owner 
- * @param {*} name 
+ * @param {*} name_owner 
  * @param {*} surname 
  * @param {*} phone 
  * @param {*} email 
  * @returns 
  */
-const addOwner = async (dni_owner, name, surname, phone, email) => {
+const addOwner = async (dni_owner, name_owner, surname, phone, email) => {
     return await db('owner').insert({
         dni_owner,
-        name,
+        name_owner,
         surname,
         phone,
         email
@@ -50,15 +50,15 @@ const addOwner = async (dni_owner, name, surname, phone, email) => {
 /**
  * Función para editar un dueño existente en la base de datos.
  * @param {*} dni_owner 
- * @param {*} name 
+ * @param {*} name_owner 
  * @param {*} surname 
  * @param {*} phone 
  * @param {*} email 
  * @returns 
  */
-const updateOwner = async (dni_owner, name, surname, phone, email) => {
+const updateOwner = async (dni_owner, name_owner, surname, phone, email) => {
     return await db('owner').where({ dni_owner: dni_owner }).update({
-        name,
+        name_owner,
         surname,
         phone,
         email
