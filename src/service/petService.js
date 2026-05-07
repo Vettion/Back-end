@@ -67,15 +67,15 @@ const findPetById = async (id) => {
  * @returns {Promise<number>} - Devuelve el Id de la nueva mascota insertada.
  */
 const addPet = async (petData) => {
-    const { name, type, breed, weight, sex, birth_date, owner_dni, allergies } = petData;
+    const { name_pet, type, breed, weight, sex, birth_date, owner_dni, allergies } = petData;
 
-    const existingPet = await db('pet').where({ name: name, type: type, breed: breed, birth_date: birth_date, owner_dni: owner_dni }).first();
+    const existingPet = await db('pet').where({ name_pet: name_pet, type: type, breed: breed, birth_date: birth_date, owner_dni: owner_dni }).first();
 
     if (existingPet) {
-        throw new Error(`Pet with name ${name}, type ${type}, breed ${breed}, birth date ${birth_date}, and owner DNI ${owner_dni} already registered.`);
+        throw new Error(`Pet with name ${name_pet}, type ${type}, breed ${breed}, birth date ${birth_date}, and owner DNI ${owner_dni} already registered.`);
     }
     const [newId] = await db('pet').insert({
-        name,
+        name_pet,
         type,
         breed,
         weight,
