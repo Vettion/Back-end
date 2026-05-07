@@ -9,7 +9,7 @@ const db = require('../configuration/database.js').db;
 const findAllPets = async () => {
     const pets = await db('pet')
         .join('owner', 'pet.owner_dni', 'owner.dni_owner')
-        .select('pet.*', 'owner.name as owner_name', 'owner.surname as owner_surname');
+        .select('pet.*', 'owner.name_owner as owner_name', 'owner.surname as owner_surname');
 
     const petsWithAllergies = await Promise.all(
         pets.map(async (pet) => {
@@ -20,7 +20,7 @@ const findAllPets = async () => {
 
             return {
                 id: pet.id_pet,
-                name: pet.name,
+                name_pet: pet.name_pet,
                 type: pet.type,
                 breed: pet.breed,
                 weight: pet.weight,
@@ -46,7 +46,7 @@ const findPetById = async (id) => {
     const pet = await db('pet')
         .where('pet.id_pet', id)
         .join('owner', 'pet.owner_dni', 'owner.dni_owner')
-        .select('pet.*', 'owner.name as owner_name', 'owner.surname as owner_surname')
+        .select('pet.*', 'owner.name_owner as owner_name', 'owner.surname as owner_surname')
         .first();
 
     if (!pet) return null;
