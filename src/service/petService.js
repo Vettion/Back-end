@@ -16,7 +16,7 @@ const findAllPets = async () => {
             const allergies = await db('have_allergy')
                 .where('have_allergy.pet_id', pet.id_pet)
                 .join('allergy', 'have_allergy.allergy_id', 'allergy.id_allergy')
-                .select('allergy.id_allergy', 'allergy.name', 'allergy.description');
+                .select('allergy.id_allergy', 'allergy.allergen', 'allergy.diagnostic_method', 'allergy.symptoms', 'allergy.severity_level', 'allergy.emergency_treatment', 'allergy.detection_date');
 
             return {
                 id: pet.id_pet,
@@ -54,7 +54,7 @@ const findPetById = async (id) => {
     const allergies = await db('have_allergy')
         .where('have_allergy.pet_id', pet.id_pet)
         .join('allergy', 'have_allergy.allergy_id', 'allergy.id_allergy')
-        .select('allergy.id_allergy', 'allergy.name', 'allergy.description');
+        .select('allergy.id_allergy', 'allergy.allergen', 'allergy.diagnostic_method', 'allergy.symptoms', 'allergy.severity_level', 'allergy.emergency_treatment', 'allergy.detection_date');
 
     pet.allergies = allergies;
 
