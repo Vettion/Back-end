@@ -56,7 +56,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n    \"dni_owner\":\"73134044R\",\r\n    \"name\":\"Laura\",\r\n    \"surname\":\"García\",\r\n    \"phone\":\"678901234\",\r\n    \"email\":\"laura.garcia@example.com\"\r\n}",
+              "raw": "{\r\n    \"dni_owner\":\"73134044R\",\r\n    \"name_owner\":\"Laura\",\r\n    \"surname\":\"García\",\r\n    \"phone\":\"678901234\",\r\n    \"email\":\"laura.garcia@example.com\"\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -84,7 +84,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n    \"name\":\"María\",\r\n    \"surname\":\"García\",\r\n    \"phone\":\"678901234\",\r\n    \"email\":\"laura.garcia@example.com\"\r\n}",
+              "raw": "{\r\n    \"name_owner\":\"María\",\r\n    \"surname\":\"García\",\r\n    \"phone\":\"678901234\",\r\n    \"email\":\"laura.garcia@example.com\"\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -177,7 +177,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n    \"name\":\"Max\",\r\n    \"type\":\"Perro\",\r\n    \"breed\":\"Labrador\",\r\n    \"weight\":\"40.1\",\r\n    \"sex\":\"Hembra\",\r\n    \"birth_date\":\"1999-03-01\",\r\n    \"owner_dni\":\"12345678A\"\r\n}",
+              "raw": "{\r\n    \"name_pet\":\"Max\",\r\n    \"type\":\"Perro\",\r\n    \"breed\":\"Labrador\",\r\n    \"weight\":\"40.1\",\r\n    \"sex\":\"Hembra\",\r\n    \"birth_date\":\"1999-03-01\",\r\n    \"owner_dni\":\"12345678A\"\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -205,7 +205,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n    \"name\":\"Morgan\",\r\n    \"type\":\"Perro\",\r\n    \"breed\":\"Labrador\",\r\n    \"weight\":\"40.1\",\r\n    \"sex\":\"Hembra\",\r\n    \"birth_date\":\"1999-03-01\",\r\n    \"owner_dni\":\"12345678A\"\r\n}",
+              "raw": "{\r\n    \"name_pet\":\"Morgan\",\r\n    \"type\":\"Perro\",\r\n    \"breed\":\"Labrador\",\r\n    \"weight\":\"40.1\",\r\n    \"sex\":\"Hembra\",\r\n    \"birth_date\":\"1999-03-01\",\r\n    \"owner_dni\":\"12345678A\"\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -330,6 +330,27 @@
               "path": [
                 "allergies",
                 "8"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "./vettion/allergies/pet/:pet_id",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/allergies/pet/1",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "allergies",
+                "pet",
+                "1"
               ]
             }
           },
