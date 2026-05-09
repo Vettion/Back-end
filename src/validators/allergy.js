@@ -18,6 +18,14 @@ const validateAllergyId = [
     validateResult
 ];
 
+const validateAllergyPetId= [
+    param('pet_id')
+        .notEmpty().withMessage('pet_id is required')
+        .isInt({ gt: 0 }).withMessage('pet_id must be a positive integer'),
+
+    validateResult
+];
+
 /**
  * Cadena de validaciones para la creacion de una nueva alergia.
  * Se aplica a la ruta de POST /.
@@ -77,6 +85,7 @@ const validateUpdateAllergy = [
 
 module.exports = {
     validateAllergyId,
+    validateAllergyPetId,
     validateAddAllergy,
     validateUpdateAllergy
 }
