@@ -527,6 +527,34 @@
           "response": []
         },
         {
+          "name": "/vettion/appointments/pet/:pet_id",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"dni\":\"73134044R\",\r\n    \"name\":\"Laura\",\r\n    \"surname\":\"García\",\r\n    \"phone\":\"678901234\",\r\n    \"email\":\"laura.garcia@example.com\"\r\n}"
+            },
+            "url": {
+              "raw": "http://localhost:8080/appointments/pet/1",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "appointments",
+                "pet",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
           "name": "/vettion/clean_services/:id_clean_service",
           "protocolProfileBehavior": {
             "disableBodyPruning": true

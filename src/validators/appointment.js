@@ -18,6 +18,21 @@ const validateAppointmentId = [
     validateResult
 ];
 
+/**
+ * Cadena de validaciones para operaciones que requieren un Id de cita.
+ * Se aplica a rutas dinamicas como GET /vettion/appointment/pet/:pet_id.
+ * * Reglas:
+ * 1. El parametro 'pet_id' debe exis   tir en la URL.
+ * 2. El parametro 'pet_id' debe ser un numero entero mayor que 0.
+ */
+const validateAppointmentByPetId = [
+    param('pet_id')
+        .notEmpty().withMessage('pet_id is required')
+        .isInt({ gt: 0 }).withMessage('id_appointment must be a positive integer'),
+    
+    validateResult
+];
+
  /**
   * Cadena de validaciones para la creacion de una nueva cita.
   * Se aplica a la ruta de POST /vettion/appointment/:id_appointment.
@@ -83,6 +98,7 @@ const validateUpdateAppointment = [
 
 module.exports = {
     validateAppointmentId,
+    validateAppointmentByPetId,
     validateAddAppointment,
     validateUpdateAppointment
 }
