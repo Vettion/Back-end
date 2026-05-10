@@ -6,10 +6,11 @@
  * @returns {boolean} - true si es fin de semana, false si no lo es.
  */
 const isWeekend = (date_appointment) => {
-    const date = new Date(date_appointment);
-    const day = date.getDay();
+    const [year, month, day] = date_appointment.split('-').map(Number);
+    const date = new Date(year, month - 1, day);
+    const dayOfWeek = date.getDay();
 
-    return day === 0 || day === 6;
+    return dayOfWeek === 0 || dayOfWeek === 6;
 };
 
 module.exports = { isWeekend };

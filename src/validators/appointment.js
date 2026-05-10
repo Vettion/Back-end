@@ -43,7 +43,7 @@ const validateAddAppointment = [
     body('consult_room')
         .trim()
         .notEmpty().withMessage('consult_room is required')
-        .isInt({ gt: 0 }).withMessage('consult_room must be a positive integer'),
+        .isString().withMessage('consult_room must be a string'),
 
     body('pet_id')
         .trim()
