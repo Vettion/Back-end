@@ -40,16 +40,28 @@ const addAllergy = async (allergyData) => {
     severity_level,
     emergency_treatment,
     detection_date,
+    id_pet
   } = allergyData;
-  const [newId] = await db("allergy").insert({
-    allergen,
-    diagnostic_method,
-    symptoms,
-    severity_level,
-    emergency_treatment,
-    detection_date,
+
+  return await db.transaction(async (asignAllergy) => {
+    const [allergyId] = await asignAllergy("allergy").insert({
+      allergen,
+      diagnostic_method,
+      symptoms,
+      severity_level,
+      emergency_treatment,
+      detection_date,
+    });
+
+    await asignAllergy("have_allergy").insert({
+      allergy_id: allergyId,
+      pet_id: id_pet
+    });
+
+    console.log(`Vinculando Alergia ID: ${allergyId} con Mascota ID: ${id_pet}`);
+
+    return allergyId;
   });
-  return newId;
 };
 
 /**
