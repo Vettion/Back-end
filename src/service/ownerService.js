@@ -5,14 +5,7 @@ const db = require('../configuration/database.js').db;
  * @returns 
  */
 const findAllOwners = async () => {
-    const owners = await db('owner')
-        .select(
-            'dni_owner',
-            'name_owner',
-            'surname',
-            'phone',
-            'email'
-    );
+    const owners = await db('owner').select('*');
 
     return owners;
 };
@@ -37,13 +30,18 @@ const findOwnerByDni = async (dni_owner) => {
  * @param {*} email 
  * @returns 
  */
-const addOwner = async (dni_owner, name_owner, surname, phone, email) => {
+const addOwner = async (dni_owner, name_owner, surname, phone, email, direction, floor, city, province, postal_code) => {
     return await db('owner').insert({
         dni_owner,
         name_owner,
         surname,
         phone,
-        email
+        email,
+        direction,
+        floor,
+        city,
+        province,
+        postal_code
     });
 };
 
@@ -56,12 +54,17 @@ const addOwner = async (dni_owner, name_owner, surname, phone, email) => {
  * @param {*} email 
  * @returns 
  */
-const updateOwner = async (dni_owner, name_owner, surname, phone, email) => {
+const updateOwner = async (dni_owner, name_owner, surname, phone, email, direction, floor, city, province, postal_code) => {
     return await db('owner').where({ dni_owner: dni_owner }).update({
         name_owner,
         surname,
         phone,
-        email
+        email,
+        direction,
+        floor,
+        city,
+        province,
+        postal_code
     });
 };
 
