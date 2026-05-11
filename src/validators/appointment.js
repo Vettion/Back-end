@@ -55,20 +55,10 @@ const validateAddAppointment = [
         .notEmpty().withMessage('start_time is required')
         .isTime().withMessage('start_time must be a time'),
 
-    body('consult_room')
-        .trim()
-        .notEmpty().withMessage('consult_room is required')
-        .isString().withMessage('consult_room must be a string'),
-
     body('pet_id')
         .trim()
         .notEmpty().withMessage('pet_id is required')
         .isInt({ gt: 0 }).withMessage('pet_id must be a positive integer'),
-
-    body('consult_id')
-        .trim()
-        .notEmpty().withMessage('consult_id is required')
-        .isInt({ gt: 0 }).withMessage('consult_id must be a positive integer'),
 
     body('veterinarian_dni')
         .trim()

@@ -59,7 +59,7 @@ create table if not exists veterinarian (
     ss_number varchar(100) not null,
     collegiate_number varchar(100) not null,
     email varchar(100) not null,
-    specialty varchar(100) not null
+    speciality varchar(100) not null
 );
 
 -- Tabla de servicios.

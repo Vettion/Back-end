@@ -34,22 +34,22 @@ insert into have_allergy (allergy_id, pet_id) values
 (3, 2);
 
 -- Insertar datos de los veterinarios
-insert into veterinarian (dni_veterinarian, name, surname, phone, address, ss_number, collegiate_number, email, specialty) values
+insert into veterinarian (dni_veterinarian, name, surname, phone, address, ss_number, collegiate_number, email, speciality) values
 ('10101010V', 'Carlos', 'Ruiz', '666111222', 'Calle Mayor 10', 'SS-001V', 'COL-500', 'carlos@vettion.com', 'Cirugía'),
 ('20202020W', 'Elena', 'Sanz', '666333444', 'Av. Madrid 5', 'SS-002V', 'COL-501', 'elena@vettion.com', 'General');
 
 -- Insertar datos de los servicios
 insert into service (name, service_type, duration, base_price, description) values 
-('Revisión General', 'Revisión', 30, 35.00, 'Chequeo rutinario de salud'),
+('Revisión General', 'General', 30, 35.00, 'Chequeo rutinario de salud'),
 ('Cirugía Menor', 'Cirugía', 120, 150.00, 'Intervención con anestesia local'),
-('Vacunación', 'Revisión', 15, 25.00, 'Vacuna anual obligatoria');
+('Vacunación', 'General', 15, 25.00, 'Vacuna anual obligatoria');
 
 -- Insertar datos de las salas
 -- Ajuste sugerido para seeds.sql
 insert into room (room_code, name, type, is_free, location) values 
 ('C1', 'Consulta 1', 'General', true, 'Planta 1'),
 ('C2', 'Consulta 2', 'General', true, 'Planta 1'),
-('P1', 'Peluquería', 'Estética', true, 'Planta 2'),
+('P1', 'Peluquería', 'General', true, 'Planta 2'),
 ('QA', 'Quirófano A', 'Cirugía', true, 'Planta 3'),
 ('QB', 'Quirófano B', 'Cirugía', true, 'Planta 3');
 

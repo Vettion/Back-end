@@ -1,8 +1,8 @@
-const endHourAppointment = (start_time, consultDuration) => {
+const endHourAppointment = (start_time, serviceDuration) => {
   //Convertimos a minutos la hora de inicio y sumamos la duración de la consulta.
   //Añadimos 20 extra para la finalización de la limpieza de la sala.
   const [hours, minutes] = start_time.split(":").map(Number);
-  let totalMinutes = hours * 60 + minutes + consultDuration;
+  let totalMinutes = hours * 60 + minutes + serviceDuration;
 
   //Convertimos el total de minutos de nuevo a formato HH:MM
   const endHours = Math.floor(totalMinutes / 60) % 24;
