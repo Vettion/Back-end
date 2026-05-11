@@ -8,7 +8,12 @@ create table if not exists owner (
     name_owner varchar(100) not null,
     surname varchar(100) not null,
     phone varchar(15) not null,
-    email varchar(100)
+    email varchar(100),
+    direction varchar(255) not null,
+    floor varchar(10) not null,
+    city varchar(100) not null,
+    province varchar(100) not null,
+    postal_code varchar(10) not null
 );
 
 -- Tabla de mascotas.

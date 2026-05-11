@@ -28,6 +28,11 @@ const validateOwnerId = [
  * 3. El campo 'surname' es obligatorio y debe ser una cadena de texto y tener entre 2 y 100 caracteres.
  * 4. El campo 'phone' es obligatorio y debe ser una cadena de texto y tener entre 2 y 15 caracteres.
  * 5. El campo 'email' es obligatorio y debe ser una cadena de texto.
+ * 6. El campo 'direction' es obligatorio y debe ser una cadena de texto.
+ * 7. El campo 'floor' es obligatorio y debe ser una cadena de texto.
+ * 8. El campo 'city' es obligatorio y debe ser una cadena de texto.
+ * 9. El campo 'province' es obligatorio y debe ser una cadena de texto.
+ * 10. El campo 'postal_code' es obligatorio y debe ser una cadena de texto.
  */
 const validateAddOwner = [
 
@@ -58,6 +63,31 @@ const validateAddOwner = [
         .trim()
         .notEmpty().withMessage('Email is required')
         .isEmail().withMessage('Email format is invalid'),
+
+    body('direction')
+        .trim()
+        .notEmpty().withMessage('Direction is required')
+        .isLength ({ min: 2, max: 255}).withMessage('Direction must be between 2 and 255 characters'),
+
+    body('floor')
+        .trim()
+        .notEmpty().withMessage('Floor is required')
+        .isLength ({ min: 1, max: 10}).withMessage('Floor must be between 1 and 10 characters'),
+    
+    body('city')
+        .trim()
+        .notEmpty().withMessage('City is required')
+        .isLength ({ min: 2, max: 100}).withMessage('City must be between 2 and 100 characters'),
+
+    body('province')
+        .trim()
+        .notEmpty().withMessage('Province')
+        .isLength ({ min: 2, max: 100}).withMessage('Province must be between 2 and 100 characters'),
+
+    body('postal_code')
+        .trim()
+        .notEmpty().withMessage('Postal code is required')
+        .isLength ({ min: 4, max: 10}).withMessage('Postal code must be between 4 and 10 characters'),
 
     validateResult
 ];

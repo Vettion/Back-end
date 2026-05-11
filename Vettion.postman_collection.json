@@ -84,7 +84,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n    \"name_owner\":\"María\",\r\n    \"surname\":\"García\",\r\n    \"phone\":\"678901234\",\r\n    \"email\":\"laura.garcia@example.com\"\r\n}",
+              "raw": "{\r\n    \"name_owner\":\"Maria\",\r\n    \"surname\":\"García\",\r\n    \"phone\":\"678901234\",\r\n    \"email\":\"maria.garcia@example.com\",\r\n    \"direction\": \"avda.\",\r\n    \"floor\": \"2b\",\r\n    \"city\": \"Zaragoza\",\r\n    \"province\": \"Zaragoza\",\r\n    \"postal_code\":\"20399\"\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -341,7 +341,7 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "http://localhost:8080/allergies/pet/1",
+              "raw": "http://localhost:8080/allergies/pet/2",
               "protocol": "http",
               "host": [
                 "localhost"
@@ -350,7 +350,7 @@
               "path": [
                 "allergies",
                 "pet",
-                "1"
+                "2"
               ]
             }
           },
@@ -363,7 +363,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n    \"allergen\": \"Picadura de pulga\",\r\n    \"diagnostic_method\": \"Analisis de sangre\",\r\n    \"symptoms\": \"Ronchas, estornudos\",\r\n    \"severity_level\": \"Grave/Crítica\",\r\n    \"emergency_treatment\": \"Medicamento por via intravenosa\",\r\n    \"detection_date\": \"2026-04-10\"\r\n}",
+              "raw": "{\r\n    \"allergen\": \"Picadura de pulga\",\r\n    \"diagnostic_method\": \"Analisis de sangre\",\r\n    \"symptoms\": \"Ronchas, estornudos\",\r\n    \"severity_level\": \"Grave/Crítica\",\r\n    \"emergency_treatment\": \"Medicamento por via intravenosa\",\r\n    \"detection_date\": \"2026-04-10\",\r\n    \"id_pet\": 2\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
