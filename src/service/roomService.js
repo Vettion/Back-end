@@ -14,6 +14,13 @@ const findAllRooms = async () => {
     return rooms;
 };
 
+const findRoomByCodeRoom = async (code_room) => {
+    return await db('room')
+        .where({ room_code: code_room })
+        .first();
+};
+
 module.exports = {
-    findAllRooms
+    findAllRooms,
+    findRoomByCodeRoom
 };
