@@ -14,6 +14,7 @@ const cleanServiceRouter = require('./router/cleanServiceRouter.js');
 const allergyRouter = require('./router/allergyRouter.js');
 const cleanerRouter = require('./router/cleanerRouter.js');
 const veterinarianRouter = require('./router/veterinarianRouter.js');
+const roomRouter = require('./router/roomRouter.js');
 
 // URLs base.
 app.use('/owners', ownerRouter);
@@ -24,6 +25,7 @@ app.use('/clean_services', cleanServiceRouter);
 app.use('/allergies', allergyRouter);
 app.use('/cleaners', cleanerRouter);
 app.use('/veterinarians', veterinarianRouter);
+app.use('/rooms', roomRouter);
 
 // Manejo de errores. En caso de que ocurra un error en alguna de las rutas, se capturará aquí y se enviará una respuesta al cliente.
 app.use((err, req, res, next) => {
