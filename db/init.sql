@@ -79,7 +79,7 @@ create table if not exists room (
     type varchar(50) not null,
     is_free boolean not null,
     location varchar(50) not null
-)
+);
 
 -- Tabla de citas.
 create table if not exists appointment (
