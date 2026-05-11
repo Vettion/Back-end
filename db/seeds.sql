@@ -38,23 +38,31 @@ insert into veterinarian (dni_veterinarian, name, surname, phone, address, ss_nu
 ('10101010V', 'Carlos', 'Ruiz', '666111222', 'Calle Mayor 10', 'SS-001V', 'COL-500', 'carlos@vettion.com', 'Cirugía'),
 ('20202020W', 'Elena', 'Sanz', '666333444', 'Av. Madrid 5', 'SS-002V', 'COL-501', 'elena@vettion.com', 'General');
 
--- Insertar datos de las consultas
-insert into consult (name, consult_type, duration, base_price, description) values 
+-- Insertar datos de los servicios
+insert into service (name, service_type, duration, base_price, description) values 
 ('Revisión General', 'Revisión', 30, 35.00, 'Chequeo rutinario de salud'),
 ('Cirugía Menor', 'Cirugía', 120, 150.00, 'Intervención con anestesia local'),
 ('Vacunación', 'Revisión', 15, 25.00, 'Vacuna anual obligatoria');
 
+-- Insertar datos de las salas
+insert into room (room_code, name, type, is_free, location) values 
+('C1', 'Consulta 1', true, '1'),
+('C2', 'Consulta 2', true, '1'),
+('P1', 'Peluquería', true, '2'),
+('QA', 'Quirófano A', true, '3'),
+('QB', 'Quirófano B', true, '3');
+
 -- Insertar datos de las citas
-insert into appointment (date_appointment, start_time, end_time, consult_room, observations, pet_id, consult_id, veterinarian_dni) values 
-('2026-05-15', '10:00:00', '10:30:00', 'consulta 1', 'Vacuna de la rabia', 1, 3, '20202020W'),
-('2026-05-15', '11:00:00', '11:30:00', 'consulta 2', 'Revisión de oídos', 3, 1, '10101010V'),
-('2026-05-15', '12:00:00', '13:00:00', 'Peluquería', 'Baño y corte pelo largo', 1, 3, '10101010V'),
-('2026-05-20', '09:30:00', '10:00:00', 'consulta 1', 'Seguimiento post-vacuna', 1, 3, '20202020W'),
-('2026-06-01', '17:00:00', '17:30:00', 'consulta 2', 'Chequeo desparasitación', 1, 3, '10101010V'),
-('2026-05-15', '16:00:00', '16:30:00', 'consulta 1', 'Corte de uñas', 2, 3, '20202020W'),
-('2026-05-18', '10:00:00', '11:00:00', 'Peluquería', 'Lavado higiénico', 2, 3, '10101010V'),
-('2026-05-25', '11:30:00', '12:00:00', 'consulta 2', 'Revisión anual', 2, 1, '10101010V'),
-('2026-05-15', '13:00:00', '14:00:00', 'Quirófano A', 'Limpieza dental', 4, 3, '20202020W');
+insert into appointment (date_appointment, start_time, end_time, observations, pet_id, service_id, veterinarian_dni, code_room) values 
+('2026-05-15', '10:00:00', '10:30:00', 'Vacuna de la rabia', 1, 3, '20202020W', 'C1'),
+('2026-05-15', '11:00:00', '11:30:00', 'Revisión de oídos', 3, 1, '10101010V', 'C2'),
+('2026-05-15', '12:00:00', '13:00:00', 'Baño y corte pelo largo', 1, 3, '10101010V', 'P1'),
+('2026-05-20', '09:30:00', '10:00:00', 'Seguimiento post-vacuna', 1, 3, '20202020W', 'C1'),
+('2026-06-01', '17:00:00', '17:30:00', 'Chequeo desparasitación', 1, 3, '10101010V', 'C2'),
+('2026-05-15', '16:00:00', '16:30:00', 'Corte de uñas', 2, 3, '20202020W', 'P1'),
+('2026-05-18', '10:00:00', '11:00:00', 'Lavado higiénico', 2, 3, '10101010V', 'P1'),
+('2026-05-25', '11:30:00', '12:00:00', 'Revisión anual', 2, 1, '10101010V', 'C2'),
+('2026-05-15', '13:00:00', '14:00:00', 'Limpieza dental', 4, 3, '20202020W', 'QA');
 
 
 -- Insertar datos del personal de limpieza

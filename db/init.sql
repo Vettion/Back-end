@@ -62,15 +62,24 @@ create table if not exists veterinarian (
     specialty varchar(100) not null
 );
 
--- Tabla de consultas.
-create table if not exists consult (
-    id_consult int auto_increment primary key,
+-- Tabla de servicios.
+create table if not exists service (
+    id_service int auto_increment primary key,
     name varchar(100) not null,
-    consult_type varchar(100) not null,
+    service_type varchar(100) not null,
     duration int not null,
     base_price double(10, 2) not null,
     description text
 );
+
+-- Tabla de Salas
+create table if not exists room (
+    room_code varchar(10) primary key,
+    name varchar(100) not null,
+    type varchar(50) not null,
+    is_free boolean not null,
+    location varchar(50) not null
+)
 
 -- Tabla de citas.
 create table if not exists appointment (
@@ -78,18 +87,20 @@ create table if not exists appointment (
     date_appointment date not null,
     start_time time not null,
     end_time time,
-    consult_room varchar(50),
     observations varchar(255),
     
     pet_id int,
-    consult_id int,
+    service_id int,
     veterinarian_dni varchar(9),
+    code_room varchar(10),
     constraint fk_pet_appointment 
         foreign key (pet_id) references pet(id_pet) on delete cascade,
-    constraint fk_consult_appointment 
-        foreign key (consult_id) references consult(id_consult) on delete cascade,
+    constraint fk_service_appointment 
+        foreign key (service_id) references service(id_service) on delete cascade,
     constraint fk_veterinarian_appointment 
-        foreign key (veterinarian_dni) references veterinarian(dni_veterinarian) on delete cascade
+        foreign key (veterinarian_dni) references veterinarian(dni_veterinarian) on delete cascade,
+    constraint fk_room_appointment
+        foreign key (code_room) references room(room_code) on delete cascade
 );
 
 -- Tabla de empleados de la limpieza
