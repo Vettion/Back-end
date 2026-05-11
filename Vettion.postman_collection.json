@@ -294,6 +294,54 @@
       ]
     },
     {
+      "name": "cleaners",
+      "item": [
+        {
+          "name": "./vettion/cleaners",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/cleaners",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "cleaners"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "veterinarians",
+      "item": [
+        {
+          "name": "./vettion/veterinarians",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/veterinarians",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "veterinarians"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
       "name": "allergies",
       "item": [
         {
