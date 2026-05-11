@@ -24,6 +24,15 @@ const findAppointmentById = async (id_appointment) => {
 };
 
 /**
+ * Función para obtener las citas por el id de la mascota
+ * @param {*} pet_id 
+ * @returns 
+ */
+const findAppointmentByPetId = async (pet_id) => {
+  return await db("appointment").select("*").where({ pet_id: pet_id });
+};
+
+/**
  * Funcion para obtener todos los servicios de limpieza de la base de datos.
  * @returns
  */
@@ -148,27 +157,33 @@ const modifyAppointment = async (id_appointment, appointmentData) => {
 
     if (!consultDuration) {
       throw new Error("Consult duration not found for the specified room.");
-    }
-    else{
-      const end_hour_appointment = endHourAppointment(start_time, consultDuration.duration);
-      const end_hour_with_cleaning = endHourAppointment(end_hour_appointment, 20);
+    } else {
+      const end_hour_appointment = endHourAppointment(
+        start_time,
+        consultDuration.duration,
+      );
+      const end_hour_with_cleaning = endHourAppointment(
+        end_hour_appointment,
+        20,
+      );
 
       await db("appointment").where({ id_appointment: id_appointment }).update({
-      date_appointment,
-      start_time,
-      end_time: end_hour_appointment,
-      consult_room,
-      observations,
-      pet_id,
-      consult_id,
-      veterinarian_dni,
-    });
+        date_appointment,
+        start_time,
+        end_time: end_hour_appointment,
+        consult_room,
+        observations,
+        pet_id,
+        consult_id,
+        veterinarian_dni,
+      });
 
-    await db("clean_service").where({ appointment_id: id_appointment }).update({
-      start_time: end_hour_appointment,
-      end_time: end_hour_with_cleaning,
-    });
-
+      await db("clean_service")
+        .where({ appointment_id: id_appointment })
+        .update({
+          start_time: end_hour_appointment,
+          end_time: end_hour_with_cleaning,
+        });
     }
   } else {
     await db("appointment").where({ id_appointment: id_appointment }).update({
@@ -181,7 +196,7 @@ const modifyAppointment = async (id_appointment, appointmentData) => {
       veterinarian_dni,
     });
   }
-  
+
   return id_appointment;
 };
 
@@ -223,6 +238,7 @@ const removeCleanService = async (id_appointment) => {
 module.exports = {
   findAllAppointments,
   findAppointmentById,
+  findAppointmentByPetId,
   findAllCleanServices,
   findCleanServiceById,
   createAppointment,

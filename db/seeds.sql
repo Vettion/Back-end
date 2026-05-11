@@ -10,7 +10,14 @@ insert into owner (dni_owner, name_owner, surname, phone, email) values
 insert into pet (name_pet, type, breed, weight, sex, birth_date, owner_dni) values
 ('Rex', 'Perro', 'Pastor Alemán', 32.5, 'Macho', '2021-01-15', '12345678A'),
 ('Luna', 'Gato', 'Siamés', 4.2, 'Hembra', '2023-03-10', '87654321B'),
-('Toby', 'Perro', 'Beagle', 12.0, 'Macho', '2022-04-01', '12345678A');
+('Toby', 'Perro', 'Beagle', 12.0, 'Macho', '2022-04-01', '12345678A'),
+('Mora', 'Perro', 'Labrador', 28.3, 'Hembra', '2019-11-20', '87654321B'),
+('Simba', 'Gato', 'Persa', 5.1, 'Macho', '2020-06-05', '87654321B'),
+('Coco', 'Perro', 'Chihuahua', 2.8, 'Macho', '2023-08-12', '12345678A'),
+('Nala', 'Gato', 'Común Europeo', 3.9, 'Hembra', '2021-02-28', '87654321B'),
+('Bruno', 'Perro', 'Golden Retriever', 35.0, 'Macho', '2018-05-14', '12345678A'),
+('Kira', 'Perro', 'Border Collie', 18.5, 'Hembra', '2022-12-01', '87654321B'),
+('Pelusa', 'Conejo', 'Enano Holandés', 1.2, 'Hembra', '2024-01-10', '12345678A');
 
 -- Insertar datos de las alergias
 insert into allergy (allergen, diagnostic_method, symptoms, severity_level, emergency_treatment, detection_date) values 
@@ -40,7 +47,15 @@ insert into consult (name, consult_type, duration, base_price, description) valu
 -- Insertar datos de las citas
 insert into appointment (date_appointment, start_time, end_time, consult_room, observations, pet_id, consult_id, veterinarian_dni) values 
 ('2026-05-15', '10:00:00', '10:30:00', 'consulta 1', 'Vacuna de la rabia', 1, 3, '20202020W'),
-('2026-05-15', '11:00:00', '11:30:00', 'consulta 2', 'Revisión de oídos', 3, 1, '10101010V');
+('2026-05-15', '11:00:00', '11:30:00', 'consulta 2', 'Revisión de oídos', 3, 1, '10101010V'),
+('2026-05-15', '12:00:00', '13:00:00', 'Peluquería', 'Baño y corte pelo largo', 1, 3, '10101010V'),
+('2026-05-20', '09:30:00', '10:00:00', 'consulta 1', 'Seguimiento post-vacuna', 1, 3, '20202020W'),
+('2026-06-01', '17:00:00', '17:30:00', 'consulta 2', 'Chequeo desparasitación', 1, 3, '10101010V'),
+('2026-05-15', '16:00:00', '16:30:00', 'consulta 1', 'Corte de uñas', 2, 3, '20202020W'),
+('2026-05-18', '10:00:00', '11:00:00', 'Peluquería', 'Lavado higiénico', 2, 3, '10101010V'),
+('2026-05-25', '11:30:00', '12:00:00', 'consulta 2', 'Revisión anual', 2, 1, '10101010V'),
+('2026-05-15', '13:00:00', '14:00:00', 'Quirófano A', 'Limpieza dental', 4, 3, '20202020W');
+
 
 -- Insertar datos del personal de limpieza
 insert into cleaner (dni_cleaner, name, surname, phone, address, ss_number, email) values 
