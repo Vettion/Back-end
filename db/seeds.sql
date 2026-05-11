@@ -45,12 +45,13 @@ insert into service (name, service_type, duration, base_price, description) valu
 ('Vacunación', 'Revisión', 15, 25.00, 'Vacuna anual obligatoria');
 
 -- Insertar datos de las salas
+-- Ajuste sugerido para seeds.sql
 insert into room (room_code, name, type, is_free, location) values 
-('C1', 'Consulta 1', true, '1'),
-('C2', 'Consulta 2', true, '1'),
-('P1', 'Peluquería', true, '2'),
-('QA', 'Quirófano A', true, '3'),
-('QB', 'Quirófano B', true, '3');
+('C1', 'Consulta 1', 'General', true, 'Planta 1'),
+('C2', 'Consulta 2', 'General', true, 'Planta 1'),
+('P1', 'Peluquería', 'Estética', true, 'Planta 2'),
+('QA', 'Quirófano A', 'Cirugía', true, 'Planta 3'),
+('QB', 'Quirófano B', 'Cirugía', true, 'Planta 3');
 
 -- Insertar datos de las citas
 insert into appointment (date_appointment, start_time, end_time, observations, pet_id, service_id, veterinarian_dni, code_room) values 
