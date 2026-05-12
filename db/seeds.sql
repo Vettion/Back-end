@@ -47,23 +47,23 @@ insert into service (name, service_type, duration, base_price, description) valu
 -- Insertar datos de las salas
 -- Ajuste sugerido para seeds.sql
 insert into room (room_code, name, type, is_free, location) values 
-('C1', 'Consulta 1', 'General', true, 'Planta 1'),
-('C2', 'Consulta 2', 'General', true, 'Planta 1'),
-('P1', 'Peluquería', 'General', true, 'Planta 2'),
-('QA', 'Quirófano A', 'Cirugía', true, 'Planta 3'),
-('QB', 'Quirófano B', 'Cirugía', true, 'Planta 3');
+(1, 'Consulta 1', 'General', true, 'Planta 1'),
+(2, 'Consulta 2', 'General', true, 'Planta 1'),
+(3, 'Peluquería', 'General', true, 'Planta 2'),
+(4, 'Quirófano A', 'Cirugía', true, 'Planta 3'),
+(5, 'Quirófano B', 'Cirugía', true, 'Planta 3');
 
 -- Insertar datos de las citas
 insert into appointment (date_appointment, start_time, end_time, observations, pet_id, service_id, veterinarian_dni, code_room) values 
-('2026-05-15', '10:00:00', '10:30:00', 'Vacuna de la rabia', 1, 3, '20202020W', 'C1'),
-('2026-05-15', '11:00:00', '11:30:00', 'Revisión de oídos', 3, 1, '10101010V', 'C2'),
-('2026-05-15', '12:00:00', '13:00:00', 'Baño y corte pelo largo', 1, 3, '10101010V', 'P1'),
-('2026-05-20', '09:30:00', '10:00:00', 'Seguimiento post-vacuna', 1, 3, '20202020W', 'C1'),
-('2026-06-01', '17:00:00', '17:30:00', 'Chequeo desparasitación', 1, 3, '10101010V', 'C2'),
-('2026-05-15', '16:00:00', '16:30:00', 'Corte de uñas', 2, 3, '20202020W', 'P1'),
-('2026-05-18', '10:00:00', '11:00:00', 'Lavado higiénico', 2, 3, '10101010V', 'P1'),
-('2026-05-25', '11:30:00', '12:00:00', 'Revisión anual', 2, 1, '10101010V', 'C2'),
-('2026-05-15', '13:00:00', '14:00:00', 'Limpieza dental', 4, 3, '20202020W', 'QA');
+('2026-05-15', '10:00:00', '10:30:00', 'Vacuna de la rabia', 1, 3, '20202020W', 1),
+('2026-05-15', '11:00:00', '11:30:00', 'Revisión de oídos', 3, 1, '10101010V', 2),
+('2026-05-15', '12:00:00', '13:00:00', 'Baño y corte pelo largo', 1, 3, '10101010V', 3),
+('2026-05-20', '09:30:00', '10:00:00', 'Seguimiento post-vacuna', 1, 3, '20202020W', 1),
+('2026-06-01', '17:00:00', '17:30:00', 'Chequeo desparasitación', 1, 3, '10101010V', 2),
+('2026-05-15', '16:00:00', '16:30:00', 'Corte de uñas', 2, 3, '20202020W', 3),
+('2026-05-18', '10:00:00', '11:00:00', 'Lavado higiénico', 2, 3, '10101010V', 3),
+('2026-05-25', '11:30:00', '12:00:00', 'Revisión anual', 2, 1, '10101010V', 2),
+('2026-05-15', '13:00:00', '14:00:00', 'Limpieza dental', 4, 3, '20202020W', 3);
 
 
 -- Insertar datos del personal de limpieza

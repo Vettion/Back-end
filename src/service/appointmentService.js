@@ -33,6 +33,15 @@ const findAppointmentByPetId = async (pet_id) => {
 };
 
 /**
+ * Función para obtener las citas por el id de la sala
+ * @param {*} code_room 
+ * @returns 
+ */
+const findAppointmentByRoomId = async (code_room) => {
+  return await db("appointment").select("*").where({ code_room: code_room });
+}
+
+/**
  * Funcion para obtener todos los servicios de limpieza de la base de datos.
  * @returns
  */
@@ -312,6 +321,7 @@ module.exports = {
   findAllAppointments,
   findAppointmentById,
   findAppointmentByPetId,
+  findAppointmentByRoomId,
   findAllCleanServices,
   findCleanServiceById,
   createAppointment,

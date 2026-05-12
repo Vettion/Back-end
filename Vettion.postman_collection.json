@@ -84,7 +84,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n    \"name_owner\":\"María\",\r\n    \"surname\":\"García\",\r\n    \"phone\":\"678901234\",\r\n    \"email\":\"laura.garcia@example.com\"\r\n}",
+              "raw": "{\r\n    \"name_owner\":\"Maria\",\r\n    \"surname\":\"García\",\r\n    \"phone\":\"678901234\",\r\n    \"email\":\"maria.garcia@example.com\",\r\n    \"direction\": \"avda.\",\r\n    \"floor\": \"2b\",\r\n    \"city\": \"Zaragoza\",\r\n    \"province\": \"Zaragoza\",\r\n    \"postal_code\":\"20399\"\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -177,7 +177,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n    \"name_pet\":\"Max\",\r\n    \"type\":\"Perro\",\r\n    \"breed\":\"Labrador\",\r\n    \"weight\":\"40.1\",\r\n    \"sex\":\"Hembra\",\r\n    \"birth_date\":\"1999-03-01\",\r\n    \"owner_dni\":\"12345678A\"\r\n}",
+              "raw": "{\r\n    \"name_pet\":\"Max\",\r\n    \"type\":\"Perro\",\r\n    \"breed\":\"Labrador\",\r\n    \"weight\":\"40.1\",\r\n    \"sex\":\"Hembra\",\r\n    \"birth_date\":\"2026-12-12\",\r\n    \"owner_dni\":\"12345678A\"\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -294,6 +294,54 @@
       ]
     },
     {
+      "name": "cleaners",
+      "item": [
+        {
+          "name": "./vettion/cleaners",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/cleaners",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "cleaners"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "veterinarians",
+      "item": [
+        {
+          "name": "./vettion/veterinarians",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/veterinarians",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "veterinarians"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
       "name": "allergies",
       "item": [
         {
@@ -341,7 +389,7 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "http://localhost:8080/allergies/pet/1",
+              "raw": "http://localhost:8080/allergies/pet/2",
               "protocol": "http",
               "host": [
                 "localhost"
@@ -350,7 +398,7 @@
               "path": [
                 "allergies",
                 "pet",
-                "1"
+                "2"
               ]
             }
           },
@@ -363,7 +411,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n    \"allergen\": \"Picadura de pulga\",\r\n    \"diagnostic_method\": \"Analisis de sangre\",\r\n    \"symptoms\": \"Ronchas, estornudos\",\r\n    \"severity_level\": \"Grave/Crítica\",\r\n    \"emergency_treatment\": \"Medicamento por via intravenosa\",\r\n    \"detection_date\": \"2026-04-10\"\r\n}",
+              "raw": "{\r\n    \"allergen\": \"Picadura de pulga\",\r\n    \"diagnostic_method\": \"Analisis de sangre\",\r\n    \"symptoms\": \"Ronchas, estornudos\",\r\n    \"severity_level\": \"Grave/Crítica\",\r\n    \"emergency_treatment\": \"Medicamento por via intravenosa\",\r\n    \"detection_date\": \"2026-04-10\",\r\n    \"id_pet\": 2\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -555,6 +603,34 @@
           "response": []
         },
         {
+          "name": "/vettion/appointments/room/:code_room",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"dni\":\"73134044R\",\r\n    \"name\":\"Laura\",\r\n    \"surname\":\"García\",\r\n    \"phone\":\"678901234\",\r\n    \"email\":\"laura.garcia@example.com\"\r\n}"
+            },
+            "url": {
+              "raw": "http://localhost:8080/appointments/room/1",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "appointments",
+                "room",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
           "name": "/vettion/clean_services/:id_clean_service",
           "protocolProfileBehavior": {
             "disableBodyPruning": true
@@ -588,7 +664,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n    \"date_appointment\":\"2026-05-08\",\r\n    \"start_time\":\"12:00\",\r\n    \"consult_room\":1,\r\n    \"observations\": \"Es urgente\",\r\n    \"pet_id\":1,\r\n    \"consult_id\":1,\r\n    \"veterinarian_dni\":\"10101010V\",\r\n    \"cleaner_dni\": \"33445566L\"\r\n}",
+              "raw": "{\r\n    \"date_appointment\":\"2026-05-15\",\r\n    \"start_time\":\"12:15\",\r\n    \"observations\": \"Es urgente\",\r\n    \"pet_id\":1,\r\n    \"service_id\":1,\r\n    \"veterinarian_dni\":\"20202020W\",\r\n    \"cleaner_dni\": \"33445566L\",\r\n    \"code_room\": \"C1\"\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -616,7 +692,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n    \"date_appointment\":\"2026-05-08\",\r\n    \"start_time\":\"12:40\",\r\n    \"consult_room\":1,\r\n    \"observations\": \"SOS\",\r\n    \"pet_id\":1,\r\n    \"consult_id\":2,\r\n    \"veterinarian_dni\":\"10101010V\"\r\n}",
+              "raw": "{\r\n    \"date_appointment\":\"2026-05-22\",\r\n    \"start_time\":\"15:30\",\r\n    \"observations\": \"Es urgente\",\r\n    \"pet_id\":1,\r\n    \"service_id\":1,\r\n    \"veterinarian_dni\":\"20202020W\",\r\n    \"cleaner_dni\": \"33445566L\",\r\n    \"code_room\": \"C1\"\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
