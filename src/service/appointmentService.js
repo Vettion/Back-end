@@ -1,5 +1,6 @@
 const { isWeekend } = require("../utils/isWeekend.js");
 const { endHourAppointment } = require("../utils/endHourAppointment.js");
+const { formatDate } = require("../utils/dateUtil.js");
 const { start } = require("node:repl");
 const db = require("../configuration/database.js").db;
 
@@ -8,7 +9,8 @@ const db = require("../configuration/database.js").db;
  * @returns
  */
 const findAllAppointments = async () => {
-  return await db("appointment").select("*");
+  const appointment = await db("appointment").select("*");
+  return appointment.map(a => ({ ...a, date_appointment: formatDate(a.date_appointment) }));
 };
 
 /**
@@ -29,8 +31,18 @@ const findAppointmentById = async (id_appointment) => {
  * @returns 
  */
 const findAppointmentByPetId = async (pet_id) => {
-  return await db("appointment").select("*").where({ pet_id: pet_id });
+  const appointments = await db("appointment").select("*").where({ pet_id: pet_id });
+  return appointments.map(a => ({ ...a, date_appointment: formatDate(a.date_appointment) }));
 };
+
+/**
+ * Función para obtener las citas por el id de la sala
+ * @param {*} code_room 
+ * @returns 
+ */
+const findAppointmentByRoomId = async (code_room) => {
+  return await db("appointment").select("*").where({ code_room: code_room });
+}
 
 /**
  * Funcion para obtener todos los servicios de limpieza de la base de datos.
@@ -61,12 +73,12 @@ const createAppointment = async (appointmentData) => {
   const {
     date_appointment,
     start_time,
-    consult_room,
     observations,
     pet_id,
-    consult_id,
+    service_id,
     veterinarian_dni,
     cleaner_dni,
+    code_room
   } = appointmentData;
 
   // Añadimos la funcion creada en (../utils/isWeekend.js) para evitar que se pueda generar una cita en fin de semana.
@@ -76,44 +88,73 @@ const createAppointment = async (appointmentData) => {
     );
   }
 
+  //Comprobamos que la fecha no es de una fecha que ya ha pasado
+  const dateAppointment = new Date(date_appointment);
+  const today = new Date();
+  if (dateAppointment.getDay() < today.getDay()) {
+    throw new Error(
+      "No se aceptan fechas anteriores a la fecha actual."
+    )
+  }
+
+  //Comprobamos que el servicio que se va a hacer es el mismo que la especialidad del veterinario.
+  const veterinarianService = await db("veterinarian").select("speciality").where({ dni_veterinarian: veterinarian_dni }).first();
+  const serviceType = await db("service").select("service_type").where({ id_service: service_id }).first();
+  if (!veterinarianService || !serviceType || serviceType.service_type !== veterinarianService.speciality) {
+    throw new Error("No se puede asignar al veterinario a este tipo de servicio.")
+  }
+
   // Obtener la duración de la consulta.
-  const consultDuration = await db("consult")
+  const serviceDuration = await db("service")
     .select("duration")
-    .where({ id_consult: consult_id })
+    .where({ id_service: service_id })
     .first();
 
-  if (!consultDuration) {
+  if (!serviceDuration) {
     throw new Error("Consult duration not found for the specified consult.");
   } else {
     //Llamamos a la función creada en (../utils/endHourAppointment.js) para calcular cuando finaliza la cita y cuando
     //inicia y termina el servicio de limpieza de la sala.
     const end_hour_appointment = endHourAppointment(
       start_time,
-      consultDuration.duration,
+      serviceDuration.duration,
     );
 
-    const [appointmentId] = await db("appointment").insert({
-      date_appointment,
-      start_time,
-      end_time: end_hour_appointment,
-      consult_room,
-      observations,
-      pet_id,
-      consult_id,
-      veterinarian_dni,
-    });
+    //Comprobamos que la sala no está ocupada en ese intervalo de tiempo.
+    const overlappingAppointments = await db("appointment")
+      .where({ code_room: code_room })
+      .andWhere(function () {
+        this.where("start_time", "<", end_hour_appointment)
+          .andWhere("end_time", ">", start_time);
+      });
 
-    const end_hour_clean_service = endHourAppointment(end_hour_appointment, 20);
+    if (overlappingAppointments.length > 0) {
+      throw new Error("La sala está ocupada en ese momento.")
+    }
+    else {
+      const [appointmentId] = await db("appointment").insert({
+        date_appointment,
+        start_time,
+        end_time: end_hour_appointment,
+        observations,
+        pet_id,
+        service_id,
+        veterinarian_dni,
+        code_room
+      });
 
-    await db("clean_service").insert({
-      date_service: date_appointment,
-      start_time: end_hour_appointment,
-      end_time: end_hour_clean_service,
-      cleaner_dni,
-      appointment_id: appointmentId,
-    });
+      const end_hour_clean_service = endHourAppointment(end_hour_appointment, 20);
 
-    return appointmentId;
+      await db("clean_service").insert({
+        date_service: date_appointment,
+        start_time: end_hour_appointment,
+        end_time: end_hour_clean_service,
+        cleaner_dni,
+        appointment_id: appointmentId,
+      });
+
+      return appointmentId;
+    }
   }
 };
 
@@ -127,11 +168,11 @@ const modifyAppointment = async (id_appointment, appointmentData) => {
   const {
     date_appointment,
     start_time,
-    consult_room,
     observations,
     pet_id,
-    consult_id,
+    service_id,
     veterinarian_dni,
+    code_room
   } = appointmentData;
 
   // Añadimos la funcion creada en (../utils/isWeekend.js) para evitar que se pueda modificar una cita en fin de semana.
@@ -139,6 +180,21 @@ const modifyAppointment = async (id_appointment, appointmentData) => {
     throw new Error(
       "La clínica está cerrada los fines de semana, por favor elija otra fecha.",
     );
+  }
+
+  const dateAppointment = new Date(date_appointment);
+  const today = new Date();
+  if (dateAppointment.getTime() < today.getTime()) {
+    throw new Error(
+      "No se aceptan citas anteriores a la fecha actual."
+    )
+  }
+
+  //Comprobamos que el servicio que se va a hacer es el mismo que la especialidad del veterinario.
+  const veterinarianService = await db("veterinarian").select("speciality").where({ dni_veterinarian: veterinarian_dni }).first();
+  const serviceType = await db("service").select("service_type").where({ id_service: service_id }).first();
+  if (!veterinarianService || !serviceType || serviceType.service_type !== veterinarianService.speciality) {
+    throw new Error("No se puede asignar al veterinario a este tipo de servicio.")
   }
 
   //Comprobamos que lo que si se ha cambiado es la hora de inicio entonces llamamos a la función endHourAppointment
@@ -150,9 +206,9 @@ const modifyAppointment = async (id_appointment, appointmentData) => {
   //Si se ha modificado al atributo start_hour
   if (previousStartHour.start_time !== start_time) {
     // Obtener la duración del servicio asociado a la sala para calcular la hora de fin de la cita
-    const consultDuration = await db("consult")
+    const consultDuration = await db("service")
       .select("duration")
-      .where({ id_consult: consult_id })
+      .where({ id_service: service_id })
       .first();
 
     if (!consultDuration) {
@@ -167,15 +223,44 @@ const modifyAppointment = async (id_appointment, appointmentData) => {
         20,
       );
 
+      const previousAppointmentDate = await db("appointment").select("date_appointment").where({ id_appointment: id_appointment });
+
+      if (previousAppointmentDate.date_appointment !== date_appointment) {
+        //Comprobamos que la sala no está ocupada en ese intervalo de tiempo.
+        const overlappingAppointments = await db("appointment")
+          .where({ code_room: code_room, date_appointment: date_appointment })
+          .andWhere(function () {
+            this.where("start_time", "<", end_hour_appointment)
+              .andWhere("end_time", ">", start_time);
+          });
+
+        if (overlappingAppointments.length > 0) {
+          throw new Error("La sala está ocupada en ese momento.")
+        }
+      }
+      else {
+        //Comprobamos que la sala no está ocupada en ese intervalo de tiempo.
+        const overlappingAppointments = await db("appointment")
+          .where({ code_room: code_room })
+          .andWhere(function () {
+            this.where("start_time", "<", end_hour_appointment)
+              .andWhere("end_time", ">", start_time);
+          });
+
+        if (overlappingAppointments.length > 0) {
+          throw new Error("La sala está ocupada en ese momento.")
+        }
+      }
+
       await db("appointment").where({ id_appointment: id_appointment }).update({
         date_appointment,
         start_time,
         end_time: end_hour_appointment,
-        consult_room,
         observations,
         pet_id,
-        consult_id,
+        service_id,
         veterinarian_dni,
+        code_room
       });
 
       await db("clean_service")
@@ -189,11 +274,11 @@ const modifyAppointment = async (id_appointment, appointmentData) => {
     await db("appointment").where({ id_appointment: id_appointment }).update({
       date_appointment,
       start_time,
-      consult_room,
       observations,
       pet_id,
-      consult_id,
+      service_id,
       veterinarian_dni,
+      code_room
     });
   }
 
@@ -239,6 +324,7 @@ module.exports = {
   findAllAppointments,
   findAppointmentById,
   findAppointmentByPetId,
+  findAppointmentByRoomId,
   findAllCleanServices,
   findCleanServiceById,
   createAppointment,

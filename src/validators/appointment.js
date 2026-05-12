@@ -28,7 +28,22 @@ const validateAppointmentId = [
 const validateAppointmentByPetId = [
     param('pet_id')
         .notEmpty().withMessage('pet_id is required')
-        .isInt({ gt: 0 }).withMessage('id_appointment must be a positive integer'),
+        .isInt({ gt: 0 }).withMessage('pet_id must be a positive integer'),
+    
+    validateResult
+];
+
+/**
+ * Cadena de validaciones para operaciones que requieren un Id de cita.
+ * Se aplica a rutas dinamicas como GET /vettion/appointment/room/:code_room.
+ * * Reglas:
+ * 1. El parametro 'code_room' debe existir en la URL.
+ * 2. El parametro 'code_room' debe ser un numero entero mayor que 0.
+ */
+const validateAppointmentByRoomCode = [
+    param('code_room')
+        .notEmpty().withMessage('code_room is required')
+        .isInt({ gt: 0 }).withMessage('code_room must be a positive integer'),
     
     validateResult
 ];
@@ -55,20 +70,10 @@ const validateAddAppointment = [
         .notEmpty().withMessage('start_time is required')
         .isTime().withMessage('start_time must be a time'),
 
-    body('consult_room')
-        .trim()
-        .notEmpty().withMessage('consult_room is required')
-        .isString().withMessage('consult_room must be a string'),
-
     body('pet_id')
         .trim()
         .notEmpty().withMessage('pet_id is required')
         .isInt({ gt: 0 }).withMessage('pet_id must be a positive integer'),
-
-    body('consult_id')
-        .trim()
-        .notEmpty().withMessage('consult_id is required')
-        .isInt({ gt: 0 }).withMessage('consult_id must be a positive integer'),
 
     body('veterinarian_dni')
         .trim()
@@ -99,6 +104,7 @@ const validateUpdateAppointment = [
 module.exports = {
     validateAppointmentId,
     validateAppointmentByPetId,
+    validateAppointmentByRoomCode,
     validateAddAppointment,
     validateUpdateAppointment
 }

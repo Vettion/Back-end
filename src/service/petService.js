@@ -1,6 +1,7 @@
 // Archivo en el que accedemos a la base de datos a por la información requerida y realizamos las operaciones de logica necesarias
 
 const db = require('../configuration/database.js').db;
+const { formatDate } = require('../utils/dateUtil.js');
 
 /**
  * Metodo para obtener todas las mascotas de la base de datos.
@@ -11,8 +12,10 @@ const findAllPets = async () => {
         .join('owner', 'pet.owner_dni', 'owner.dni_owner')
         .select('pet.*', 'owner.name_owner as owner_name', 'owner.surname as owner_surname');
 
+    const newPets = pets.map(p => ({ ...p, birth_date: formatDate(p.birth_date) }));
+
     const petsWithAllergies = await Promise.all(
-        pets.map(async (pet) => {
+        newPets.map(async (pet) => {
             const allergies = await db('have_allergy')
                 .where('have_allergy.pet_id', pet.id_pet)
                 .join('allergy', 'have_allergy.allergy_id', 'allergy.id_allergy')
@@ -58,7 +61,8 @@ const findPetById = async (id) => {
 
     pet.allergies = allergies;
 
-    return pet;
+    return { ...pet, birth_date: formatDate(pet.birth_date)}
+
 };
 
 /**
