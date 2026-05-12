@@ -1,5 +1,6 @@
 // Archivo en el que accedemos a la base de datos a por la informacion requerida y realizamos las operaciones de logica necesaria.
 const db = require("../configuration/database.js").db;
+const {formatDate} = require('../utils/dateUtil.js');
 
 /**
  * Funcion para obtener todas las alergias de la base de datos.
@@ -7,7 +8,8 @@ const db = require("../configuration/database.js").db;
  */
 const findAllAllergies = async () => {
   const allergies = await db("allergy").select("*");
-  return allergies;
+  const allergyFormat = allergies.map(a => ({...a, detection_date: formatDate(a.detection_date)}));
+  return allergyFormat;
 };
 
 /**
@@ -16,14 +18,18 @@ const findAllAllergies = async () => {
  * @returns {Promise<Object|null>} Devuelve una promesa que resuelve en un objeto (alergia) o null si no se encuentra.
  */
 const findAllergyById = async (id_allergy) => {
-  return await db("allergy").where({ id_allergy: id_allergy }).first();
+  const allergy = await db("allergy").where({ id_allergy: id_allergy }).first();
+  return { ...allergy, detection_date: formatDate(allergy.detection_date)};
 };
 
 const findAllergyByPetId = async (pet_id) => {
-  return await db("allergy")
+  const allergies = await db("allergy")
     .join("have_allergy", "allergy.id_allergy", "=", "have_allergy.allergy_id")
     .where("have_allergy.pet_id", pet_id)
     .select("allergy.*");
+
+  const allergyFormat = allergies.map(a => ({...a, detection_date: formatDate(a.detection_date)}));
+  return allergyFormat;
 };
 
 /**

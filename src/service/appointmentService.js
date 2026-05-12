@@ -1,5 +1,6 @@
 const { isWeekend } = require("../utils/isWeekend.js");
 const { endHourAppointment } = require("../utils/endHourAppointment.js");
+const { formatDate } = require("../utils/dateUtil.js");
 const { start } = require("node:repl");
 const db = require("../configuration/database.js").db;
 
@@ -8,7 +9,8 @@ const db = require("../configuration/database.js").db;
  * @returns
  */
 const findAllAppointments = async () => {
-  return await db("appointment").select("*");
+  const appointment = await db("appointment").select("*");
+  return appointment.map(a => ({ ...a, date_appointment: formatDate(a.date_appointment) }));
 };
 
 /**
@@ -29,7 +31,8 @@ const findAppointmentById = async (id_appointment) => {
  * @returns 
  */
 const findAppointmentByPetId = async (pet_id) => {
-  return await db("appointment").select("*").where({ pet_id: pet_id });
+  const appointments = await db("appointment").select("*").where({ pet_id: pet_id });
+  return appointments.map(a => ({ ...a, date_appointment: formatDate(a.date_appointment) }));
 };
 
 /**
@@ -88,7 +91,7 @@ const createAppointment = async (appointmentData) => {
   //Comprobamos que la fecha no es de una fecha que ya ha pasado
   const dateAppointment = new Date(date_appointment);
   const today = new Date();
-  if (dateAppointment.getTime() < today.getTime()) {
+  if (dateAppointment.getDay() < today.getDay()) {
     throw new Error(
       "No se aceptan fechas anteriores a la fecha actual."
     )
