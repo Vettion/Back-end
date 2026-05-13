@@ -25,8 +25,8 @@ const findAppointmentById = async (id_appointment) => {
 
 /**
  * Función para obtener las citas por el id de la mascota
- * @param {*} pet_id 
- * @returns 
+ * @param {*} pet_id
+ * @returns
  */
 const findAppointmentByPetId = async (pet_id) => {
   return await db("appointment").select("*").where({ pet_id: pet_id });
@@ -235,6 +235,25 @@ const removeCleanService = async (id_appointment) => {
     .del();
 };
 
+const findAppointmentsByRoomAndDate = async (code_room, date) => {
+  return await db("appointment as a")
+    .select(
+      "a.id_appointment",
+      "a.date_appointment",
+      "a.start_time",
+      "a.end_time",
+      "a.pet_id",
+      "a.code_room",
+      "p.name_pet",
+      "o.name_owner",
+      "o.surname as owner_surname",
+    )
+    .leftJoin("pet as p", "a.pet_id", "p.id_pet")
+    .leftJoin("owner as o", "p.owner_dni", "o.dni_owner")
+    .where({ "a.code_room": code_room, "a.date_appointment": date })
+    .orderBy("a.start_time", "asc");
+};
+
 module.exports = {
   findAllAppointments,
   findAppointmentById,
@@ -246,4 +265,5 @@ module.exports = {
   modifyCleanService,
   removeAppointment,
   removeCleanService,
+  findAppointmentsByRoomAndDate
 };
