@@ -8,7 +8,12 @@ create table if not exists owner (
     name_owner varchar(100) not null,
     surname varchar(100) not null,
     phone varchar(15) not null,
-    email varchar(100)
+    email varchar(100),
+    direction varchar(255) not null,
+    floor varchar(10),
+    city varchar(100) not null,
+    province varchar(100) not null,
+    postal_code varchar(10) not null
 );
 
 -- Tabla de mascotas.
@@ -20,6 +25,8 @@ create table if not exists pet (
     weight decimal(5,2) not null,
     sex varchar(20) not null,
     birth_date date not null,
+    age int (3),
+    register_date date not null,
 
     owner_dni varchar(9),
     constraint fk_owner_pet 
@@ -59,7 +66,7 @@ create table if not exists veterinarian (
     ss_number varchar(100) not null,
     collegiate_number varchar(100) not null,
     email varchar(100) not null,
-    specialty varchar(100) not null
+    speciality varchar(100) not null
 );
 
 -- Tabla de servicios.
@@ -74,7 +81,7 @@ create table if not exists service (
 
 -- Tabla de Salas
 create table if not exists room (
-    room_code varchar(10) primary key,
+    room_code int auto_increment primary key,
     name varchar(100) not null,
     type varchar(50) not null,
     is_free boolean not null,
@@ -92,7 +99,7 @@ create table if not exists appointment (
     pet_id int,
     service_id int,
     veterinarian_dni varchar(9),
-    code_room varchar(10),
+    code_room int,
     constraint fk_pet_appointment 
         foreign key (pet_id) references pet(id_pet) on delete cascade,
     constraint fk_service_appointment 

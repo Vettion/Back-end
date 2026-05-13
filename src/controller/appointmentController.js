@@ -3,6 +3,7 @@ const {
   findAllAppointments,
   findAppointmentById,
   findAppointmentByPetId,
+  findAppointmentByRoomId,
   findAllCleanServices,
   findCleanServiceById,
   createAppointment,
@@ -107,6 +108,38 @@ const getAppointmentByPetId = async (req, res, next) => {
         code: 404,
         title: "not found",
         message: `Appointment with pet_id ${pet_id} not found`,
+      });
+    }
+    return res.status(200).json({
+      code: 200,
+      title: "success",
+      message: "Appointment retrieved successfully.",
+      data: appointment,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+/**
+ * Función para obtener todas las citas de una mascota por su id
+ * Se encarga de manejar la solicitud GET /vettion/appointments/room/:code_room.
+ * @param {*} req Objeto de solicitud
+ * @param {*} res Objeto de respuesta
+ * @param {*} next Función middleware para manejar errores.
+ * @returns Devuelve un JSON estandarizado con el código de estado 200 y los datos de la cita/s solicitada/s
+ * o el código de estado 404 si no se encuentra.
+ */
+const getAppointmentByRoomId = async (req, res, next) => {
+  try {
+    const { code_room } = req.params;
+    const appointment = await findAppointmentByRoomId(code_room);
+
+    if (!appointment) {
+      return res.status(404).json({
+        code: 404,
+        title: "not found",
+        message: `Appointment with code_room ${code_room} not found`,
       });
     }
     return res.status(200).json({
@@ -299,6 +332,7 @@ module.exports = {
   getAllCleanServices,
   getAppointmentById,
   getAppointmentByPetId,
+  getAppointmentByRoomId,
   getCleanServiceById,
   postAppointment,
   putAppointment,
