@@ -7,17 +7,17 @@ insert into owner (dni_owner, name_owner, surname, phone, email, direction, floo
 ('11223344C', 'Andrés', 'López Ruiz', '611555666', 'andres.lopez@email.com', 'Plaza España 10', '3C', 'Barcelona', 'Barcelona', '08001');
 
 -- Insertar datos de las mascotas
-insert into pet (name_pet, type, breed, weight, sex, birth_date, owner_dni) values
-('Rex', 'Perro', 'Pastor Alemán', 32.5, 'Macho', '2021-01-15', '12345678A'),
-('Luna', 'Gato', 'Siamés', 4.2, 'Hembra', '2023-03-10', '87654321B'),
-('Toby', 'Perro', 'Beagle', 12.0, 'Macho', '2022-04-01', '12345678A'),
-('Mora', 'Perro', 'Labrador', 28.3, 'Hembra', '2019-11-20', '87654321B'),
-('Simba', 'Gato', 'Persa', 5.1, 'Macho', '2020-06-05', '87654321B'),
-('Coco', 'Perro', 'Chihuahua', 2.8, 'Macho', '2023-08-12', '12345678A'),
-('Nala', 'Gato', 'Común Europeo', 3.9, 'Hembra', '2021-02-28', '87654321B'),
-('Bruno', 'Perro', 'Golden Retriever', 35.0, 'Macho', '2018-05-14', '12345678A'),
-('Kira', 'Perro', 'Border Collie', 18.5, 'Hembra', '2022-12-01', '87654321B'),
-('Pelusa', 'Conejo', 'Enano Holandés', 1.2, 'Hembra', '2024-01-10', '12345678A');
+insert into pet (name_pet, type, breed, weight, sex, birth_date, age, register_date, owner_dni) values
+('Rex', 'Perro', 'Pastor Alemán', 32.5, 'Macho', '2021-01-15', 5, now(), '12345678A'),
+('Luna', 'Gato', 'Siamés', 4.2, 'Hembra', '2023-03-10', 3, now(), '87654321B'),
+('Toby', 'Perro', 'Beagle', 12.0, 'Macho', '2022-04-01', 4, now(), '12345678A'),
+('Mora', 'Perro', 'Labrador', 28.3, 'Hembra', '2019-11-20', 6, now(), '87654321B'),
+('Simba', 'Gato', 'Persa', 5.1, 'Macho', '2020-06-05', 5, now(), '87654321B'),
+('Coco', 'Perro', 'Chihuahua', 2.8, 'Macho', '2023-08-12', 2, now(), '12345678A'),
+('Nala', 'Gato', 'Común Europeo', 3.9, 'Hembra', '2021-02-28', 5, now(), '87654321B'),
+('Bruno', 'Perro', 'Golden Retriever', 35.0, 'Macho', '2018-05-14', 8, now(), '12345678A'),
+('Kira', 'Perro', 'Border Collie', 18.5, 'Hembra', '2022-12-01', 3, now(), '87654321B'),
+('Pelusa', 'Conejo', 'Enano Holandés', 1.2, 'Hembra', '2024-01-10', 2, now(), '12345678A');
 
 -- Insertar datos de las alergias
 insert into allergy (allergen, diagnostic_method, symptoms, severity_level, emergency_treatment, detection_date) values 

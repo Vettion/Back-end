@@ -1,7 +1,8 @@
 // Archivo en el que accedemos a la base de datos a por la información requerida y realizamos las operaciones de logica necesarias
 
 const db = require('../configuration/database.js').db;
-const { formatDate } = require('../utils/dateUtil.js');
+const { register } = require('node:module');
+const { formatDate, getYearsFromNow } = require('../utils/dateUtil.js');
 
 /**
  * Metodo para obtener todas las mascotas de la base de datos.
@@ -12,7 +13,24 @@ const findAllPets = async () => {
         .join('owner', 'pet.owner_dni', 'owner.dni_owner')
         .select('pet.*', 'owner.name_owner as owner_name', 'owner.surname as owner_surname');
 
-    const newPets = pets.map(p => ({ ...p, birth_date: formatDate(p.birth_date) }));
+    //Comprobamos que si el dia y mes de la fecha de nacimiento son iguales a los de la fecha actual recalculamos la edad.
+    const date = new Date();
+    const dayDate = date.getDay();
+    const monthDate = date.getMonth();
+
+    const birthDate = new Date(pets.birth_date);
+    const dayBirth = birthDate.getDay();
+    const monthBirth = birthDate.getMonth();
+
+    let newPets;
+
+    if (dayDate === dayBirth && monthDate === monthBirth) {
+        const newAge = getYearsFromNow(birthDate);
+        newPets = pets.map(p => ({ ...p, birth_date: formatDate(p.birth_date), age: newAge, register_date: formatDate(p.register_date) }));
+    }
+    else {
+        newPets = pets.map(p => ({ ...p, birth_date: formatDate(p.birth_date), register_date: formatDate(p.register_date) }));
+    }
 
     const petsWithAllergies = await Promise.all(
         newPets.map(async (pet) => {
@@ -29,6 +47,8 @@ const findAllPets = async () => {
                 weight: pet.weight,
                 sex: pet.sex,
                 birth_date: pet.birth_date,
+                age: pet.age,
+                register_date: pet.register_date,
                 owner_dni: pet.owner_dni,
                 owner_name: pet.owner_name,
                 owner_surname: pet.owner_surname,
@@ -61,8 +81,24 @@ const findPetById = async (id) => {
 
     pet.allergies = allergies;
 
-    return { ...pet, birth_date: formatDate(pet.birth_date)}
+    //Comprobamos que si el dia y mes de la fecha de nacimiento son iguales a los de la fecha actual recalculamos la edad.
+    const date = new Date();
+    const dayDate = date.getDay();
+    const monthDate = date.getMonth();
 
+    const birthDate = new Date(pet.birth_date);
+    const dayBirth = birthDate.getDay();
+    const monthBirth = birthDate.getMonth();
+
+    let newPet;
+
+    if (dayDate === dayBirth && monthDate === monthBirth) {
+        const newAge = getYearsFromNow(birthDate);
+        return { ...pet, birth_date: formatDate(pet.birth_date), age: newAge, register_date: formatDate(pet.register_date) }
+    }
+    else {
+        return { ...pet, birth_date: formatDate(pet.birth_date), register_date: formatDate(pet.register_date) }
+    }
 };
 
 /**
@@ -78,6 +114,8 @@ const addPet = async (petData) => {
     if (existingPet) {
         throw new Error(`Pet with name ${name_pet}, type ${type}, breed ${breed}, birth date ${birth_date}, and owner DNI ${owner_dni} already registered.`);
     }
+
+    const petAge = getYearsFromNow(birth_date);
     const [newId] = await db('pet').insert({
         name_pet,
         type,
@@ -85,6 +123,8 @@ const addPet = async (petData) => {
         weight,
         sex,
         birth_date,
+        age: petAge,
+        register_date: new Date(),
         owner_dni
     });
 
@@ -109,6 +149,7 @@ const addPet = async (petData) => {
  */
 const updatePet = async (id, petData) => {
     const { name_pet, type, breed, weight, sex, birth_date, owner_dni, allergies } = petData;
+    const petAge = getYearsFromNow(birth_date);
     await db('pet')
         .where({ id_pet: id })
         .update({
@@ -118,6 +159,7 @@ const updatePet = async (id, petData) => {
             weight,
             sex,
             birth_date,
+            age: petAge,
             owner_dni
         });
 

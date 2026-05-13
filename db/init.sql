@@ -10,7 +10,7 @@ create table if not exists owner (
     phone varchar(15) not null,
     email varchar(100),
     direction varchar(255) not null,
-    floor varchar(10) not null,
+    floor varchar(10),
     city varchar(100) not null,
     province varchar(100) not null,
     postal_code varchar(10) not null
@@ -25,6 +25,8 @@ create table if not exists pet (
     weight decimal(5,2) not null,
     sex varchar(20) not null,
     birth_date date not null,
+    age int (3),
+    register_date date not null,
 
     owner_dni varchar(9),
     constraint fk_owner_pet 
