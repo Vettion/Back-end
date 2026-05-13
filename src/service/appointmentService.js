@@ -254,6 +254,19 @@ const findAppointmentsByRoomAndDate = async (code_room, date) => {
     .orderBy("a.start_time", "asc");
 };
 
+const findCleanServicesByAppointmentIds = async (appointmentIds) => {
+  if (!Array.isArray(appointmentIds) || appointmentIds.length === 0) return [];
+  return await db("clean_service as cs")
+    .select(
+      "cs.id_clean_service",
+      "cs.date_service",
+      "cs.start_time",
+      "cs.end_time",
+      "cs.appointment_id",
+    )
+    .whereIn("cs.appointment_id", appointmentIds)
+    .orderBy("cs.start_time", "asc");
+};
 module.exports = {
   findAllAppointments,
   findAppointmentById,
@@ -265,5 +278,6 @@ module.exports = {
   modifyCleanService,
   removeAppointment,
   removeCleanService,
-  findAppointmentsByRoomAndDate
+  findAppointmentsByRoomAndDate,
+  findCleanServicesByAppointmentIds,
 };
