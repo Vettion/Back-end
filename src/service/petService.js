@@ -3,6 +3,7 @@
 const db = require('../configuration/database.js').db;
 const { register } = require('node:module');
 const { formatDate, getYearsFromNow } = require('../utils/dateUtil.js');
+const path = require('node:path');
 
 /**
  * Metodo para obtener todas las mascotas de la base de datos.
@@ -32,12 +33,12 @@ const findAllPets = async () => {
         newPets = pets.map(p => ({ ...p, birth_date: formatDate(p.birth_date), register_date: formatDate(p.register_date) }));
     }
 
-    const petsWithAllergies = await Promise.all(
+    const petsWithPathologies = await Promise.all(
         newPets.map(async (pet) => {
-            const allergies = await db('have_allergy')
-                .where('have_allergy.pet_id', pet.id_pet)
-                .join('allergy', 'have_allergy.allergy_id', 'allergy.id_allergy')
-                .select('allergy.id_allergy', 'allergy.allergen', 'allergy.diagnostic_method', 'allergy.symptoms', 'allergy.severity_level', 'allergy.emergency_treatment', 'allergy.detection_date');
+            const pathologies = await db('have_pathology')
+                .where('have_pathology.pet_id', pet.id_pet)
+                .join('pathology', 'have_pathology.pathology_id', 'pathology.id_pathology')
+                .select("*");
 
             return {
                 id: pet.id_pet,
@@ -52,12 +53,12 @@ const findAllPets = async () => {
                 owner_dni: pet.owner_dni,
                 owner_name: pet.owner_name,
                 owner_surname: pet.owner_surname,
-                allergies: allergies
+                pathologies: pathologies
             };
         })
     );
 
-    return petsWithAllergies;
+    return petsWithPathologies;
 };
 
 /**
@@ -74,12 +75,12 @@ const findPetById = async (id) => {
 
     if (!pet) return null;
 
-    const allergies = await db('have_allergy')
-        .where('have_allergy.pet_id', pet.id_pet)
-        .join('allergy', 'have_allergy.allergy_id', 'allergy.id_allergy')
-        .select('allergy.id_allergy', 'allergy.allergen', 'allergy.diagnostic_method', 'allergy.symptoms', 'allergy.severity_level', 'allergy.emergency_treatment', 'allergy.detection_date');
+    const pathologies = await db('have_pathology')
+                .where('have_pathology.pet_id', pet.id_pet)
+                .join('pathology', 'have_pathology.pathology_id', 'pathology.id_pathology')
+                .select("*");
 
-    pet.allergies = allergies;
+    pet.pathologies = pathologies;
 
     //Comprobamos que si el dia y mes de la fecha de nacimiento son iguales a los de la fecha actual recalculamos la edad.
     const date = new Date();

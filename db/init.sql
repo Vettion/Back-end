@@ -54,7 +54,7 @@ create table if not exists have_pathology (
     pet_id int,
     constraint fk_allergy_have_pathology
         foreign key (pathology_id) references pathology (id_pathology) on delete cascade,
-    constraint fk_pet_have_allergy
+    constraint fk_pet_have_pathology
         foreign key (pet_id) references pet (id_pet) on delete cascade
 );
 

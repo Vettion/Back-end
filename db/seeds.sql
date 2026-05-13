@@ -33,7 +33,7 @@ insert into pathology (name, type, diagnostic_method, symptoms, severity_level, 
 ('Hipotiroidismo', 'Enfermedad', 'Perfil tiroideo (TSH alta, T4 baja)', 'Cansancio, aumento de peso, piel seca, intolerancia al frío', 'Moderada', 'Sustitución hormonal con Levotiroxina', TRUE, '2025-10-15');
 
 -- Insertar datos de las alergias de las mascotas
-insert into pathology (pathology_id, pet_id) values 
+insert into have_pathology (pathology_id, pet_id) values 
 (1, 1), (5, 1),
 (2, 2),
 (3, 3),
