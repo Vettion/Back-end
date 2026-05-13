@@ -1,28 +1,23 @@
 // Este archivo implementa las operaciones que se han definido en el /service/allergyService.js
 const {
-  findAllAllergies,
-  findAllergyById,
-  findAllergyByPetId,
-  addAllergy,
-  updateAllergy,
-  removeAllergy,
-} = require("../service/allergyService.js");
+  findAllPathologies, findPathologyById, findPathologyByPetId, addPathology, updatePathology, removePathology
+} = require("../service/pathologyService.js");
 
 /**
- * Función para obtener el listado de todas las alergias.
+ * Función para obtener el listado de todas las patologías.
  * @param {*} req Objeto de solicitud.
  * @param {*} res Objeto de respuesta.
  * @param {*} next Función para pasar el control al siguiente middleware en caso de error.
  * @returns Devuelve un JSON con código 200 y un array de alergias.
  */
-const getAllAllergies = async (req, res, next) => {
+const getAllPathologies = async (req, res, next) => {
   try {
-    const allergies = await findAllAllergies();
+    const pathologies = await findAllPathologies();
     res.status(200).json({
       code: 200,
       title: "success",
-      message: "Allergies retrieved successfully",
-      data: allergies,
+      message: "Pathologies retrieved successfully",
+      data: pathologies,
     });
   } catch (error) {
     next(error);
@@ -30,54 +25,54 @@ const getAllAllergies = async (req, res, next) => {
 };
 
 /**
- * Función para obtener una alergia por su id.
+ * Función para obtener una patologia por su id.
  * @param {*} req Objeto de solicitud.
  * @param {*} res Objeto de respuesta.
  * @param {*} next Función para pasar el control al siguiente middleware en caso de error.
  * @returns Devuelve un JSON con código 200 y un objeto (alergia) o un error 404 si no se encuentra.
  */
-const getAllergyById = async (req, res, next) => {
+const getPathologyById = async (req, res, next) => {
   try {
-    const { id_allergy } = req.params;
-    const allergy = await findAllergyById(id_allergy);
+    const { id_pathology } = req.params;
+    const pathology = await findPathologyById(id_pathology);
 
-    if (!allergy) {
+    if (!pathology) {
       return res.status(404).json({
         code: 404,
         title: "not found",
-        message: `Allergy with id ${id_allergy} not found.`,
+        message: `Pathology with id ${id_pathology} not found.`,
       });
     }
 
     res.status(200).json({
       code: 200,
       title: "success",
-      message: `Allergy with id ${id_allergy} retrieved successfully.`,
-      data: allergy,
+      message: `Pathology with id ${id_pathology} retrieved successfully.`,
+      data: pathology,
     });
   } catch (error) {
     next(error);
   }
 };
 
-const getAllergyByPetId = async (req, res, next) => {
+const getPathologyByPetId = async (req, res, next) => {
   try {
     const { pet_id } = req.params;
-    const allergy = await findAllergyByPetId(pet_id);
+    const pathology = await findPathologyByPetId(pet_id);
 
-    if (!allergy || allergy.length === 0) {
+    if (!pathology || pathology.length === 0) {
       return res.status(404).json({
         code: 404,
         title: "not found",
-        message: `Allergy with pet_id ${pet_id} not found.`,
+        message: `Pathology with pet_id ${pet_id} not found.`,
       });
     }
 
     res.status(200).json({
       code: 200,
       title: "success",
-      message: `Allergy with pet_id ${pet_id} retrieved successfully.`,
-      data: allergy,
+      message: `Pathology with pet_id ${pet_id} retrieved successfully.`,
+      data: pathology,
     });
   } catch (error) {
     next(error);
@@ -91,16 +86,16 @@ const getAllergyByPetId = async (req, res, next) => {
  * @param {*} next Función para pasar el control al siguiente middleware en caso de error.
  * @returns Devuelve un JSON con código 201 y el objeto (alergia) creado.
  */
-const postAllergy = async (req, res, next) => {
+const postPathology = async (req, res, next) => {
   try {
-    const newId = await addAllergy(req.body);
-    const newAllergy = await findAllergyById(newId);
+    const newId = await addPathology(req.body);
+    const newPathology = await findPathologyById(newId);
 
     res.status(201).json({
       code: 201,
       title: "created",
-      message: "Allergy created successfully",
-      data: newAllergy,
+      message: "Pathology created successfully",
+      data: newPathology,
     });
   } catch (error) {
     next(error);
@@ -114,40 +109,44 @@ const postAllergy = async (req, res, next) => {
  * @param {*} next Función para pasar el control al siguiente middleware en caso de error.
  * @returns Devuelve un JSON con código 204 y un mensaje de éxito o un error 404 si no se encuentra.
  */
-const putAllergy = async (req, res, next) => {
+const putPathology = async (req, res, next) => {
   try {
-    const { id_allergy } = req.params;
+    const { id_pathology } = req.params;
     const {
-      allergen,
+      name,
+      type,
       diagnostic_method,
       symptoms,
       severity_level,
-      emergency_treatment,
-      detection_date,
+      treatment,
+      is_chronic,
+      detection_date
     } = req.body;
 
-    const allergy = await findAllergyById(id_allergy);
+    const pathology = await findPathologyById(id_pathology);
 
-    if (!allergy) {
+    if (!pathology) {
       return res.status(404).json({
         code: 404,
         title: "not found",
-        message: `Allergy with id ${id_allergy} not found.`,
+        message: `Pathology with id ${id_pathology} not found.`,
       });
     }
 
-    await updateAllergy(id_allergy, {
-      allergen,
+    await updatePathology(id_pathology, {
+      name,
+      type,
       diagnostic_method,
       symptoms,
       severity_level,
-      emergency_treatment,
-      detection_date,
+      treatment,
+      is_chronic,
+      detection_date
     });
     res.status(200).json({
       code: 200,
       title: "success",
-      message: `Allergy with id ${id_allergy} updated successfully.`,
+      message: `Pathology with id ${id_pathology} updated successfully.`,
     });
   } catch (error) {
     next(error);
@@ -161,24 +160,24 @@ const putAllergy = async (req, res, next) => {
  * @param {*} next Función para pasar el control al siguiente middleware en caso de error.
  * @returns Devuelve un JSON con código 200 y un mensaje de éxito o un error 404 si no se encuentra.
  */
-const deleteAllergy = async (req, res, next) => {
+const deletePathology = async (req, res, next) => {
   try {
-    const { id_allergy } = req.params;
-    const allergy = await findAllergyById(id_allergy);
+    const { id_pathology } = req.params;
+    const pathology = await findPathologyById(id_pathology);
 
-    if (!allergy) {
+    if (!pathology) {
       return res.status(404).json({
         code: 404,
         title: "not found",
-        message: `Allergy with id ${id_allergy} not found.`,
+        message: `Pathology with id ${id_pathology} not found.`,
       });
     }
 
-    await removeAllergy(id_allergy);
+    await removePathology(id_pathology);
     res.status(200).json({
       code: 200,
       title: "success",
-      message: `Allergy with id ${id_allergy} deleted successfully.`,
+      message: `Pathology with id ${id_pathology} deleted successfully.`,
     });
   } catch (error) {
     next(error);
@@ -186,10 +185,10 @@ const deleteAllergy = async (req, res, next) => {
 };
 
 module.exports = {
-  getAllAllergies,
-  getAllergyById,
-  getAllergyByPetId,
-  postAllergy,
-  putAllergy,
-  deleteAllergy,
+  getAllPathologies,
+  getPathologyById,
+  getPathologyByPetId,
+  postPathology,
+  putPathology,
+  deletePathology,
 };

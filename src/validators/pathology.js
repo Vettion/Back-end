@@ -10,15 +10,15 @@ const { validateResult } = require('../middlewares/validateResult.js');
  * 1. El parametro 'id_allergy' debe existir en la URL.
  * 2. El parametro 'id_allergy' debe ser un numero entero mayor que 0.
  */
-const validateAllergyId = [
-    param('id_allergy')
-        .notEmpty().withMessage('id_allergy is required')
-        .isInt({ gt: 0 }).withMessage('id_allergy must be a positive integer'),
+const validatePathologyId = [
+    param('id_pathology')
+        .notEmpty().withMessage('id_pathology is required')
+        .isInt({ gt: 0 }).withMessage('id_pathology must be a positive integer'),
 
     validateResult
 ];
 
-const validateAllergyPetId= [
+const validatePathologyPetId= [
     param('pet_id')
         .notEmpty().withMessage('pet_id is required')
         .isInt({ gt: 0 }).withMessage('pet_id must be a positive integer'),
@@ -33,18 +33,18 @@ const validateAllergyPetId= [
  * 1. El campo 'name' es obligatorio y debe ser una cadena de texto y tener entre 2 y 100 caracteres.
  * 2. El campo 'description' es obligatorio y debe ser una cadena de texto y tener al menos 2 caracteres.
  */
-const validateAddAllergy = [
-    body('allergen')
+const validateAddPathology = [
+    body('name')
         .trim()
-        .notEmpty().withMessage('allergen is required')
-        .isString().withMessage('allergen must be a string')
-        .isLength({ min: 2, max: 100 }).withMessage('allergen must be between 2 and 100 characters'),
+        .notEmpty().withMessage('name is required')
+        .isString().withMessage('name must be a string')
+        .isLength({ min: 2, max: 100 }).withMessage('name must be between 2 and 100 characters'),
 
-    body('diagnostic_method')
+    body('type')
         .trim()
-        .notEmpty().withMessage('diagnostic_method is required')
-        .isString().withMessage('diagnostic_method must be a string')
-        .isLength({ min: 2, max: 100 }).withMessage('diagnostic_method must be between 2 and 100 characters'),
+        .notEmpty().withMessage('type is required')
+        .isString().withMessage('type must be a string')
+        .isLength({ min: 2, max: 100 }).withMessage('type must be between 2 and 100 characters'),
 
     body('severity_level')
         .trim()
@@ -52,11 +52,11 @@ const validateAddAllergy = [
         .isString().withMessage('severity_level must be a string')
         .isLength({ min: 2, max: 20 }).withMessage('severity_level must be between 2 and 100 characters'),
 
-    body('emergency_treatment')
+    body('treatment')
         .trim()
-        .notEmpty().withMessage('emergency_treatment is required')
-        .isString().withMessage('emergency_treatment must be a string')
-        .isLength({ min: 2, max: 255 }).withMessage('emergency_treatment must be between 2 and 255 characters'),
+        .notEmpty().withMessage('treatment is required')
+        .isString().withMessage('treatment must be a string')
+        .isLength({ min: 2}).withMessage('emergency_treatment must be at least 2 characters.'),
 
     body('detection_date')
         .trim()
@@ -73,19 +73,19 @@ const validateAddAllergy = [
  * 1. El parametro 'id_allergy' debe existir en la URL y ser un numero entero mayor que 0.
  * 2. El cuerpo de la peticion debe cumplir las mismas reglas que la creacion (POST)
  */
-const validateUpdateAllergy = [
-    param('id_allergy')
-        .notEmpty().withMessage('id_allergy is required')
-        .isInt({ gt: 0 }).withMessage('id_allergy must be a positive integer'),
+const validateUpdatePathology = [
+    param('id_pathology')
+        .notEmpty().withMessage('id_pathology is required')
+        .isInt({ gt: 0 }).withMessage('id_pathology must be a positive integer'),
 
-    ...validateAddAllergy.slice(0, -1),
+    ...validateAddPathology.slice(0, -1),
 
     validateResult
 ];
 
 module.exports = {
-    validateAllergyId,
-    validateAllergyPetId,
-    validateAddAllergy,
-    validateUpdateAllergy
+    validatePathologyId,
+    validatePathologyPetId,
+    validateAddPathology,
+    validateUpdatePathology
 }
