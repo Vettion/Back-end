@@ -44,11 +44,6 @@ const validateAddPet = [
         .isString().withMessage('type must be a string')
         .isLength({min: 2, max: 100}).withMessage('type must be between 2 and 100 characters'),
 
-    body('breed')
-        .trim()
-        .isString().withMessage('breed must be a string')
-        .isLength({min: 2, max: 100}).withMessage('breed must be between 2 and 100 characters'),
-
     body('weight')
         .trim()
         .notEmpty().withMessage('weight is required')

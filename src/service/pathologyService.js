@@ -48,7 +48,7 @@ const addPathology = async (pathologyData) => {
     treatment,
     is_chronic,
     detection_date,
-    id_pet
+    pet_id
   } = pathologyData;
 
   return await db.transaction(async (asignPathology) => {
@@ -65,10 +65,10 @@ const addPathology = async (pathologyData) => {
 
     await asignPathology("have_pathology").insert({
       pathology_id: pathologyId,
-      pet_id: id_pet
+      pet_id: pet_id
     });
 
-    console.log(`Vinculando Alergia ID: ${pathologyId} con Mascota ID: ${id_pet}`);
+    console.log(`Vinculando Alergia ID: ${pathologyId} con Mascota ID: ${pet_id}`);
 
     return pathologyId;
   });
