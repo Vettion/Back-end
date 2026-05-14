@@ -19,19 +19,31 @@ insert into pet (name_pet, type, breed, weight, sex, birth_date, age, register_d
 ('Kira', 'Perro', 'Border Collie', 18.5, 'Hembra', '2022-12-01', 3, now(), '87654321B'),
 ('Pelusa', 'Conejo', 'Enano Holandés', 1.2, 'Hembra', '2024-01-10', 2, now(), '12345678A');
 
--- Insertar datos de las alergias
-insert into allergy (allergen, diagnostic_method, symptoms, severity_level, emergency_treatment, detection_date) values 
-('Polen', 'Prueba cutánea (Skin prick test)', 'Estornudos, ojos rojos, secreción nasal', 'Leve', 'Antihistamínicos según peso', '2025-03-15'),
-('Penicilina', 'Reacción clínica previa', 'Ronchas, hinchazón facial, dificultad respiratoria', 'Grave/Crítica', 'Adrenalina y traslado urgente a clínica', '2024-11-10'),
-('Ácaros del polvo', 'Analítica de sangre (IgE)', 'Erupciones cutáneas, rascado persistente', 'Moderada', 'Baños con champú medicado y limpieza ambiental', '2026-01-20'),
-('Lácteos', 'Dieta de eliminación', 'Diarrea, dolor abdominal, vómitos', 'Moderada', 'Dieta de exclusión y probióticos', '2025-06-05');
-
+-- Insertar datos en patologias
+insert into pathology (name, type, diagnostic_method, symptoms, severity_level, treatment, is_chronic, detection_date) values 
+('Polen', 'Alergia', 'Prueba cutánea (Skin prick test)', 'Estornudos, ojos rojos, secreción nasal', 'Leve', 'Antihistamínicos según peso', TRUE, '2025-03-15'),
+('Penicilina', 'Alergia', 'Reacción clínica previa', 'Ronchas, hinchazón facial, dificultad respiratoria', 'Grave/Crítica', 'Adrenalina y traslado urgente a clínica', FALSE, '2024-11-10'),
+('Ácaros del polvo', 'Alergia', 'Analítica de sangre (IgE)', 'Erupciones cutáneas, rascado persistente', 'Moderada', 'Baños con champú medicado y limpieza ambiental', TRUE, '2026-01-20'),
+('Lácteos', 'Alergia', 'Dieta de eliminación', 'Diarrea, dolor abdominal, vómitos', 'Moderada', 'Dieta de exclusión y probióticos', FALSE, '2025-06-05'),
+('Diabetes Mellitus Tipo 1', 'Enfermedad', 'Glucemia en ayunas y Hemoglobina glicosilada', 'Polidipsia, polifagia, pérdida de peso', 'Grave', 'Administración de insulina diaria y control de dieta', TRUE, '2024-02-10'),
+('Hipertensión Arterial', 'Enfermedad', 'Monitoreo de presión sanguínea', 'Dolor de cabeza, visión borrosa, a veces asintomático', 'Moderada', 'Antihipertensivos (Enalapril/Losartán) y reducción de sodio', TRUE, '2023-11-20'),
+('Síndrome de Down', 'Síndrome', 'Cariotipo (análisis genético)', 'Hipotonía muscular, rasgos faciales característicos, retraso madurativo', 'Variable', 'Terapia física, ocupacional y estimulación temprana', TRUE, '2024-05-12'),
+('Síndrome de Colon Irritable', 'Síndrome', 'Criterios de Roma y exclusión', 'Distensión abdominal, gases, periodos de diarrea o estreñimiento', 'Leve', 'Manejo de estrés, dieta baja en FODMAPs y probióticos', TRUE, '2025-08-30'),
+('Dengue', 'Enfermedad', 'Prueba serológica (NS1/IgM)', 'Fiebre alta, dolor tras los ojos, dolores musculares intensos', 'Grave', 'Reposo absoluto, hidratación oral y paracetamol (evitar aspirinas)', FALSE, '2026-03-01'),
+('Hipotiroidismo', 'Enfermedad', 'Perfil tiroideo (TSH alta, T4 baja)', 'Cansancio, aumento de peso, piel seca, intolerancia al frío', 'Moderada', 'Sustitución hormonal con Levotiroxina', TRUE, '2025-10-15');
 
 -- Insertar datos de las alergias de las mascotas
-insert into have_allergy (allergy_id, pet_id) values 
-(1, 1), (3, 1), 
-(1, 3), (2, 3), (4, 3), 
-(3, 2);
+insert into have_pathology (pathology_id, pet_id) values 
+(1, 1), (5, 1),
+(2, 2),
+(3, 3),
+(4, 4), (8, 4),
+(9, 5),
+(6, 6),
+(10, 7),
+(7, 8),
+(1, 9),
+(3, 10), (10, 10);
 
 -- Insertar datos de los veterinarios
 insert into veterinarian (dni_veterinarian, name, surname, phone, address, ss_number, collegiate_number, email, speciality) values

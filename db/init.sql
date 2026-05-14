@@ -34,25 +34,27 @@ create table if not exists pet (
 );
 
 -- Tabla de alergias
-create table if not exists allergy (
-    id_allergy int auto_increment primary key,
-    allergen varchar(100) not null,
-    diagnostic_method varchar(100) not null,
+create table if not exists pathology (
+    id_pathology int auto_increment primary key,
+    name varchar(100) not null,
+    type varchar(100) not null,
+    diagnostic_method varchar(150),
     symptoms text,
     severity_level varchar(20) not null,
-    emergency_treatment varchar(225) not null,
+    treatment text not null,
+    is_chronic boolean default false,
     detection_date date not null
 );
 
 -- Tabla intermedia de alergias de las mascotas
-create table if not exists have_allergy (
-    id_have_allergy int auto_increment primary key,
+create table if not exists have_pathology (
+    id_have_pathology int auto_increment primary key,
 
-    allergy_id int,
+    pathology_id int,
     pet_id int,
-    constraint fk_allergy_have_allergy
-        foreign key (allergy_id) references allergy (id_allergy) on delete cascade,
-    constraint fk_pet_have_allergy
+    constraint fk_allergy_have_pathology
+        foreign key (pathology_id) references pathology (id_pathology) on delete cascade,
+    constraint fk_pet_have_pathology
         foreign key (pet_id) references pet (id_pet) on delete cascade
 );
 
