@@ -389,7 +389,7 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "http://localhost:8080/pathologies/pet/10",
+              "raw": "http://localhost:8080/pathologies/pet/15",
               "protocol": "http",
               "host": [
                 "localhost"
@@ -398,7 +398,7 @@
               "path": [
                 "pathologies",
                 "pet",
-                "10"
+                "15"
               ]
             }
           },
@@ -411,7 +411,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n    \"name\": \"Soplo\",\r\n    \"type\": \"Enfermedad\",\r\n    \"diagnostic_method\": \"Analisis de sangre.\",\r\n    \"symptoms\": \"Acelaración del pulso cardiaco\",\r\n    \"severity_level\": \"Leve\",\r\n    \"treatment\": \"Medicamento por via intravenosa\",\r\n    \"is_chronic\": 1,\r\n    \"detection_date\": \"2026-04-10\",\r\n    \"id_pet\": 2\r\n}",
+              "raw": "{\r\n    \"name\": \"Soplo\",\r\n    \"type\": \"Enfermedad\",\r\n    \"diagnostic_method\": \"Analisis de sangre.\",\r\n    \"symptoms\": \"Acelaración del pulso cardiaco\",\r\n    \"severity_level\": \"Leve\",\r\n    \"treatment\": \"Medicamento por via intravenosa\",\r\n    \"is_chronic\": 1,\r\n    \"detection_date\": \"2026-04-10\",\r\n    \"pet_id\": 2\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
