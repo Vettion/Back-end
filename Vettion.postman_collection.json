@@ -318,6 +318,51 @@
       ]
     },
     {
+      "name": "registers",
+      "item": [
+        {
+          "name": "./vettion/registers",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/registers",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "registers"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "./vettion/registers/pet/:id_pet",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/registers/pet/1",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "registers",
+                "pet",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
       "name": "veterinarians",
       "item": [
         {
