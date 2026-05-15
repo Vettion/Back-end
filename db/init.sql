@@ -138,3 +138,24 @@ create table if not exists clean_service (
     constraint fk_cleaner_clean_service 
         foreign key (cleaner_dni) references cleaner(dni_cleaner) on delete cascade
 );
+
+--Tabla de registros
+create table if not exists register (
+    id_register int auto_increment primary key,
+    date_service date not null,
+    observation_appointment varchar(255),
+    observation_clean_service varchar(255),
+
+    pet_id int,
+    service_id int,
+    veterinarian_dni varchar(9),
+    cleaner_dni varchar(9),
+    constraint fk_pet_register 
+        foreign key (pet_id) references pet(id_pet) on delete set null,
+    constraint fk_service_register 
+        foreign key (service_id) references service(id_service) on delete set null,
+    constraint fk_veterinarian_register 
+        foreign key (veterinarian_dni) references veterinarian(dni_veterinarian) on delete set null,
+    constraint fk_cleaner_register 
+        foreign key (cleaner_dni) references cleaner(dni_cleaner) on delete set null
+);
