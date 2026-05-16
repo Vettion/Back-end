@@ -10,8 +10,21 @@ function getDays(fromDate, toDate) {
 }
 
 function getYearsFromNow(date) {
-    const now = new Date();
-    return Math.floor(getDays(date, now) / 365);
+    const birthDate = new Date(date);
+    const today = new Date();
+
+    let years = today.getFullYear() - birthDate.getFullYear();
+    const monthDiff = today.getMonth() - birthDate.getMonth();
+
+    if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+        years -= 1;
+    }
+
+    return years;
 }
 
-module.exports = { formatDate, getYearsFromNow };
+function isAtLeastAge(date, minimumAge = 18) {
+    return getYearsFromNow(date) >= minimumAge;
+}
+
+module.exports = { formatDate, getYearsFromNow, isAtLeastAge };
