@@ -326,14 +326,16 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "http://localhost:8080/registers",
+              "raw": "http://localhost:8080/registers/pet/2",
               "protocol": "http",
               "host": [
                 "localhost"
               ],
               "port": "8080",
               "path": [
-                "registers"
+                "registers",
+                "pet",
+                "2"
               ]
             }
           },

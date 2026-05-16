@@ -168,11 +168,7 @@ const modifyAppointment = async (id_appointment, appointmentData) => {
   const {
     date_appointment,
     start_time,
-    observations,
-    pet_id,
-    service_id,
-    veterinarian_dni,
-    code_room
+    observations
   } = appointmentData;
 
   // Añadimos la funcion creada en (../utils/isWeekend.js) para evitar que se pueda modificar una cita en fin de semana.
@@ -190,25 +186,21 @@ const modifyAppointment = async (id_appointment, appointmentData) => {
     )
   }
 
-  //Comprobamos que el servicio que se va a hacer es el mismo que la especialidad del veterinario.
-  const veterinarianService = await db("veterinarian").select("speciality").where({ dni_veterinarian: veterinarian_dni }).first();
-  const serviceType = await db("service").select("service_type").where({ id_service: service_id }).first();
-  if (!veterinarianService || !serviceType || serviceType.service_type !== veterinarianService.speciality) {
-    throw new Error("No se puede asignar al veterinario a este tipo de servicio.")
-  }
-
   //Comprobamos que lo que si se ha cambiado es la hora de inicio entonces llamamos a la función endHourAppointment
   const previousStartHour = await db("appointment")
-    .select("start_time")
+    .select("start_time", "code_room")
     .where({ id_appointment: id_appointment })
     .first();
+
+  const code_room = previousStartHour.code_room;
 
   //Si se ha modificado al atributo start_hour
   if (previousStartHour.start_time !== start_time) {
     // Obtener la duración del servicio asociado a la sala para calcular la hora de fin de la cita
+    const service_id = await db("appointment").select("service_id").where({id_appointment: id_appointment}).first();
     const consultDuration = await db("service")
       .select("duration")
-      .where({ id_service: service_id })
+      .where({ id_service: service_id.service_id })
       .first();
 
     if (!consultDuration) {
@@ -223,7 +215,7 @@ const modifyAppointment = async (id_appointment, appointmentData) => {
         20,
       );
 
-      const previousAppointmentDate = await db("appointment").select("date_appointment").where({ id_appointment: id_appointment });
+      const previousAppointmentDate = await db("appointment").select("date_appointment").where({ id_appointment: id_appointment }).first();
 
       if (previousAppointmentDate.date_appointment !== date_appointment) {
         //Comprobamos que la sala no está ocupada en ese intervalo de tiempo.
@@ -256,11 +248,7 @@ const modifyAppointment = async (id_appointment, appointmentData) => {
         date_appointment,
         start_time,
         end_time: end_hour_appointment,
-        observations,
-        pet_id,
-        service_id,
-        veterinarian_dni,
-        code_room
+        observations
       });
 
       await db("clean_service")
@@ -274,11 +262,7 @@ const modifyAppointment = async (id_appointment, appointmentData) => {
     await db("appointment").where({ id_appointment: id_appointment }).update({
       date_appointment,
       start_time,
-      observations,
-      pet_id,
-      service_id,
-      veterinarian_dni,
-      code_room
+      observations
     });
   }
 
