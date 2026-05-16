@@ -33,6 +33,7 @@ const validateOwnerId = [
  * 8. El campo 'city' es obligatorio y debe ser una cadena de texto.
  * 9. El campo 'province' es obligatorio y debe ser una cadena de texto.
  * 10. El campo 'postal_code' es obligatorio y debe ser una cadena de texto.
+ * 11. El campo 'birth_date' es obligatorio y debe ser una fecha valida.
  */
 const validateAddOwner = [
 
@@ -52,6 +53,11 @@ const validateAddOwner = [
         .notEmpty().withMessage('Surname is required')
         .isString().withMessage('Surname must be a string')
         .isLength({ min: 2, max: 100 }).withMessage('Surname must be between 2 and 100 characters'),
+
+    body('birth_date')
+        .trim()
+        .notEmpty().withMessage('Birth date is required')
+        .isDate().withMessage('Birth date must be a valid date'),
         
     body('phone')
         .trim()
