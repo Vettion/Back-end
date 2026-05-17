@@ -118,7 +118,7 @@ const addPet = async (petData) => {
 
     const birthDate = new Date(birth_date);
     const date = new Date();
-    if(birthDate.getTime() >= date.getTime()){
+    if(birthDate.getTime() > date.getTime()){
         throw new Error('La fecha de nacimiento no puede ser mayor que la actual');
     }
 
