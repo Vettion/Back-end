@@ -6,7 +6,7 @@ const db = require('../configuration/database.js').db;
  */
 const findAllVeterinarians = async () => {
     return await db('veterinarian')
-        .select('dni_veterinarian', 'name', 'surname')
+        .select('dni_veterinarian', 'name', 'surname', 'speciality')
         .orderBy('surname', 'asc');
 };
 

@@ -100,7 +100,12 @@ const createAppointment = async (appointmentData) => {
   //Comprobamos que el servicio que se va a hacer es el mismo que la especialidad del veterinario.
   const veterinarianService = await db("veterinarian").select("speciality").where({ dni_veterinarian: veterinarian_dni }).first();
   const serviceType = await db("service").select("service_type").where({ id_service: service_id }).first();
-  if (!veterinarianService || !serviceType || serviceType.service_type !== veterinarianService.speciality) {
+
+
+  const serviceT = serviceType.service_type.trim().toLowerCase();
+  const specialityVet = veterinarianService.speciality.trim().toLowerCase();
+  
+  if (!veterinarianService || !serviceType || serviceT !== specialityVet) {
     throw new Error("No se puede asignar al veterinario a este tipo de servicio.")
   }
 
