@@ -50,6 +50,29 @@ const addPathology = async (pathologyData) => {
     detection_date,
     pet_id
   } = pathologyData;
+  
+  const pet = await db('pet').where({ id_pet: pet_id }).first();
+
+  if (!pet) {
+    const error = new Error(`Pet with id ${pet_id} not found.`);
+    error.status = 404;
+    throw error;
+  }
+
+  const detection = new Date(detection_date);
+  const birth = new Date(pet.birth_date);
+
+  if (isNaN(detection.getTime())) {
+    const error = new Error('detection_date is invalid');
+    error.status = 400;
+    throw error;
+  }
+
+  if (detection < birth) {
+    const error = new Error('detection_date cannot be before pet birth_date');
+    error.status = 400;
+    throw error;
+  }
 
   return await db.transaction(async (asignPathology) => {
     const [pathologyId] = await asignPathology("pathology").insert({

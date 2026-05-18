@@ -151,12 +151,11 @@ const addPet = async (petData) => {
     });
 
     if (allergies && allergies.length > 0) {
-        const allergyInserts = allergies.map(allergyId => ({
+        const inserts = allergies.map(allergyId => ({
             pet_id: newId,
-            allergy_id: allergyId
+            pathology_id: allergyId
         }));
-        await db('have_allergy').insert(allergyInserts);
-
+        await db('have_pathology').insert(inserts);
     }
 
     return newId;
@@ -200,14 +199,14 @@ const updatePet = async (id, petData) => {
         });
 
     if (allergies) {
-        await db('have_allergy').where('pet_id', id).del();
+        await db('have_pathology').where('pet_id', id).del();
 
         if (allergies.length > 0) {
-            const allergyInserts = allergies.map(allergyId => ({
+            const inserts = allergies.map(allergyId => ({
                 pet_id: id,
-                allergy_id: allergyId
+                pathology_id: allergyId
             }));
-            await db('have_allergy').insert(allergyInserts);
+            await db('have_pathology').insert(inserts);
         }
     }
 };
