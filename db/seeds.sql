@@ -1,19 +1,19 @@
 use vettion;
 
 -- Insertar datos de los dueños
-insert into owner (dni_owner, name_owner, surname, phone, email, direction, floor, city, province, postal_code) values
-('12345678A', 'Carlos', 'García Pérez', '600111222', 'carlos.garcia@email.com', 'Calle Mayor 15', '2B', 'Zaragoza', 'Zaragoza', '50001'),
-('23456789B', 'María', 'López Martínez', '611222333', 'maria.lopez@email.com', 'Avenida Madrid 42', '4A', 'Zaragoza', 'Zaragoza', '50010'),
-('34567890C', 'Javier', 'Rodríguez Soler', '622333444', 'javi.rod@email.com', 'Calle Alfonso I 8', '3º Izq', 'Zaragoza', 'Zaragoza', '50003'),
-('45678901D', 'Ana', 'Fernández Ruiz', '633444555', 'ana.fer@email.com', 'Paseo Sagasta 23', '1C', 'Zaragoza', 'Zaragoza', '50006'),
-('56789012E', 'Luis', 'Sánchez Gómez', '644555666', 'luis.sanchez@email.com', 'Calle Delicias 4', 'Bajo A', 'Zaragoza', 'Zaragoza', '50017'),
-('67890123F', 'Elena', 'Benítez Toro', '655666777', 'elena.b@email.com', 'Calle Goya 12', '5º', 'Utebo', 'Zaragoza', '50180'),
-('78901234G', 'Diego', 'Martín Vaca', '666777888', 'diego.mv@email.com', 'Avenida Cataluña 88', '2A', 'Zaragoza', 'Zaragoza', '50014'),
-('89012345H', 'Laura', 'Jiménez Sanz', '677888999', 'laura.js@email.com', 'Calle San Miguel 3', 'Principal', 'Zaragoza', 'Zaragoza', '50001'),
-('90123456I', 'Pedro', 'Castro Ortiz', '688999000', 'pedro.castro@email.com', 'Calle Conde Aranda 55', '3B', 'Zaragoza', 'Zaragoza', '50004'),
-('01234567J', 'Marta', 'Rubio Peña', '699000111', 'marta.rubio@email.com', 'Paseo Cuéllar 14', '4B', 'Zaragoza', 'Zaragoza', '50007'),
-('11223344K', 'Sergio', 'Navarro Gil', '600223344', 'sergio.nav@email.com', 'Calle Corona de Aragón 9', '1º Dcha', 'Zaragoza', 'Zaragoza', '50009'),
-('22334455L', 'Sofía', 'Morales Vega', '611334455', 'sofia.mv@email.com', 'Calle León XIII 21', '6C', 'Zaragoza', 'Zaragoza', '50008');
+insert into owner (dni_owner, name_owner, surname, birth_date, phone, email, direction, floor, city, province, postal_code) values
+('12345678A', 'Carlos', 'García Pérez', '1985-04-12', '600111222', 'carlos.garcia@email.com', 'Calle Mayor 15', '2B', 'Zaragoza', 'Zaragoza', '50001'),
+('23456789B', 'María', 'López Martínez', '1990-08-23', '611222333', 'maria.lopez@email.com', 'Avenida Madrid 42', '4A', 'Zaragoza', 'Zaragoza', '50010'),
+('34567890C', 'Javier', 'Rodríguez Soler', '1978-11-05', '622333444', 'javi.rod@email.com', 'Calle Alfonso I 8', '3º Izq', 'Zaragoza', 'Zaragoza', '50003'),
+('45678901D', 'Ana', 'Fernández Ruiz', '1993-02-28', '633444555', 'ana.fer@email.com', 'Paseo Sagasta 23', '1C', 'Zaragoza', 'Zaragoza', '50006'),
+('56789012E', 'Luis', 'Sánchez Gómez', '1982-06-15', '644555666', 'luis.sanchez@email.com', 'Calle Delicias 4', 'Bajo A', 'Zaragoza', 'Zaragoza', '5017'),
+('67890123F', 'Elena', 'Benítez Toro', '1989-09-09', '655666777', 'elena.b@email.com', 'Calle Goya 12', '5º', 'Utebo', 'Zaragoza', '50180'),
+('78901234G', 'Diego', 'Martín Vaca', '1975-01-20', '666777888', 'diego.mv@email.com', 'Avenida Cataluña 88', '2A', 'Zaragoza', 'Zaragoza', '50014'),
+('89012345H', 'Laura', 'Jiménez Sanz', '1995-07-14', '677888999', 'laura.js@email.com', 'Calle San Miguel 3', 'Principal', 'Zaragoza', 'Zaragoza', '50001'),
+('90123456I', 'Pedro', 'Castro Ortiz', '1988-03-25', '688999000', 'pedro.castro@email.com', 'Calle Conde Aranda 55', '3B', 'Zaragoza', 'Zaragoza', '50004'),
+('01234567J', 'Marta', 'Rubio Peña', '1992-12-02', '699000111', 'marta.rubio@email.com', 'Paseo Cuéllar 14', '4B', 'Zaragoza', 'Zaragoza', '50007'),
+('11223344K', 'Sergio', 'Navarro Gil', '1981-05-30', '600223344', 'sergio.nav@email.com', 'Calle Corona de Aragón 9', '1º Dcha', 'Zaragoza', 'Zaragoza', '50009'),
+('22334455L', 'Sofía', 'Morales Vega', '1994-10-17', '611334455', 'sofia.mv@email.com', 'Calle León XIII 21', '6C', 'Zaragoza', 'Zaragoza', '50008');
 
 -- Insertar datos de las mascotas
 insert into pet (name_pet, type, breed, weight, sex, birth_date, age, register_date, owner_dni) values

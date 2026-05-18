@@ -56,7 +56,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n    \"dni_owner\":\"73134044R\",\r\n    \"name_owner\":\"Laura\",\r\n    \"surname\":\"García\",\r\n    \"phone\":\"678901234\",\r\n    \"email\":\"laura.garcia@example.com\"\r\n}",
+              "raw": "{\r\n    \"dni_owner\":\"73134044R\",\r\n    \"name_owner\":\"Laura\",\r\n    \"surname\":\"García\",\r\n    \"birth_date\": \"2000-01-12\",\r\n    \"phone\":\"678901234\",\r\n    \"email\":\"laura.garcia@example.com\",\r\n    \"direction\": \"avda.\",\r\n    \"floor\": \"1b\",\r\n    \"city\": \"Zaragoza\",\r\n    \"province\": \"Zaragoza\",\r\n    \"postal_code\":\"20399\"\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -84,7 +84,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n    \"name_owner\":\"Maria\",\r\n    \"surname\":\"García\",\r\n    \"phone\":\"678901234\",\r\n    \"email\":\"maria.garcia@example.com\",\r\n    \"direction\": \"avda.\",\r\n    \"floor\": \"2b\",\r\n    \"city\": \"Zaragoza\",\r\n    \"province\": \"Zaragoza\",\r\n    \"postal_code\":\"20399\"\r\n}",
+              "raw": "{\r\n    \"name_owner\":\"Maria\",\r\n    \"surname\":\"García\",\r\n    \"birth_date\": \"2000-01-12\",\r\n    \"phone\":\"678901234\",\r\n    \"email\":\"maria.garcia@example.com\",\r\n    \"direction\": \"avda.\",\r\n    \"floor\": \"2b\",\r\n    \"city\": \"Zaragoza\",\r\n    \"province\": \"Zaragoza\",\r\n    \"postal_code\":\"20399\"\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -177,7 +177,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n    \"name_pet\":\"Leire\",\r\n    \"type\":\"Perro\",\r\n    \"breed\":\"Labrador\",\r\n    \"weight\":\"40.1\",\r\n    \"sex\":\"Hembra\",\r\n    \"birth_date\":\"2023-05-13\",\r\n    \"owner_dni\":\"12345678A\"\r\n}",
+              "raw": "{\r\n    \"name_pet\":\"Eli\",\r\n    \"type\":\"Perro\",\r\n    \"breed\":\"Labrador\",\r\n    \"weight\":\"40.1\",\r\n    \"sex\":\"Hembra\",\r\n    \"birth_date\":\"2026-05-18\",\r\n    \"owner_dni\":\"12345678A\"\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -285,6 +285,50 @@
               "port": "8080",
               "path": [
                 "services",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "rooms",
+      "item": [
+        {
+          "name": "/vettion/rooms",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/rooms",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "rooms"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "/vettion/rooms/:room_code",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/rooms/1",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "rooms",
                 "1"
               ]
             }
@@ -739,7 +783,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n    \"date_appointment\":\"2026-05-22\",\r\n    \"start_time\":\"15:30\",\r\n    \"observations\": \"Es urgente\",\r\n    \"pet_id\":1,\r\n    \"service_id\":1,\r\n    \"veterinarian_dni\":\"20202020W\",\r\n    \"cleaner_dni\": \"33445566L\",\r\n    \"code_room\": \"C1\"\r\n}",
+              "raw": "{\r\n    \"date_appointment\":\"2026-05-22\",\r\n    \"start_time\":\"15:30\",\r\n    \"observations\": \"Es urgente\"\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
