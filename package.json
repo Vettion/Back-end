@@ -2,7 +2,7 @@
   "name": "vettion_backend",
   "scripts": {
     "start": "node src/app.js",
-    "dev": "nodemon src/app.js"
+    "dev": "docker compose -f docker-compose.dev.yaml up -d db && nodemon src/app.js"
   },
   "dependencies": {
     "cors": "^2.8.6",

@@ -7,6 +7,7 @@ create table if not exists owner (
     dni_owner varchar(9) primary key,
     name_owner varchar(100) not null,
     surname varchar(100) not null,
+    birth_date date not null,
     phone varchar(15) not null,
     email varchar(100),
     direction varchar(255) not null,

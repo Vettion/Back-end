@@ -2,8 +2,9 @@
 
 const db = require('../configuration/database.js').db;
 const { register } = require('node:module');
-const { formatDate, getYearsFromNow } = require('../utils/dateUtil.js');
+const { formatDate, getYearsFromNow, isAtLeastAge } = require('../utils/dateUtil.js');
 const path = require('node:path');
+const { findOwnerByDni } = require('./ownerService.js');
 
 /**
  * Metodo para obtener todas las mascotas de la base de datos.
@@ -110,6 +111,20 @@ const findPetById = async (id) => {
 const addPet = async (petData) => {
     const { name_pet, type, breed, weight, sex, birth_date, owner_dni, allergies } = petData;
 
+    const owner = await findOwnerByDni(owner_dni);
+
+    if (!owner) {
+        const error = new Error(`Owner with DNI ${owner_dni} not found.`);
+        error.status = 404;
+        throw error;
+    }
+
+    if (!isAtLeastAge(owner.birth_date, 18)) {
+        const error = new Error(`Owner with DNI ${owner_dni} must be at least 18 years old to register a pet.`);
+        error.status = 403;
+        throw error;
+    }
+
     const existingPet = await db('pet').where({ name_pet: name_pet, type: type, breed: breed, birth_date: birth_date, owner_dni: owner_dni }).first();
 
     if (existingPet) {
@@ -156,6 +171,20 @@ const addPet = async (petData) => {
  */
 const updatePet = async (id, petData) => {
     const { name_pet, type, breed, weight, sex, birth_date, owner_dni, allergies } = petData;
+    const owner = await findOwnerByDni(owner_dni);
+
+    if (!owner) {
+        const error = new Error(`Owner with DNI ${owner_dni} not found.`);
+        error.status = 404;
+        throw error;
+    }
+
+    if (!isAtLeastAge(owner.birth_date, 18)) {
+        const error = new Error(`Owner with DNI ${owner_dni} must be at least 18 years old to register a pet.`);
+        error.status = 403;
+        throw error;
+    }
+
     const petAge = getYearsFromNow(birth_date);
     await db('pet')
         .where({ id_pet: id })
