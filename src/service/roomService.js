@@ -2,6 +2,10 @@
 
 const db = require('../configuration/database.js').db;
 
+/**
+ * Función para obtener todas las salas.
+ * @returns 
+ */
 const findAllRooms = async () => {
     const rooms = await db('room')
         .select(
@@ -14,6 +18,11 @@ const findAllRooms = async () => {
     return rooms;
 };
 
+/**
+ * Función para obtener los datos de una sala por su code_room
+ * @param {*} code_room 
+ * @returns 
+ */
 const findRoomByCodeRoom = async (code_room) => {
     return await db('room')
         .where({ room_code: code_room })
