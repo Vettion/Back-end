@@ -1,10 +1,10 @@
 use vettion;
 
 -- Insertar datos de los dueños
-insert into owner (dni_owner, name_owner, surname, phone, email, direction, floor, city, province, postal_code) values 
-('12345678A', 'Juan', 'Pérez García', '600111222', 'juan.perez@email.com', 'Calle Mayor 1', '1A', 'Madrid', 'Madrid', '28001'),
-('87654321B', 'María', 'García López', '600333444', 'maria.garcia@email.com', 'Avenida de la Constitución 5', '2B', 'Sevilla', 'Sevilla', '41001'),
-('11223344C', 'Andrés', 'López Ruiz', '611555666', 'andres.lopez@email.com', 'Plaza España 10', '3C', 'Barcelona', 'Barcelona', '08001');
+insert into owner (dni_owner, name_owner, surname, birth_date, phone, email, direction, floor, city, province, postal_code) values 
+('12345678A', 'Juan', 'Pérez García', '1985-04-18', '600111222', 'juan.perez@email.com', 'Calle Mayor 1', '1A', 'Madrid', 'Madrid', '28001'),
+('87654321B', 'María', 'García López', '1990-09-22', '600333444', 'maria.garcia@email.com', 'Avenida de la Constitución 5', '2B', 'Sevilla', 'Sevilla', '41001'),
+('11223344C', 'Andrés', 'López Ruiz', '1978-01-11', '611555666', 'andres.lopez@email.com', 'Plaza España 10', '3C', 'Barcelona', 'Barcelona', '08001');
 
 -- Insertar datos de las mascotas
 insert into pet (name_pet, type, breed, weight, sex, birth_date, age, register_date, owner_dni) values

@@ -66,7 +66,7 @@ const getOwnerByDni = async (req, res, next) => {
  */
 const postOwner = async (req, res, next) => {
     try {
-        const { dni_owner, name_owner, surname, phone, email, direction, floor, city, province, postal_code } = req.body;
+        const { dni_owner, name_owner, surname, birth_date, phone, email, direction, floor, city, province, postal_code } = req.body;
         const existingOwner = await findOwnerByDni(dni_owner);
 
         if(existingOwner) {
@@ -77,7 +77,7 @@ const postOwner = async (req, res, next) => {
             });
         }
 
-        await addOwner(dni_owner, name_owner, surname, phone, email, direction, floor, city, province, postal_code);
+        await addOwner(dni_owner, name_owner, surname, birth_date, phone, email, direction, floor, city, province, postal_code);
         const newOwner = await findOwnerByDni(dni_owner);
 
         res.status(201).json({

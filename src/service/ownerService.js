@@ -30,11 +30,12 @@ const findOwnerByDni = async (dni_owner) => {
  * @param {*} email 
  * @returns 
  */
-const addOwner = async (dni_owner, name_owner, surname, phone, email, direction, floor, city, province, postal_code) => {
+const addOwner = async (dni_owner, name_owner, surname, birth_date, phone, email, direction, floor, city, province, postal_code) => {
     return await db('owner').insert({
         dni_owner,
         name_owner,
         surname,
+        birth_date,
         phone,
         email,
         direction,
