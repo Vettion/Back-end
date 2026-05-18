@@ -131,6 +131,12 @@ const addPet = async (petData) => {
         throw new Error(`Pet with name ${name_pet}, type ${type}, breed ${breed}, birth date ${birth_date}, and owner DNI ${owner_dni} already registered.`);
     }
 
+    const birthDate = new Date(birth_date);
+    const date = new Date();
+    if(birthDate.getTime() > date.getTime()){
+        throw new Error('La fecha de nacimiento no puede ser mayor que la actual');
+    }
+
     const petAge = getYearsFromNow(birth_date);
     const [newId] = await db('pet').insert({
         name_pet,

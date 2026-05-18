@@ -69,17 +69,6 @@ const validateAddAppointment = [
         .trim()
         .notEmpty().withMessage('start_time is required')
         .isTime().withMessage('start_time must be a time'),
-
-    body('pet_id')
-        .trim()
-        .notEmpty().withMessage('pet_id is required')
-        .isInt({ gt: 0 }).withMessage('pet_id must be a positive integer'),
-
-    body('veterinarian_dni')
-        .trim()
-        .notEmpty().withMessage('veterinarian_dni is required')
-        .isString().withMessage('veterinarian_dni must be a string')
-        .isLength({min: 9, max: 9}).withMessage('veterinarian_dni must be exactly 9 characters'),
     
     validateResult
 ];
