@@ -1,5 +1,6 @@
 use vettion;
 
+set foreign_key_checks=0;
 -- Insert owners data
 insert into owner (dni_owner, name_owner, surname, birth_date, phone, email, direction, floor, city, province, postal_code) values
 ('12345678A', 'Carlos', 'García Pérez', '1985-04-12', '600111222', 'carlos.garcia@email.com', 'Calle Mayor 15', '2B', 'Zaragoza', 'Zaragoza', '50001'),
@@ -152,4 +153,4 @@ insert into register (date_service, observation_appointment, observation_clean_s
 ('2026-05-14', 'Beak trimming and feather maintenance.', 'Vacuuming feathers and disinfection of the table.', 8, 10, '43210987T', '45645645K'),
 ('2026-05-16', 'Emergency for suspected allergic shock.', 'Quick disinfection of emergency boxes area.', 4, 11, '10987654Q', '78978978L');
 
-commit;
+set foreign_key_checks=1;
