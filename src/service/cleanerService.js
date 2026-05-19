@@ -6,7 +6,7 @@ const db = require('../configuration/database.js').db;
  */
 const findAllCleaners = async () => {
     return await db('cleaner')
-        .select('dni_cleaner', 'name', 'surname')
+        .select('*')
         .orderBy('surname', 'asc');
 };
 

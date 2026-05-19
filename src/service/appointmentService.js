@@ -318,12 +318,20 @@ const findAppointmentsByRoomAndDate = async (code_room, date) => {
       "a.end_time",
       "a.pet_id",
       "a.code_room",
+      "a.observations",
       "p.name_pet",
       "o.name_owner",
       "o.surname as owner_surname",
+      "v.name as veterinarian_name",
+      "v.surname as veterinarian_surname",
+      "s.name as service_name",
+      "r.name as room_name"
     )
     .leftJoin("pet as p", "a.pet_id", "p.id_pet")
     .leftJoin("owner as o", "p.owner_dni", "o.dni_owner")
+    .leftJoin("veterinarian as v", "a.veterinarian_dni", "v.dni_veterinarian")
+    .leftJoin("service as s", "a.service_id", "s.id_service")
+    .leftJoin("room as r", "a.code_room", "r.room_code")
     .where({ "a.code_room": code_room, "a.date_appointment": date })
     .orderBy("a.start_time", "asc");
 };
@@ -337,6 +345,7 @@ const findCleanServicesByAppointmentIds = async (appointmentIds) => {
       "cs.start_time",
       "cs.end_time",
       "cs.appointment_id",
+      "cs.observations"
     )
     .whereIn("cs.appointment_id", appointmentIds)
     .orderBy("cs.start_time", "asc");
