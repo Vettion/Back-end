@@ -103,7 +103,7 @@ const getAppointmentByPetId = async (req, res, next) => {
     const { pet_id } = req.params;
     const appointment = await findAppointmentByPetId(pet_id);
 
-    if (!appointment) {
+    if (!appointment || appointment.length === 0) {
       return res.status(404).json({
         code: 404,
         title: "not found",
@@ -135,7 +135,7 @@ const getAppointmentByRoomId = async (req, res, next) => {
     const { code_room } = req.params;
     const appointment = await findAppointmentByRoomId(code_room);
 
-    if (!appointment) {
+    if (!appointment || appointment.length === 0) {
       return res.status(404).json({
         code: 404,
         title: "not found",
@@ -224,8 +224,6 @@ const putAppointment = async (req, res, next) => {
     const { id_appointment } = req.params;
     const appointmentData = req.body;
 
-    await modifyAppointment(id_appointment, appointmentData);
-
     const updatedAppointment = await findAppointmentById(id_appointment);
 
     if (!updatedAppointment) {
@@ -235,6 +233,9 @@ const putAppointment = async (req, res, next) => {
         message: `Appointment with id ${id_appointment} not found aftrer update.`,
       });
     }
+
+    await modifyAppointment(id_appointment, appointmentData);
+
     res.status(200).json({
       code: 200,
       title: "success",

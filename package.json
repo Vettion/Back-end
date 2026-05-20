@@ -3,6 +3,7 @@
   "scripts": {
     "start": "node src/app.js",
     "dev": "docker compose -f docker-compose.dev.yaml up -d db && nodemon src/app.js",
+    "start-itest": "node src/app.js --config config.sample.yaml",
     "test": "jest src/test"
   },
   "dependencies": {

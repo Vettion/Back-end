@@ -1,0 +1,1590 @@
+{
+  "info": {
+    "_postman_id": "6de72b56-696f-46a9-ba40-c0713a0fa5dd",
+    "name": "VettionITests",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "49087939",
+    "_collection_link": "https://go.postman.co/collection/49087939-6de72b56-696f-46a9-ba40-c0713a0fa5dd?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "ownersITests",
+      "item": [
+        {
+          "name": "newOwner OK",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 201\", function() {\r",
+                  "    pm.response.to.have.status(201);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test('Response structure is ok', () => {\r",
+                  "    pm.expect(pm.response.json()).to.be.an('object');\r",
+                  "\r",
+                  "    const owner = pm.response.json().data;\r",
+                  "\r",
+                  "    pm.expect(owner).to.have.property('dni_owner');\r",
+                  "    pm.expect(owner).to.have.property('name_owner');\r",
+                  "    pm.expect(owner).to.have.property('surname');\r",
+                  "    pm.expect(owner).to.have.property('birth_date');\r",
+                  "    pm.expect(owner).to.have.property('phone');\r",
+                  "    pm.expect(owner).to.have.property('email');\r",
+                  "    pm.expect(owner).to.have.property('direction');\r",
+                  "    pm.expect(owner).to.have.property('floor');\r",
+                  "    pm.expect(owner).to.have.property('city');\r",
+                  "    pm.expect(owner).to.have.property('province');\r",
+                  "    pm.expect(owner).to.have.property('postal_code');\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"dni_owner\":\"73134044R\",\r\n    \"name_owner\":\"Laura\",\r\n    \"surname\":\"García\",\r\n    \"birth_date\": \"2000-01-12\",\r\n    \"phone\":\"678901234\",\r\n    \"email\":\"laura.garcia@example.com\",\r\n    \"direction\": \"avda.\",\r\n    \"floor\": \"1b\",\r\n    \"city\": \"Zaragoza\",\r\n    \"province\": \"Zaragoza\",\r\n    \"postal_code\":\"20399\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/owners",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "owners"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "newOwner KO",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 409\", function() {\r",
+                  "    pm.response.to.have.status(409);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test('Error response structure is ok', function() {\r",
+                  "    pm.expect(pm.response.json()).to.be.an('object');\r",
+                  "    pm.expect(pm.response.json()).to.have.property('message').that.is.a('String');\r",
+                  "})"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"dni_owner\":\"73134044R\",\r\n    \"name_owner\":\"Laura\",\r\n    \"surname\":\"García\",\r\n    \"birth_date\": \"2000-01-12\",\r\n    \"phone\":\"678901234\",\r\n    \"email\":\"laura.garcia@example.com\",\r\n    \"direction\": \"avda.\",\r\n    \"floor\": \"1b\",\r\n    \"city\": \"Zaragoza\",\r\n    \"province\": \"Zaragoza\",\r\n    \"postal_code\":\"20399\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/owners",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "owners"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "editOwner OK",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function() {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test('Response structure is ok', () => {\r",
+                  "    pm.expect(pm.response.json()).to.be.an('object');\r",
+                  "    pm.expect(pm.response.json()).to.have.property('message').that.is.a('String');\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name_owner\":\"Maria\",\r\n    \"surname\":\"García\",\r\n    \"birth_date\": \"2000-01-12\",\r\n    \"phone\":\"678901234\",\r\n    \"email\":\"maria.garcia@example.com\",\r\n    \"direction\": \"avda.\",\r\n    \"floor\": \"2b\",\r\n    \"city\": \"Zaragoza\",\r\n    \"province\": \"Zaragoza\",\r\n    \"postal_code\":\"20399\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/owners/12345678A",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "owners",
+                "12345678A"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "editOwner KO",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 404\", function() {\r",
+                  "    pm.response.to.have.status(404);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test('Error response structure is ok', function() {\r",
+                  "    pm.expect(pm.response.json()).to.be.an('object');\r",
+                  "    pm.expect(pm.response.json()).to.have.property('message').that.is.a('String');\r",
+                  "})"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name_owner\":\"Maria\",\r\n    \"surname\":\"García\",\r\n    \"birth_date\": \"2000-01-12\",\r\n    \"phone\":\"678901234\",\r\n    \"email\":\"maria.garcia@example.com\",\r\n    \"direction\": \"avda.\",\r\n    \"floor\": \"2b\",\r\n    \"city\": \"Zaragoza\",\r\n    \"province\": \"Zaragoza\",\r\n    \"postal_code\":\"20399\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/owners/12345677A",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "owners",
+                "12345677A"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "deleteOwner OK",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function() {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/owners/73134044R",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "owners",
+                "73134044R"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "deleteOwner KO",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 404\", function() {\r",
+                  "    pm.response.to.have.status(404);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test('Response structure is ok', () => {\r",
+                  "    pm.expect(pm.response.json()).to.be.an('object');\r",
+                  "    pm.expect(pm.response.json()).to.have.property('message').that.is.a('String');\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/owners/73134044R",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "owners",
+                "73134044R"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "owners OK",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function() {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test('Response structure is ok', () => {\r",
+                  "    pm.expect(pm.response.json()).to.be.an('object');\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/owners",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "owners"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "owner OK",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function() {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test('Response structure is ok', () => {\r",
+                  "    pm.expect(pm.response.json()).to.be.an('object');\r",
+                  "\r",
+                  "    const owner = pm.response.json().data;\r",
+                  "\r",
+                  "    pm.expect(owner).to.have.property('dni_owner');\r",
+                  "    pm.expect(owner).to.have.property('name_owner');\r",
+                  "    pm.expect(owner).to.have.property('surname');\r",
+                  "    pm.expect(owner).to.have.property('birth_date');\r",
+                  "    pm.expect(owner).to.have.property('phone');\r",
+                  "    pm.expect(owner).to.have.property('email');\r",
+                  "    pm.expect(owner).to.have.property('direction');\r",
+                  "    pm.expect(owner).to.have.property('floor');\r",
+                  "    pm.expect(owner).to.have.property('city');\r",
+                  "    pm.expect(owner).to.have.property('province');\r",
+                  "    pm.expect(owner).to.have.property('postal_code');\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/owners/12345678A",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "owners",
+                "12345678A"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "owner KO",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 404\", function() {\r",
+                  "    pm.response.to.have.status(404);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test('Response structure is ok', () => {\r",
+                  "    pm.expect(pm.response.json()).to.be.an('object');\r",
+                  "    pm.expect(pm.response.json()).to.have.property('message').that.is.a('String');\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/owners/73134044R",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "owners",
+                "73134044R"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "appointmentsITests",
+      "item": [
+        {
+          "name": "newAppointment OK",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 201\", function() {\r",
+                  "    pm.response.to.have.status(201);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test('Response structure is ok', () => {\r",
+                  "    pm.expect(pm.response.json()).to.be.an('object');\r",
+                  "\r",
+                  "    const appointment = pm.response.json().data;\r",
+                  "\r",
+                  "    pm.expect(appointment).to.have.property('id_appointment');\r",
+                  "    pm.expect(appointment).to.have.property('date_appointment');\r",
+                  "    pm.expect(appointment).to.have.property('start_time');\r",
+                  "    pm.expect(appointment).to.have.property('end_time');\r",
+                  "    pm.expect(appointment).to.have.property('observations');\r",
+                  "    pm.expect(appointment).to.have.property('pet_id');\r",
+                  "    pm.expect(appointment).to.have.property('service_id');\r",
+                  "    pm.expect(appointment).to.have.property('veterinarian_dni');\r",
+                  "    pm.expect(appointment).to.have.property('code_room');\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"date_appointment\":\"2027-07-30\",\r\n    \"start_time\":\"18:00\",\r\n    \"observations\": \"Es urgente\",\r\n    \"pet_id\":3,\r\n    \"service_id\":5,\r\n    \"veterinarian_dni\":\"98765432Z\",\r\n    \"cleaner_dni\": \"11111111A\",\r\n    \"code_room\": 1\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/appointments",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "appointments"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "newAppointmentRoom KO",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 500\", function() {\r",
+                  "    pm.response.to.have.status(500);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test('Error response structure is ok', function() {\r",
+                  "    pm.expect(pm.response.json()).to.be.an('object');\r",
+                  "    pm.expect(pm.response.json()).to.have.property('message').that.is.a('String');\r",
+                  "    pm.expect(pm.response.json().message).to.include('La sala está ocupada en ese momento.');\r",
+                  "})"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"date_appointment\":\"2027-07-30\",\r\n    \"start_time\":\"18:00\",\r\n    \"observations\": \"Es urgente\",\r\n    \"pet_id\":3,\r\n    \"service_id\":5,\r\n    \"veterinarian_dni\":\"98765432Z\",\r\n    \"cleaner_dni\": \"11111111A\",\r\n    \"code_room\": 1\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/appointments",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "appointments"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "newAppointmentWeekend KO",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 500\", function() {\r",
+                  "    pm.response.to.have.status(500);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test('Error response structure is ok', function() {\r",
+                  "    pm.expect(pm.response.json()).to.be.an('object');\r",
+                  "    pm.expect(pm.response.json()).to.have.property('message').that.is.a('String');\r",
+                  "    pm.expect(pm.response.json().message).to.include('La clínica está cerrada los fines de semana, por favor elija otra fecha.');\r",
+                  "})"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"date_appointment\":\"2026-06-07\",\r\n    \"start_time\":\"18:00\",\r\n    \"observations\": \"Es urgente\",\r\n    \"pet_id\":3,\r\n    \"service_id\":5,\r\n    \"veterinarian_dni\":\"98765432Z\",\r\n    \"cleaner_dni\": \"11111111A\",\r\n    \"code_room\": 1\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/appointments",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "appointments"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "newAppointmentDate KO",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 500\", function() {\r",
+                  "    pm.response.to.have.status(500);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test('Error response structure is ok', function() {\r",
+                  "    pm.expect(pm.response.json()).to.be.an('object');\r",
+                  "    pm.expect(pm.response.json()).to.have.property('message').that.is.a('String');\r",
+                  "    pm.expect(pm.response.json().message).to.include('No se aceptan fechas anteriores a la fecha actual.');\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"date_appointment\":\"2026-05-05\",\r\n    \"start_time\":\"18:00\",\r\n    \"observations\": \"Es urgente\",\r\n    \"pet_id\":3,\r\n    \"service_id\":5,\r\n    \"veterinarian_dni\":\"98765432Z\",\r\n    \"cleaner_dni\": \"11111111A\",\r\n    \"code_room\": 1\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/appointments",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "appointments"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "editAppointment OK",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function() {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test('Response structure is ok', () => {\r",
+                  "    pm.expect(pm.response.json()).to.be.an('object');\r",
+                  "    pm.expect(pm.response.json()).to.have.property('message').that.is.a('String');\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"date_appointment\":\"2027-07-30\",\r\n    \"start_time\":\"19:00\",\r\n    \"observations\": \"Es urgente\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/appointments/4",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "appointments",
+                "4"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "editAppointment KO",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 404\", function() {\r",
+                  "    pm.response.to.have.status(404);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test('Error response structure is ok', function() {\r",
+                  "    pm.expect(pm.response.json()).to.be.an('object');\r",
+                  "    pm.expect(pm.response.json()).to.have.property('message').that.is.a('String');\r",
+                  "})"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"date_appointment\":\"2027-07-30\",\r\n    \"start_time\":\"19:00\",\r\n    \"observations\": \"Es urgente\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/appointments/10",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "appointments",
+                "10"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "editAppointmentWeekend KO",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 500\", function() {\r",
+                  "    pm.response.to.have.status(500);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test('Error response structure is ok', function() {\r",
+                  "    pm.expect(pm.response.json()).to.be.an('object');\r",
+                  "    pm.expect(pm.response.json()).to.have.property('message').that.is.a('String');\r",
+                  "    pm.expect(pm.response.json().message).to.include('La clínica está cerrada los fines de semana, por favor elija otra fecha.');\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"date_appointment\":\"2026-05-23\",\r\n    \"start_time\":\"19:00\",\r\n    \"observations\": \"Es urgente\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/appointments/4",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "appointments",
+                "4"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "editAppointmentDate KO",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 500\", function() {\r",
+                  "    pm.response.to.have.status(500);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test('Error response structure is ok', function() {\r",
+                  "    pm.expect(pm.response.json()).to.be.an('object');\r",
+                  "    pm.expect(pm.response.json()).to.have.property('message').that.is.a('String');\r",
+                  "    pm.expect(pm.response.json().message).to.include('No se aceptan citas anteriores a la fecha actual.');\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"date_appointment\":\"2025-01-01\",\r\n    \"start_time\":\"19:00\",\r\n    \"observations\": \"Es urgente\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/appointments/4",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "appointments",
+                "4"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "editAppointmentRoom KO",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 500\", function() {\r",
+                  "    pm.response.to.have.status(500);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test('Error response structure is ok', function() {\r",
+                  "    pm.expect(pm.response.json()).to.be.an('object');\r",
+                  "    pm.expect(pm.response.json()).to.have.property('message').that.is.a('String');\r",
+                  "    pm.expect(pm.response.json().message).to.include('La sala está ocupada en ese momento.');\r",
+                  "})"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"date_appointment\":\"2027-07-30\",\r\n    \"start_time\":\"19:00\",\r\n    \"observations\": \"Es urgente\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/appointments/4",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "appointments",
+                "4"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "editCleanService OK",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function() {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test('Response structure is ok', () => {\r",
+                  "    pm.expect(pm.response.json()).to.be.an('object');\r",
+                  "    pm.expect(pm.response.json()).to.have.property('message').that.is.a('String');\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"cleaner_dni\":\"11111111A\",\r\n    \"observations\":\"Actualizar el inventario.\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/clean_services/2",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "clean_services",
+                "2"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "editCleanService KO",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 404\", function() {\r",
+                  "    pm.response.to.have.status(404);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test('Error response structure is ok', function() {\r",
+                  "    pm.expect(pm.response.json()).to.be.an('object');\r",
+                  "    pm.expect(pm.response.json()).to.have.property('message').that.is.a('String');\r",
+                  "})"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"cleaner_dni\":\"11111111A\",\r\n    \"observations\":\"Actualizar el inventario.\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/clean_services/10",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "clean_services",
+                "10"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "deleteAppointment OK",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function() {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test('Response structure is ok', () => {\r",
+                  "    pm.expect(pm.response.json()).to.be.an('object');\r",
+                  "    pm.expect(pm.response.json()).to.have.property('message').that.is.a('String');\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": ""
+            },
+            "url": {
+              "raw": "http://localhost:8080/appointments/6",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "appointments",
+                "6"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "deleteAppointment KO",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 404\", function() {\r",
+                  "    pm.response.to.have.status(404);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test('Response structure is ok', () => {\r",
+                  "    pm.expect(pm.response.json()).to.be.an('object');\r",
+                  "    pm.expect(pm.response.json()).to.have.property('message').that.is.a('String');\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": ""
+            },
+            "url": {
+              "raw": "http://localhost:8080/appointments/6",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "appointments",
+                "6"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "appointments OK",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function() {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test('Response structure is ok', () => {\r",
+                  "    pm.expect(pm.response.json()).to.be.an('object');\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": ""
+            },
+            "url": {
+              "raw": "http://localhost:8080/appointments",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "appointments"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "cleanServices OK",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function() {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test('Response structure is ok', () => {\r",
+                  "    pm.expect(pm.response.json()).to.be.an('object');\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": ""
+            },
+            "url": {
+              "raw": "http://localhost:8080/clean_services",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "clean_services"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "appointment OK",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function() {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test('Response structure is ok', () => {\r",
+                  "    pm.expect(pm.response.json()).to.be.an('object');\r",
+                  "\r",
+                  "    const appointment = pm.response.json().data;\r",
+                  "\r",
+                  "    pm.expect(appointment).to.have.property('id_appointment');\r",
+                  "    pm.expect(appointment).to.have.property('date_appointment');\r",
+                  "    pm.expect(appointment).to.have.property('start_time');\r",
+                  "    pm.expect(appointment).to.have.property('end_time');\r",
+                  "    pm.expect(appointment).to.have.property('observations');\r",
+                  "    pm.expect(appointment).to.have.property('pet_id');\r",
+                  "    pm.expect(appointment).to.have.property('service_id');\r",
+                  "    pm.expect(appointment).to.have.property('veterinarian_dni');\r",
+                  "    pm.expect(appointment).to.have.property('code_room');\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": ""
+            },
+            "url": {
+              "raw": "http://localhost:8080/appointments/1",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "appointments",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "appointment KO",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 404\", function() {\r",
+                  "    pm.response.to.have.status(404);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test('Response structure is ok', () => {\r",
+                  "    pm.expect(pm.response.json()).to.be.an('object');\r",
+                  "    pm.expect(pm.response.json()).to.have.property('message').that.is.a('String');\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": ""
+            },
+            "url": {
+              "raw": "http://localhost:8080/appointments/6",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "appointments",
+                "6"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "appointmentsPet OK",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function() {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test('Response structure is ok', () => {\r",
+                  "    pm.expect(pm.response.json()).to.be.an('object');\r",
+                  "\r",
+                  "    const appointment = pm.response.json().data;\r",
+                  "    if(appointment.lenght > 0){\r",
+                  "        const appointmentPet = appointment[0]; \r",
+                  "        pm.expect(appointmentPet).to.have.property('id_appointment');\r",
+                  "        pm.expect(appointmentPet).to.have.property('date_appointment');\r",
+                  "        pm.expect(appointmentPet).to.have.property('start_time');\r",
+                  "        pm.expect(appointmentPet).to.have.property('end_time');\r",
+                  "        pm.expect(appointmentPet).to.have.property('observations');\r",
+                  "        pm.expect(appointmentPet).to.have.property('pet_id');\r",
+                  "        pm.expect(appointmentPet).to.have.property('service_id');\r",
+                  "        pm.expect(appointmentPet).to.have.property('veterinarian_dni');\r",
+                  "        pm.expect(appointmentPet).to.have.property('code_room');\r",
+                  "    } \r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": ""
+            },
+            "url": {
+              "raw": "http://localhost:8080/appointments/pet/1",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "appointments",
+                "pet",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "appointmentsPet KO",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 404\", function() {\r",
+                  "    pm.response.to.have.status(404);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test('Response structure is ok', () => {\r",
+                  "    pm.expect(pm.response.json()).to.be.an('object');\r",
+                  "    pm.expect(pm.response.json()).to.have.property('message').that.is.a('String');\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": ""
+            },
+            "url": {
+              "raw": "http://localhost:8080/appointments/pet/7",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "appointments",
+                "pet",
+                "7"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "appointmentsRoom OK",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function() {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test('Response structure is ok', () => {\r",
+                  "    pm.expect(pm.response.json()).to.be.an('object');\r",
+                  "\r",
+                  "    const appointment = pm.response.json().data;\r",
+                  "    if(appointment.lenght > 0){\r",
+                  "        const appointmentRoom = appointment[0]; \r",
+                  "        pm.expect(appointmentRoom).to.have.property('id_appointment');\r",
+                  "        pm.expect(appointmentRoom).to.have.property('date_appointment');\r",
+                  "        pm.expect(appointmentRoom).to.have.property('start_time');\r",
+                  "        pm.expect(appointmentRoom).to.have.property('end_time');\r",
+                  "        pm.expect(appointmentRoom).to.have.property('observations');\r",
+                  "        pm.expect(appointmentRoom).to.have.property('pet_id');\r",
+                  "        pm.expect(appointmentRoom).to.have.property('service_id');\r",
+                  "        pm.expect(appointmentRoom).to.have.property('veterinarian_dni');\r",
+                  "        pm.expect(appointmentRoom).to.have.property('code_room');\r",
+                  "    } \r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": ""
+            },
+            "url": {
+              "raw": "http://localhost:8080/appointments/room/1",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "appointments",
+                "room",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "appointmentsRoom KO",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 404\", function() {\r",
+                  "    pm.response.to.have.status(404);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test('Response structure is ok', () => {\r",
+                  "    pm.expect(pm.response.json()).to.be.an('object');\r",
+                  "    pm.expect(pm.response.json()).to.have.property('message').that.is.a('String');\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": ""
+            },
+            "url": {
+              "raw": "http://localhost:8080/appointments/room/10",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "appointments",
+                "room",
+                "10"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "cleanService OK",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function() {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test('Response structure is ok', () => {\r",
+                  "    pm.expect(pm.response.json()).to.be.an('object');\r",
+                  "\r",
+                  "    const cleanService = pm.response.json().data;\r",
+                  "\r",
+                  "    pm.expect(cleanService).to.have.property('id_clean_service');\r",
+                  "    pm.expect(cleanService).to.have.property('date_service');\r",
+                  "    pm.expect(cleanService).to.have.property('start_time');\r",
+                  "    pm.expect(cleanService).to.have.property('end_time');\r",
+                  "    pm.expect(cleanService).to.have.property('observations');\r",
+                  "    pm.expect(cleanService).to.have.property('appointment_id');\r",
+                  "    pm.expect(cleanService).to.have.property('cleaner_dni');\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": ""
+            },
+            "url": {
+              "raw": "http://localhost:8080/clean_services/1",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "clean_services",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "cleanService KO",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 404\", function() {\r",
+                  "    pm.response.to.have.status(404);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test('Response structure is ok', () => {\r",
+                  "    pm.expect(pm.response.json()).to.be.an('object');\r",
+                  "    pm.expect(pm.response.json()).to.have.property('message').that.is.a('String');\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": ""
+            },
+            "url": {
+              "raw": "http://localhost:8080/clean_services/10",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "clean_services",
+                "10"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}
