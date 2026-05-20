@@ -127,7 +127,7 @@ const createAppointment = async (appointmentData) => {
 
     //Comprobamos que la sala no está ocupada en ese intervalo de tiempo.
     const overlappingAppointments = await db("appointment")
-      .where({ code_room: code_room })
+      .where({ code_room: code_room, date_appointment: date_appointment })
       .andWhere(function () {
         this.where("start_time", "<", end_hour_appointment)
           .andWhere("end_time", ">", start_time);
@@ -135,6 +135,19 @@ const createAppointment = async (appointmentData) => {
 
     if (overlappingAppointments.length > 0) {
       throw new Error("The room is occupied at that time.")
+    }
+
+    // Comprobamos que el servicio de limpieza previo haya terminado en la sala
+    const overlappingCleanServices = await db("clean_service")
+      .join("appointment", "clean_service.appointment_id", "=", "appointment.id_appointment")
+      .where({ "appointment.code_room": code_room, "clean_service.date_service": date_appointment })
+      .andWhere(function () {
+        this.where("clean_service.start_time", "<", end_hour_appointment)
+          .andWhere("clean_service.end_time", ">", start_time);
+      });
+
+    if (overlappingCleanServices.length > 0) {
+      throw new Error("You cannot create an appointment before the scheduled cleaning service finishes.");
     }
     else {
       const [appointmentId] = await db("appointment").insert({
