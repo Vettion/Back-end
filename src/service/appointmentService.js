@@ -84,7 +84,7 @@ const createAppointment = async (appointmentData) => {
   // Añadimos la funcion creada en (../utils/isWeekend.js) para evitar que se pueda generar una cita en fin de semana.
   if (isWeekend(date_appointment)) {
     throw new Error(
-      "La clínica está cerrada los fines de semana, por favor elija otra fecha.",
+      "The clinic is closed on weekends, please choose another date.",
     );
   }
 
@@ -93,7 +93,7 @@ const createAppointment = async (appointmentData) => {
   const today = new Date();
   if (dateAppointment.getDay() < today.getDay()) {
     throw new Error(
-      "No se aceptan fechas anteriores a la fecha actual."
+      "You cannot select a date in the past."
     )
   }
 
@@ -106,7 +106,7 @@ const createAppointment = async (appointmentData) => {
   const specialityVet = veterinarianService.speciality.trim().toLowerCase();
   
   if (!veterinarianService || !serviceType || serviceT !== specialityVet) {
-    throw new Error("No se puede asignar al veterinario a este tipo de servicio.")
+    throw new Error("This veterinarian cannot be assigned to this type of service.")
   }
 
   // Obtener la duración de la consulta.
@@ -134,7 +134,7 @@ const createAppointment = async (appointmentData) => {
       });
 
     if (overlappingAppointments.length > 0) {
-      throw new Error("La sala está ocupada en ese momento.")
+      throw new Error("The room is occupied at that time.")
     }
     else {
       const [appointmentId] = await db("appointment").insert({
@@ -179,7 +179,7 @@ const modifyAppointment = async (id_appointment, appointmentData) => {
   // Añadimos la funcion creada en (../utils/isWeekend.js) para evitar que se pueda modificar una cita en fin de semana.
   if (isWeekend(date_appointment)) {
     throw new Error(
-      "La clínica está cerrada los fines de semana, por favor elija otra fecha.",
+      "The clinic is closed on weekends, please choose another date.",
     );
   }
 
@@ -187,7 +187,7 @@ const modifyAppointment = async (id_appointment, appointmentData) => {
   const today = new Date();
   if (dateAppointment.getTime() < today.getTime()) {
     throw new Error(
-      "No se aceptan citas anteriores a la fecha actual."
+      "You cannot select a date in the past."
     )
   }
 
@@ -232,7 +232,7 @@ const modifyAppointment = async (id_appointment, appointmentData) => {
           });
 
         if (overlappingAppointments.length > 0) {
-          throw new Error("La sala está ocupada en ese momento.")
+          throw new Error("The room is occupied at that time.")
         }
       }
       else {
@@ -245,7 +245,7 @@ const modifyAppointment = async (id_appointment, appointmentData) => {
           });
 
         if (overlappingAppointments.length > 0) {
-          throw new Error("La sala está ocupada en ese momento.")
+          throw new Error("The room is occupied at that time.")
         }
       }
 

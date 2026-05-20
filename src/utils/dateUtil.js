@@ -49,4 +49,4 @@ function isAtLeastAge(date, minimumAge = 18) {
     return getYearsFromNow(date) >= minimumAge;
 }
 
-module.exports = { formatDate, getYearsFromNow, isAtLeastAge };
+module.exports = { formatDate, getDays, getYearsFromNow, isAtLeastAge };

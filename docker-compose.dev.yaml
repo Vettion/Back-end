@@ -4,11 +4,11 @@ services:
     image: mariadb:11.3.2
     container_name: vettion-dev-db
     environment:
-      MYSQL_USER: $MARIADB_USER
-      MYSQL_PASSWORD: $MARIADB_PASSWORD
-      MYSQL_DATABASE: $MARIADB_DATABASE
-      MYSQL_PORT: $MARIADB_PORT
-      MYSQL_ROOT_PASSWORD: $MARIADB_ROOT_PASSWORD
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+      MYSQL_DATABASE: vettion
+      MYSQL_PORT: 3306
+      MYSQL_ROOT_PASSWORD: password_root
     ports:
       - "3306:3306"
     volumes:
