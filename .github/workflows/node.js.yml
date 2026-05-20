@@ -30,4 +30,4 @@ jobs:
     - run: sleep 3
     - run: npm run start-itest &
     - run: npm install -g newman
-    - run: newman run VettionOwnerAppTests.postman_collection.json
+    - run: newman run VettionAppOwnerTests.postman_collection.json

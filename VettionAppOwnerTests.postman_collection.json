@@ -599,7 +599,7 @@
                   "pm.test('Error response structure is ok', function() {\r",
                   "    pm.expect(pm.response.json()).to.be.an('object');\r",
                   "    pm.expect(pm.response.json()).to.have.property('message').that.is.a('String');\r",
-                  "    pm.expect(pm.response.json().message).to.include('No se aceptan fechas anteriores a la fecha actual.');\r",
+                  "    pm.expect(pm.response.json().message).to.include('You cannot select a date in the past.');\r",
                   "});"
                 ],
                 "type": "text/javascript",
