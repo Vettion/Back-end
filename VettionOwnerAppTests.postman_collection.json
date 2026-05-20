@@ -494,14 +494,14 @@
               "listen": "test",
               "script": {
                 "exec": [
-                  "pm.test(\"Status code is 500\", function() {\r",
-                  "    pm.response.to.have.status(500);\r",
+                  "pm.test(\"Status code is 201\", function() {\r",
+                  "    pm.response.to.have.status(201);\r",
                   "});\r",
                   "\r",
                   "pm.test('Error response structure is ok', function() {\r",
                   "    pm.expect(pm.response.json()).to.be.an('object');\r",
                   "    pm.expect(pm.response.json()).to.have.property('message').that.is.a('String');\r",
-                  "    pm.expect(pm.response.json().message).to.include('La sala está ocupada en ese momento.');\r",
+                  "    pm.expect(pm.response.json().message).to.include('The room is occupied at that time.');\r",
                   "})"
                 ],
                 "type": "text/javascript",
@@ -550,7 +550,7 @@
                   "pm.test('Error response structure is ok', function() {\r",
                   "    pm.expect(pm.response.json()).to.be.an('object');\r",
                   "    pm.expect(pm.response.json()).to.have.property('message').that.is.a('String');\r",
-                  "    pm.expect(pm.response.json().message).to.include('La clínica está cerrada los fines de semana, por favor elija otra fecha.');\r",
+                  "    pm.expect(pm.response.json().message).to.include('The clinic is closed on weekends, please choose another date.');\r",
                   "})"
                 ],
                 "type": "text/javascript",
@@ -746,7 +746,7 @@
                   "pm.test('Error response structure is ok', function() {\r",
                   "    pm.expect(pm.response.json()).to.be.an('object');\r",
                   "    pm.expect(pm.response.json()).to.have.property('message').that.is.a('String');\r",
-                  "    pm.expect(pm.response.json().message).to.include('La clínica está cerrada los fines de semana, por favor elija otra fecha.');\r",
+                  "    pm.expect(pm.response.json().message).to.include('The clinic is closed on weekends, please choose another date.');\r",
                   "});"
                 ],
                 "type": "text/javascript",
@@ -796,7 +796,7 @@
                   "pm.test('Error response structure is ok', function() {\r",
                   "    pm.expect(pm.response.json()).to.be.an('object');\r",
                   "    pm.expect(pm.response.json()).to.have.property('message').that.is.a('String');\r",
-                  "    pm.expect(pm.response.json().message).to.include('No se aceptan citas anteriores a la fecha actual.');\r",
+                  "    pm.expect(pm.response.json().message).to.include('You cannot select a date in the past.');\r",
                   "});"
                 ],
                 "type": "text/javascript",
@@ -846,7 +846,7 @@
                   "pm.test('Error response structure is ok', function() {\r",
                   "    pm.expect(pm.response.json()).to.be.an('object');\r",
                   "    pm.expect(pm.response.json()).to.have.property('message').that.is.a('String');\r",
-                  "    pm.expect(pm.response.json().message).to.include('La sala está ocupada en ese momento.');\r",
+                  "    pm.expect(pm.response.json().message).to.include('The room is occupied at that time.');\r",
                   "})"
                 ],
                 "type": "text/javascript",
