@@ -1,10 +1,10 @@
 {
   "info": {
-    "_postman_id": "6de72b56-696f-46a9-ba40-c0713a0fa5dd",
+    "_postman_id": "126a806f-1a23-4ad8-a321-a8df9f0998b0",
     "name": "VettionITests",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "_exporter_id": "49087939",
-    "_collection_link": "https://go.postman.co/collection/49087939-6de72b56-696f-46a9-ba40-c0713a0fa5dd?source=collection_link"
+    "_exporter_id": "49087920",
+    "_collection_link": "https://go.postman.co/collection/49087920-126a806f-1a23-4ad8-a321-a8df9f0998b0?source=collection_link"
   },
   "item": [
     {
@@ -1579,6 +1579,884 @@
               "path": [
                 "clean_services",
                 "10"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "petsITests",
+      "item": [
+        {
+          "name": "newPet OK",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 201\", function() {\r",
+                  "    pm.response.to.have.status(201);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test('Response structure is ok', () => {\r",
+                  "    pm.expect(pm.response.json()).to.be.an('object');\r",
+                  "\r",
+                  "    const pet = pm.response.json().data;\r",
+                  "\r",
+                  "    pm.expect(pet).to.have.property('id_pet');\r",
+                  "    pm.expect(pet).to.have.property('name_pet');\r",
+                  "    pm.expect(pet).to.have.property('type');\r",
+                  "    pm.expect(pet).to.have.property('breed');\r",
+                  "    pm.expect(pet).to.have.property('weight');\r",
+                  "    pm.expect(pet).to.have.property('sex');\r",
+                  "    pm.expect(pet).to.have.property('birth_date');\r",
+                  "    pm.expect(pet).to.have.property('age');\r",
+                  "    pm.expect(pet).to.have.property('register_date');\r",
+                  "    pm.expect(pet).to.have.property('owner_dni');\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name_pet\":\"Eli\",\r\n    \"type\":\"Perro\",\r\n    \"breed\":\"Labrador\",\r\n    \"weight\":\"40.1\",\r\n    \"sex\":\"Hembra\",\r\n    \"birth_date\":\"2026-05-18\",\r\n    \"owner_dni\":\"12345678A\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/pets/",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "pets",
+                ""
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "newPet KO",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 500\", function() {\r",
+                  "    pm.response.to.have.status(500);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test('Error response structure is ok', function() {\r",
+                  "    pm.expect(pm.response.json()).to.be.an('object');\r",
+                  "    pm.expect(pm.response.json()).to.have.property('message').that.is.a('String');\r",
+                  "})"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name_pet\":\"Eli\",\r\n    \"type\":\"Perro\",\r\n    \"breed\":\"Labrador\",\r\n    \"weight\":\"40.1\",\r\n    \"sex\":\"Hembra\",\r\n    \"birth_date\":\"2026-05-18\",\r\n    \"owner_dni\":\"12345678A\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/pets/",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "pets",
+                ""
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "editPet OK",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function() {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test('Response structure is ok', () => {\r",
+                  "    pm.expect(pm.response.json()).to.be.an('object');\r",
+                  "    pm.expect(pm.response.json()).to.have.property('message').that.is.a('String');\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name_pet\":\"Morgan\",\r\n    \"type\":\"Perro\",\r\n    \"breed\":\"Labrador\",\r\n    \"weight\":\"40.1\",\r\n    \"sex\":\"Hembra\",\r\n    \"birth_date\":\"1999-03-01\",\r\n    \"owner_dni\":\"12345678A\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/pets/7",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "pets",
+                "7"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "editPet KO",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 404\", function() {\r",
+                  "    pm.response.to.have.status(404);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test('Error response structure is ok', function() {\r",
+                  "    pm.expect(pm.response.json()).to.be.an('object');\r",
+                  "    pm.expect(pm.response.json()).to.have.property('message').that.is.a('String');\r",
+                  "})"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name_pet\":\"Morgan\",\r\n    \"type\":\"Perro\",\r\n    \"breed\":\"Labrador\",\r\n    \"weight\":\"40.1\",\r\n    \"sex\":\"Hembra\",\r\n    \"birth_date\":\"1999-03-01\",\r\n    \"owner_dni\":\"12345678A\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/pets/10",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "pets",
+                "10"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "deletePet OK",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function() {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"dni\":\"73134044R\",\r\n    \"name\":\"Laura\",\r\n    \"surname\":\"García\",\r\n    \"phone\":\"678901234\",\r\n    \"email\":\"laura.garcia@example.com\"\r\n}"
+            },
+            "url": {
+              "raw": "http://localhost:8080/pets/7",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "pets",
+                "7"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "deletePet KO",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 404\", function() {\r",
+                  "    pm.response.to.have.status(404);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test('Response structure is ok', () => {\r",
+                  "    pm.expect(pm.response.json()).to.be.an('object');\r",
+                  "    pm.expect(pm.response.json()).to.have.property('message').that.is.a('String');\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/pets/10",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "pets",
+                "10"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "pets OK",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function() {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test('Response structure is ok', () => {\r",
+                  "    pm.expect(pm.response.json()).to.be.an('object');\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"dni\":\"73134044R\",\r\n    \"name\":\"Laura\",\r\n    \"surname\":\"García\",\r\n    \"phone\":\"678901234\",\r\n    \"email\":\"laura.garcia@example.com\"\r\n}"
+            },
+            "url": {
+              "raw": "http://localhost:8080/pets/",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "pets",
+                ""
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "pet OK",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function() {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test('Response structure is ok', () => {\r",
+                  "    pm.expect(pm.response.json()).to.be.an('object');\r",
+                  "\r",
+                  "    const pet = pm.response.json().data;\r",
+                  "\r",
+                  "    pm.expect(pet).to.have.property('id_pet');\r",
+                  "    pm.expect(pet).to.have.property('name_pet');\r",
+                  "    pm.expect(pet).to.have.property('type');\r",
+                  "    pm.expect(pet).to.have.property('breed');\r",
+                  "    pm.expect(pet).to.have.property('weight');\r",
+                  "    pm.expect(pet).to.have.property('sex');\r",
+                  "    pm.expect(pet).to.have.property('birth_date');\r",
+                  "    pm.expect(pet).to.have.property('age');\r",
+                  "    pm.expect(pet).to.have.property('register_date');\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/pets/1",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "pets",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "pet KO",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 404\", function() {\r",
+                  "    pm.response.to.have.status(404);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test('Response structure is ok', () => {\r",
+                  "    pm.expect(pm.response.json()).to.be.an('object');\r",
+                  "    pm.expect(pm.response.json()).to.have.property('message').that.is.a('String');\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/pets/7",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "pets",
+                "7"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "pathologiesITests",
+      "item": [
+        {
+          "name": "newPathologies OK",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 201\", function() {\r",
+                  "    pm.response.to.have.status(201);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test('Response structure is ok', () => {\r",
+                  "    pm.expect(pm.response.json()).to.be.an('object');\r",
+                  "\r",
+                  "    const pathology = pm.response.json().data;\r",
+                  "\r",
+                  "    pm.expect(pathology).to.have.property('id_pathology');\r",
+                  "    pm.expect(pathology).to.have.property('name');\r",
+                  "    pm.expect(pathology).to.have.property('type');\r",
+                  "    pm.expect(pathology).to.have.property('diagnostic_method');\r",
+                  "    pm.expect(pathology).to.have.property('symptoms');\r",
+                  "    pm.expect(pathology).to.have.property('severity_level');\r",
+                  "    pm.expect(pathology).to.have.property('treatment');\r",
+                  "    pm.expect(pathology).to.have.property('is_chronic');\r",
+                  "    pm.expect(pathology).to.have.property('detection_date');\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\": \"Soplo\",\r\n    \"type\": \"Enfermedad\",\r\n    \"diagnostic_method\": \"Analisis de sangre.\",\r\n    \"symptoms\": \"Acelaración del pulso cardiaco\",\r\n    \"severity_level\": \"Leve\",\r\n    \"treatment\": \"Medicamento por via intravenosa\",\r\n    \"is_chronic\": 1,\r\n    \"detection_date\": \"2026-04-10\",\r\n    \"pet_id\": 2\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/pathologies/",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "pathologies",
+                ""
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "newPathologies KO",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 404\", function() {",
+                  "    pm.response.to.have.status(404);",
+                  "});",
+                  "",
+                  "pm.test('Error response structure is ok', function() {",
+                  "    pm.expect(pm.response.json()).to.be.an('object');",
+                  "    pm.expect(pm.response.json()).to.have.property('message').that.is.a('String');",
+                  "})"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\": \"Soplo\",\r\n    \"type\": \"Enfermedad\",\r\n    \"diagnostic_method\": \"Analisis de sangre.\",\r\n    \"symptoms\": \"Acelaración del pulso cardiaco\",\r\n    \"severity_level\": \"Leve\",\r\n    \"treatment\": \"Medicamento por via intravenosa\",\r\n    \"is_chronic\": 1,\r\n    \"detection_date\": \"2026-04-10\",\r\n    \"pet_id\": 9\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/pathologies/",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "pathologies",
+                ""
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "editPathologies OK",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function() {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test('Response structure is ok', () => {\r",
+                  "    pm.expect(pm.response.json()).to.be.an('object');\r",
+                  "    pm.expect(pm.response.json()).to.have.property('message').that.is.a('String');\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\": \"Soplo en la vávula mitral\",\r\n    \"type\": \"Enfermedad\",\r\n    \"diagnostic_method\": \"Analisis de sangre.\",\r\n    \"symptoms\": \"Acelaración del pulso cardiaco\",\r\n    \"severity_level\": \"Leve\",\r\n    \"treatment\": \"Medicamento por via intravenosa\",\r\n    \"is_chronic\": 1,\r\n    \"detection_date\": \"2026-04-10\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/pathologies/7",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "pathologies",
+                "7"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "editPathologies KO",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 404\", function() {\r",
+                  "    pm.response.to.have.status(404);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test('Error response structure is ok', function() {\r",
+                  "    pm.expect(pm.response.json()).to.be.an('object');\r",
+                  "    pm.expect(pm.response.json()).to.have.property('message').that.is.a('String');\r",
+                  "})"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\": \"Soplo en la vávula mitral\",\r\n    \"type\": \"Enfermedad\",\r\n    \"diagnostic_method\": \"Analisis de sangre.\",\r\n    \"symptoms\": \"Acelaración del pulso cardiaco\",\r\n    \"severity_level\": \"Leve\",\r\n    \"treatment\": \"Medicamento por via intravenosa\",\r\n    \"is_chronic\": 1,\r\n    \"detection_date\": \"2026-04-10\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/pathologies/9",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "pathologies",
+                "9"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "deletePathologies OK",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function() {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\": \"Soplo en la vávula mitral\",\r\n    \"type\": \"Enfermedad\",\r\n    \"diagnostic_method\": \"Analisis de sangre.\",\r\n    \"symptoms\": \"Acelaración del pulso cardiaco\",\r\n    \"severity_level\": \"Leve\",\r\n    \"treatment\": \"Medicamento por via intravenosa\",\r\n    \"is_chronic\": 1,\r\n    \"detection_date\": \"2026-04-10\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/pathologies/7",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "pathologies",
+                "7"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "deletePathologies KO",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 404\", function() {\r",
+                  "    pm.response.to.have.status(404);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test('Response structure is ok', () => {\r",
+                  "    pm.expect(pm.response.json()).to.be.an('object');\r",
+                  "    pm.expect(pm.response.json()).to.have.property('message').that.is.a('String');\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\": \"Soplo en la vávula mitral\",\r\n    \"type\": \"Enfermedad\",\r\n    \"diagnostic_method\": \"Analisis de sangre.\",\r\n    \"symptoms\": \"Acelaración del pulso cardiaco\",\r\n    \"severity_level\": \"Leve\",\r\n    \"treatment\": \"Medicamento por via intravenosa\",\r\n    \"is_chronic\": 1,\r\n    \"detection_date\": \"2026-04-10\"\r\n}"
+            },
+            "url": {
+              "raw": "http://localhost:8080/pathologies/8",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "pathologies",
+                "8"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "pathologies OK",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function() {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test('Response structure is ok', () => {\r",
+                  "    pm.expect(pm.response.json()).to.be.an('object');\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\": \"Soplo en la vávula mitral\",\r\n    \"type\": \"Enfermedad\",\r\n    \"diagnostic_method\": \"Analisis de sangre.\",\r\n    \"symptoms\": \"Acelaración del pulso cardiaco\",\r\n    \"severity_level\": \"Leve\",\r\n    \"treatment\": \"Medicamento por via intravenosa\",\r\n    \"is_chronic\": 1,\r\n    \"detection_date\": \"2026-04-10\"\r\n}"
+            },
+            "url": {
+              "raw": "http://localhost:8080/pathologies/",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "pathologies",
+                ""
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "pathology OK",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function() {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test('Response structure is ok', () => {\r",
+                  "    pm.expect(pm.response.json()).to.be.an('object');\r",
+                  "\r",
+                  "    const pathology = pm.response.json().data;\r",
+                  "\r",
+                  "    pm.expect(pathology).to.have.property('id_pathology');\r",
+                  "    pm.expect(pathology).to.have.property('name');\r",
+                  "    pm.expect(pathology).to.have.property('type');\r",
+                  "    pm.expect(pathology).to.have.property('diagnostic_method');\r",
+                  "    pm.expect(pathology).to.have.property('symptoms');\r",
+                  "    pm.expect(pathology).to.have.property('severity_level');\r",
+                  "    pm.expect(pathology).to.have.property('treatment');\r",
+                  "    pm.expect(pathology).to.have.property('is_chronic');\r",
+                  "    pm.expect(pathology).to.have.property('detection_date');\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/pathologies/1",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "pathologies",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "pathology KO",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 404\", function() {\r",
+                  "    pm.response.to.have.status(404);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test('Response structure is ok', () => {\r",
+                  "    pm.expect(pm.response.json()).to.be.an('object');\r",
+                  "    pm.expect(pm.response.json()).to.have.property('message').that.is.a('String');\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/pathologies/7",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "pathologies",
+                "7"
               ]
             }
           },
