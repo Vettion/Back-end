@@ -1,6 +1,5 @@
 // Este archivo implementa las operaciones que se han definido en el /service/allergyService.js
-const {
-  findAllPathologies, findPathologyById, findPathologyByPetId, addPathology, updatePathology, removePathology
+const { findAllPathologies, findPathologyById, findPathologyByPetId, addPathology, updatePathology, removePathology,
 } = require("../service/pathologyService.js");
 
 /**
@@ -120,12 +119,12 @@ const putPathology = async (req, res, next) => {
       severity_level,
       treatment,
       is_chronic,
-      detection_date
+      detection_date,
     } = req.body;
 
     const pathology = await findPathologyById(id_pathology);
 
-    if (!pathology) {
+    if (!pathology || pathology.length === 0) {
       return res.status(404).json({
         code: 404,
         title: "not found",
@@ -141,7 +140,7 @@ const putPathology = async (req, res, next) => {
       severity_level,
       treatment,
       is_chronic,
-      detection_date
+      detection_date,
     });
     res.status(200).json({
       code: 200,

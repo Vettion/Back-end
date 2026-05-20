@@ -19,6 +19,7 @@ const findAllPathologies = async () => {
  */
 const findPathologyById = async (id_pathology) => {
   const pathology = await db("pathology").where({ id_pathology: id_pathology }).first();
+  if (!pathology) return null;
   return { ...pathology, detection_date: formatDate(pathology.detection_date) };
 };
 
