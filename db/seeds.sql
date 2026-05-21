@@ -66,7 +66,11 @@ insert into appointment (date_appointment, start_time, end_time, observations, p
 ('2026-05-25', '11:30:00', '12:00:00', 'Follow-up for limp on right hind leg.', 3, 3, '54321098U', 6),
 ('2026-05-28', '17:00:00', '17:20:00', 'Second opinion for episodes of disorientation.', 4, 1, '76543210W', 1),
 ('2026-06-01', '12:00:00', '12:15:00', 'Mandatory vaccination per schedule.', 5, 2, '76543210W', 1),
-('2026-06-03', '08:30:00', '09:15:00', 'Scheduled spay. Bring a blanket for postoperative.', 6, 5, '98765432Z', 4);
+('2026-06-03', '08:30:00', '09:15:00', 'Scheduled spay. Bring a blanket for postoperative.', 6, 5, '98765432Z', 4),
+('2026-05-26', '10:00:00', '10:30:00', 'Routine X-Ray assessment.', 1, 3, '54321098U', 6),
+('2026-05-26', '11:00:00', '12:00:00', 'Specialized feline check-up.', 4, 6, '65432109V', 3),
+('2026-05-26', '15:00:00', '16:00:00', 'Dental cleaning session.', 5, 4, '87654321X', 2),
+('2026-05-26', '17:00:00', '17:20:00', 'Follow-up consultation.', 3, 1, '76543210W', 1);
 
 -- Insert cleaning staff data
 insert into cleaner (dni_cleaner, name, surname, phone, address, ss_number, email) values 
@@ -84,7 +88,11 @@ insert into clean_service (date_service, start_time, end_time, observations, app
 ('2026-05-25', '11:50:00', '12:10:00', 'Collection of materials and cleaning of X-ray room.', 3, '33333333C'),
 ('2026-05-28', '17:30:00', '17:50:00', 'Disinfection of consultation after patient with suspected neurological issue.', 4, '44444444D'),
 ('2026-06-01', '12:15:00', '12:35:00', 'Quick cleaning of Consultation 1 after vaccination.', 5, '55555555E'),
-('2026-06-03', '09:30:00', '09:50:00', 'Severe surgical disinfection (Operating Room A).', 6, '66666666F');
+('2026-06-03', '09:15:00', '09:35:00', 'Severe surgical disinfection (Operating Room A).', 6, '66666666F'),
+('2026-05-26', '10:30:00', '10:50:00', 'Cleaning X-ray room.', 7, '11111111A'),
+('2026-05-26', '12:00:00', '12:20:00', 'Cleaning feline consultation room.', 8, '22222222B'),
+('2026-05-26', '16:00:00', '16:20:00', 'Deep cleaning after dental procedure.', 9, '33333333C'),
+('2026-05-26', '17:20:00', '17:40:00', 'Disinfection of consultation 1.', 10, '44444444D');
 
 insert into register (date_service, observation_appointment, observation_clean_service, pet_id, service_id, veterinarian_dni, cleaner_dni) values
 ('2026-01-15', 'General consultation at the start of the year. Weight check.', 'Standard disinfection of stretcher and scale.', 1, 1, '76543210W', '11111111A'),
