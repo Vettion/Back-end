@@ -3,6 +3,7 @@ services:
   db:
     image: mariadb:11.3.2
     container_name: vettion-dev-db
+    command: --event-scheduler=ON
     environment:
       MYSQL_USER: user
       MYSQL_PASSWORD: password
