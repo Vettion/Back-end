@@ -88,6 +88,12 @@ const createAppointment = async (appointmentData) => {
     );
   }
 
+  // Comprobamos que la cita se empiece dentro del horario de la clínica (08:00 a 20:00)
+  const [startHour, startMinute] = start_time.split(":").map(Number);
+  if (startHour < 8 || startHour > 20 || (startHour === 20 && startMinute > 0)) {
+    throw new Error("Appointments can only be scheduled between 08:00 and 20:00.");
+  }
+
   //Comprobamos que la fecha no es de una fecha que ya ha pasado
   const dateAppointment = new Date(date_appointment);
   const today = new Date();
@@ -109,6 +115,18 @@ const createAppointment = async (appointmentData) => {
     throw new Error("This veterinarian cannot be assigned to this type of service.")
   }
 
+  // Comprobamos que el servicio que se va a hacer encaja con el tipo de sala.
+  const roomService = await db("room")
+    .select("type")
+    .where({ room_code: code_room })
+    .first();
+
+  const roomT = roomService.type.trim().toLowerCase();
+
+  if (serviceT !== roomT && !serviceT.includes(roomT) && !roomT.includes(serviceT)) {
+    throw new Error("This room cannot be assigned to this type of service.");
+  }
+  
   // Obtener la duración de la consulta.
   const serviceDuration = await db("service")
     .select("duration")
@@ -127,7 +145,7 @@ const createAppointment = async (appointmentData) => {
 
     //Comprobamos que la sala no está ocupada en ese intervalo de tiempo.
     const overlappingAppointments = await db("appointment")
-      .where({ code_room: code_room })
+      .where({ code_room: code_room, date_appointment: date_appointment })
       .andWhere(function () {
         this.where("start_time", "<", end_hour_appointment)
           .andWhere("end_time", ">", start_time);
@@ -135,6 +153,19 @@ const createAppointment = async (appointmentData) => {
 
     if (overlappingAppointments.length > 0) {
       throw new Error("The room is occupied at that time.")
+    }
+
+    // Comprobamos que el servicio de limpieza previo haya terminado en la sala
+    const overlappingCleanServices = await db("clean_service")
+      .join("appointment", "clean_service.appointment_id", "=", "appointment.id_appointment")
+      .where({ "appointment.code_room": code_room, "clean_service.date_service": date_appointment })
+      .andWhere(function () {
+        this.where("clean_service.start_time", "<", end_hour_appointment)
+          .andWhere("clean_service.end_time", ">", start_time);
+      });
+
+    if (overlappingCleanServices.length > 0) {
+      throw new Error("You cannot create an appointment before the scheduled cleaning service finishes.");
     }
     else {
       const [appointmentId] = await db("appointment").insert({
@@ -181,6 +212,12 @@ const modifyAppointment = async (id_appointment, appointmentData) => {
     throw new Error(
       "The clinic is closed on weekends, please choose another date.",
     );
+  }
+
+  // Comprobamos que la cita se empiece dentro del horario de la clínica (08:00 a 20:00)
+  const [startHour, startMinute] = start_time.split(":").map(Number);
+  if (startHour < 8 || startHour > 20 || (startHour === 20 && startMinute > 0)) {
+    throw new Error("Appointments can only be scheduled between 08:00 and 20:00.");
   }
 
   const dateAppointment = new Date(date_appointment);

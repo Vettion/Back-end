@@ -1,6 +1,6 @@
 DELIMITER //
 
-create or replace procedure register_week()
+create or replace procedure register_month()
 begin
     declare counter_new_rows int default 0;
 
@@ -40,3 +40,11 @@ begin
 end //
 
 DELIMITER ;
+
+set global event_scheduler = on;
+
+create or replace event execute_register_monthly
+on schedule every 1 month
+starts '2026-06-01 00:00:00'
+do
+    call register_month();
