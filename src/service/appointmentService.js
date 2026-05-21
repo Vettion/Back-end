@@ -109,6 +109,18 @@ const createAppointment = async (appointmentData) => {
     throw new Error("This veterinarian cannot be assigned to this type of service.")
   }
 
+  // Comprobamos que el servicio que se va a hacer encaja con el tipo de sala.
+  const roomService = await db("room")
+    .select("type")
+    .where({ room_code: code_room })
+    .first();
+
+  const roomT = roomService.type.trim().toLowerCase();
+
+  if (serviceT !== roomT) {
+    throw new Error("This room cannot be assigned to this type of service.");
+  }
+  
   // Obtener la duración de la consulta.
   const serviceDuration = await db("service")
     .select("duration")
