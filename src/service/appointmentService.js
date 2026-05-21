@@ -123,7 +123,7 @@ const createAppointment = async (appointmentData) => {
 
   const roomT = roomService.type.trim().toLowerCase();
 
-  if (serviceT !== roomT) {
+  if (serviceT !== roomT && !serviceT.includes(roomT) && !roomT.includes(serviceT)) {
     throw new Error("This room cannot be assigned to this type of service.");
   }
   
