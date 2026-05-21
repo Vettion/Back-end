@@ -35,38 +35,38 @@ insert into have_pathology (pathology_id, pet_id) values
 -- Insert veterinarians data
 insert into veterinarian (dni_veterinarian, name, surname, phone, address, ss_number, collegiate_number, email, speciality) values
 ('98765432Z', 'Roberto', 'Sanz Peña', '699111222', 'Av. Goya 45', 'SS-1234567890', 'COL-50123', 'roberto.sanz@clinicavet.com', 'General Surgery'),
-('87654321X', 'Alicia', 'Montero Gil', '688222333', 'Calle Delicias 12', 'SS-2345678901', 'COL-50456', 'alicia.m@clinicavet.com', 'Dermatology'),
+('87654321X', 'Alicia', 'Montero Gil', '688222333', 'Calle Delicias 12', 'SS-2345678901', 'COL-50456', 'alicia.m@clinicavet.com', 'Dentistry'),
 ('76543210W', 'Marcos', 'Giménez Rey', '677333444', 'Paseo Sagasta 3', 'SS-3456789012', 'COL-50789', 'marcos.g@clinicavet.com', 'Internal Medicine'),
 ('65432109V', 'Clara', 'Vidal Palacios', '666444555', 'Calle Alfonso I 22', 'SS-4567890123', 'COL-50111', 'clara.vidal@clinicavet.com', 'Feline Medicine'),
-('54321098U', 'Ricardo', 'Blasco Soler', '655555666', 'Calle Camino de las Torres 8', 'SS-5678901234', 'COL-50222', 'ricardo.b@clinicavet.com', 'Traumatology'),
+('54321098U', 'Ricardo', 'Blasco Soler', '655555666', 'Calle Camino de las Torres 8', 'SS-5678901234', 'COL-50222', 'ricardo.b@clinicavet.com', 'Radiology'),
 ('43210987T', 'Patricia', 'Fuentes Cruz', '644666777', 'Av. América 50', 'SS-6789012345', 'COL-50333', 'patricia.f@clinicavet.com', 'Exotics');
 
 -- Insert services data
 insert into service (name, service_type, duration, base_price, description) values 
 ('General Consultation', 'Internal Medicine', 20, 35.00, 'General health check and vitals'),
 ('Rabies Vaccination', 'Internal Medicine', 15, 25.50, 'Administration of mandatory rabies vaccine'),
-('Complete Blood Work', 'Internal Medicine', 30, 65.00, 'Complete blood count and basic biochemical profile'),
+('X-Ray Examination', 'Radiology', 30, 65.00, 'Diagnostic radiography and evaluation'),
 ('Dental Cleaning', 'Dentistry', 60, 120.00, 'Ultrasonic dental cleaning under anesthesia'),
-('Neutering Surgery (Male Cat)', 'General Surgery', 45, 90.00, 'Scheduled feline orchiectomy'),
-('Neutering Surgery (Female Cat)', 'General Surgery', 60, 150.00, 'Scheduled feline spay (ovariohysterectomy)');
+('Neutering Surgery', 'General Surgery', 45, 90.00, 'Scheduled orchiectomy/spay surgery'),
+('Feline Consultation', 'Feline Medicine', 60, 150.00, 'Specialized feline health evaluation');
 
 -- Insert rooms data
 insert into room (name, type, is_free, location) values 
-('Consultation 1', 'Consultation', true, 'Ground Floor - Left Wing'),
-('Consultation 2', 'Consultation', true, 'Ground Floor - Left Wing'),
-('Consultation 3 (Cats)', 'Feline Consultation', true, 'Ground Floor - Right Wing'),
-('Operating Room A', 'Surgery', false, '1st Floor - Sterile Zone'),
-('Operating Room B', 'Surgery', true, '1st Floor - Sterile Zone'),
+('Consultation 1', 'Internal Medicine', true, 'Ground Floor - Left Wing'),
+('Dentistry Room', 'Dentistry', true, 'Ground Floor - Left Wing'),
+('Consultation 3 (Cats)', 'Feline Medicine', true, 'Ground Floor - Right Wing'),
+('Operating Room A', 'General Surgery', false, '1st Floor - Sterile Zone'),
+('Operating Room B', 'General Surgery', true, '1st Floor - Sterile Zone'),
 ('X-ray Room', 'Radiology', true, 'Ground Floor - Interior');
 
 -- Insert appointments data
 insert into appointment (date_appointment, start_time, end_time, observations, pet_id, service_id, veterinarian_dni, code_room) values 
 ('2026-05-20', '09:00:00', '09:20:00', 'Annual check-up and pending vaccines.', 1, 1, '76543210W', 1),
-('2026-05-22', '10:00:00', '11:00:00', 'Requires 12-hour fasting for sedation.', 2, 4, '98765432Z', 5),
-('2026-05-25', '11:30:00', '11:50:00', 'Follow-up for limp on right hind leg.', 3, 3, '54321098U', 6),
-('2026-05-28', '17:00:00', '17:30:00', 'Second opinion for episodes of disorientation.', 4, 1, '87654321X', 2),
+('2026-05-22', '10:00:00', '11:00:00', 'Requires 12-hour fasting for sedation.', 2, 4, '87654321X', 2),
+('2026-05-25', '11:30:00', '12:00:00', 'Follow-up for limp on right hind leg.', 3, 3, '54321098U', 6),
+('2026-05-28', '17:00:00', '17:20:00', 'Second opinion for episodes of disorientation.', 4, 1, '76543210W', 1),
 ('2026-06-01', '12:00:00', '12:15:00', 'Mandatory vaccination per schedule.', 5, 2, '76543210W', 1),
-('2026-06-03', '08:30:00', '09:30:00', 'Scheduled spay. Bring a blanket for postoperative.', 6, 6, '98765432Z', 4);
+('2026-06-03', '08:30:00', '09:15:00', 'Scheduled spay. Bring a blanket for postoperative.', 6, 5, '98765432Z', 4);
 
 -- Insert cleaning staff data
 insert into cleaner (dni_cleaner, name, surname, phone, address, ss_number, email) values 
