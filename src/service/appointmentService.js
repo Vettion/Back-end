@@ -88,6 +88,12 @@ const createAppointment = async (appointmentData) => {
     );
   }
 
+  // Comprobamos que la cita se empiece dentro del horario de la clínica (08:00 a 20:00)
+  const [startHour, startMinute] = start_time.split(":").map(Number);
+  if (startHour < 8 || startHour > 20 || (startHour === 20 && startMinute > 0)) {
+    throw new Error("Appointments can only be scheduled between 08:00 and 20:00.");
+  }
+
   //Comprobamos que la fecha no es de una fecha que ya ha pasado
   const dateAppointment = new Date(date_appointment);
   const today = new Date();
@@ -206,6 +212,12 @@ const modifyAppointment = async (id_appointment, appointmentData) => {
     throw new Error(
       "The clinic is closed on weekends, please choose another date.",
     );
+  }
+
+  // Comprobamos que la cita se empiece dentro del horario de la clínica (08:00 a 20:00)
+  const [startHour, startMinute] = start_time.split(":").map(Number);
+  if (startHour < 8 || startHour > 20 || (startHour === 20 && startMinute > 0)) {
+    throw new Error("Appointments can only be scheduled between 08:00 and 20:00.");
   }
 
   const dateAppointment = new Date(date_appointment);
